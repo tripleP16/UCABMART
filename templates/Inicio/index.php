@@ -13,13 +13,13 @@
 <div class="col s1 "></div>
     <div class="col s4" id="tiendas">
         <div class="slogan">
-            <h5>Tiendas disponibles a nivel nacional</h5>
+            <h5>Tiendas disponibles a nivel nacional</h5> <!-- Insertar tiendas cuando se tengan -->
         </div>
     </div>
     <div class="col s2"></div>
     <div class="col s4" id="notimart">
         <div class="slogan">
-            <h5>Ofertas Notimart</h5>
+            <h5>Ofertas Notimart</h5> <!-- Insertar notimart cuando se tenga-->
         </div>
     </div>
 </div>
