@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'UCABMART pague y lleve';
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,31 +25,37 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Html->meta('icon') ?>
+    <link href="/UCABMART/img/cake.icon.png" type="image/x-icon" rel="icon">
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
-
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/UCABMART/css/navbar.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-nav">
-        <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
-        </div>
-        <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
+    <nav class="row  brown darken-2">
+        <div class="nav-wrapper row">
+            <a href="#" class="brand-logo"><img src="/UCABMART/img/logo.png" id="logo"></a>
+            <ul class="right">
+                <li>
+                    <?= $this->Element('barrabusquedaform')?>
+                </li>
+                <li><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
+                <li><a href="">Iniciar Sesion</a></li>
+                <li><a href="">Registrarse</a></li>  
+            </ul>
+           
+           
         </div>
     </nav>
     <main class="main">
-        <div class="container">
-            <?= $this->Flash->render() ?>
-            <?= $this->fetch('content') ?>
-        </div>
+        <?= $this->Flash->render() ?>
+        <?= $this->fetch('content') ?>
     </main>
     <footer>
     </footer>

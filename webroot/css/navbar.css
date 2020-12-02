@@ -1,0 +1,39 @@
+#logo{
+    height:40px ;
+}
+#busqueda{
+    width: 1000px;
+}
+
+body{
+    background-image: url('/UCABMART/img/login-fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+#imagenContenedor{
+    background-image: url('/UCABMART/img/main-fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    min-height: 500px;
+    padding: 10%;
+}
+
+.slogan{
+    background-color: #5d4037 !important;
+    opacity: 0.85;
+    align-self: center;
+    color: white;
+    padding:4% ;
+}
+#tiendas{
+    background-color: white;
+    padding: 1.5%;
+    min-height: 500px;
+}
+#notimart{
+    background-color: white;
+    padding: 1.5%;
+    min-height: 500px;
+}
