@@ -41,13 +41,14 @@ $cakeDescription = 'UCABMART pague y lleve';
     <nav class="row  brown darken-2">
         <div class="nav-wrapper row">
             <a href="#" class="brand-logo"><img src="/UCABMART/img/logo.png" id="logo"></a>
-            <ul class="right">
-                <li>
+            <ul class="row " id="barra">
+                <div class="col s2"></div>
+                <li class="col s6 left">
                     <?= $this->Element('barrabusquedaform')?>
                 </li>
-                <li><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
-                <li><a href="">Iniciar Sesion</a></li>
-                <li><a href="">Registrarse</a></li>  
+                <li class="col s1"><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
+                <li class="col s2 right"><a href="">Iniciar Sesion</a></li>
+                <li class="col s1"><a href="">Registrarse</a></li>  
             </ul>
            
            
