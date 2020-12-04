@@ -5,6 +5,12 @@
     width: 65rem;
 }
 
+@media (max-width: 1024px){
+    #busqueda{
+        width: 50rem;
+    }
+}
+
 body{
     background-image: url('/UCABMART/img/login-fondo.jpg');
     background-repeat: no-repeat;
