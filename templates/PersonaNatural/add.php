@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\PersonaNatural $personaNatural
  */
 ?>
-
 <div class="row" >
         <?= $this->Form->create($personaNatural, array('class' =>'col s8 offset-s2 formulario')) ?>
         <div class="row formularioCont">
@@ -148,7 +147,11 @@
         <div class=" input-field col s12">
             <?= $this->Form->button(__('Registrarse') , array('class'=> 'waves-effect waves-light btn-large black-text ')) ?>
         </div>
-        <?= $this->Form->end() ?>
+            <?= $this->Form->end() ?>
+            <div class="row">
+                <?= $this->Html->link(__('¿Eres persona Juridica? Registrate Aqui'), ['controller'=>'PersonaJuridica', 'action' =>'add']);?>
+            </div>
+            
         </div>
         
     </div>
