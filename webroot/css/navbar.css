@@ -1,15 +1,7 @@
 #logo{
     height:40px ;
 }
-#busqueda{
-    width: 65rem;
-}
 
-@media (max-width: 1024px){
-    #busqueda{
-        width: 40rem;
-    }
-}
 
 body{
     background-image: url('/UCABMART/img/login-fondo.jpg');

@@ -44,14 +44,14 @@ $cakeDescription = 'UCABMART pague y lleve';
     <nav class="row  brown darken-2">
         <div class="nav-wrapper row">
             <a href="/UCABMART/" class="brand-logo"><img src="/UCABMART/img/logo.png" id="logo"></a>
-            <ul class="row " id="barra">
+            <ul class="row ">
                 <div class="col s2"></div>
                 <li class="col s6 left">
                     <?= $this->Element('barrabusquedaform')?>
                 </li>
                 <li class="col s2 right "><?= $this->Html->link(__('Iniciar Sesion'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>
-                <li class="col s1 "><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
-                <li class="col s1 waves-effect cyan darken-2 "><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>  
+                <li class="col s1 right"><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
+                <li class="col s1 waves-effect cyan darken-2 right"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>  
             </ul>
            
            
