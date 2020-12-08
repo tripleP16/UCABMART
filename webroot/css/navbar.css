@@ -35,3 +35,45 @@ body{
     padding: 1.5%;
     min-height: 500px;
 }
+
+.formulario{
+    background-color: white !important;
+}
+.formularioCont{
+    padding: 5%;
+}
+.navbarLink a{
+    font-size: 1px;
+}
+
+#fondoLogin{
+    background-image: url('/UCABMART/img/fondo-login.jpg');
+    background-repeat: repeat;
+    background-size: 100% 100%;
+    z-index: 20;
+    padding: 4.5%;
+
+}
+
+.tituloLogin{
+    color: white;
+    font-weight: 300;
+    text-align: center;
+}
+
+#formLogin{
+	margin: 4em auto;
+	padding: 3em 2em 2em 2em;
+	background:#4e342e;
+	border: 1px solid#4e342e;
+    box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
+    
+}
+#formLogin input {
+    color: white !important;
+}
+#formLoginContenedor{
+    display: flex;
+    justify-content: center;
+}
+
