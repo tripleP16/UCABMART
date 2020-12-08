@@ -1,6 +1,6 @@
 
 <div class="row">
-    <div class="center col s12 white-text" id="imagenContenedor"> 
+    <div class="center col s8 offset-s2 white-text" id="imagenContenedor"> 
         <div class="slogan">
             <h4>Nuestra mision es la distribucion de Productos con excelencia en precios</h4>
         </div>
