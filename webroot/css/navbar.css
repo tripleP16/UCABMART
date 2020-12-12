@@ -81,3 +81,7 @@ body{
     background-color: white !important;
     padding: 5%;
 }
+
+#mobile-nav a{
+    color: white;
+}

@@ -44,7 +44,8 @@ $cakeDescription = 'UCABMART pague y lleve';
     <nav class="row  brown darken-2">
         <div class="nav-wrapper row">
             <a href="/UCABMART/" class="brand-logo"><img src="/UCABMART/img/logo.png" id="logo"></a>
-            <ul class="row ">
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger" id="menu"><i class="material-icons">menu</i></a>
+            <ul class="row hide-on-med-and-down">
                 <div class="col s2"></div>
                 <li class="col s6 m3 l7 ">
                     <?= $this->Element('barrabusquedaform')?>
@@ -53,9 +54,13 @@ $cakeDescription = 'UCABMART pague y lleve';
                 <li class="col s1 m2 l1 right"><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
                 <li class="col s1 m3 l1"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>  
             </ul>
-           
-           
         </div>
+        <ul class="sidenav brown darken-2" id="mobile-nav">
+                <li> <?= $this->Element('barrabusquedaform')?></li>
+                <li><?= $this->Html->link(__('Login'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>
+                <li><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
+                <li><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>                 
+        </ul>
     </nav>
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
