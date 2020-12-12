@@ -47,12 +47,12 @@ $cakeDescription = 'UCABMART pague y lleve';
             <a href="#" data-target="mobile-nav" class="sidenav-trigger" id="menu"><i class="material-icons">menu</i></a>
             <ul class="row hide-on-med-and-down">
                 <div class="col s2"></div>
-                <li class="col s6 m3 l7 ">
+                <li class="col s6 l5 xl7 ">
                     <?= $this->Element('barrabusquedaform')?>
                 </li>
-                <li class="col s1 m2 l1 right "><?= $this->Html->link(__('Login'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>
-                <li class="col s1 m2 l1 right"><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
-                <li class="col s1 m3 l1"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>  
+                <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Login'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>
+                <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
+                <li class="col s1 l1 xl1 right"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>  
             </ul>
         </div>
         <ul class="sidenav brown darken-2" id="mobile-nav">
