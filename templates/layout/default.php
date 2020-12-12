@@ -46,7 +46,7 @@ $cakeDescription = 'UCABMART pague y lleve';
             <a href="/UCABMART/" class="brand-logo"><img src="/UCABMART/img/logo.png" id="logo"></a>
             <ul class="row ">
                 <div class="col s2"></div>
-                <li class="col s6 m4 l7 left">
+                <li class="col s6 m3 l7 ">
                     <?= $this->Element('barrabusquedaform')?>
                 </li>
                 <li class="col s1 m2 l1 right "><?= $this->Html->link(__('Login'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>

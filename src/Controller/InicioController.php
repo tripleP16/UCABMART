@@ -12,6 +12,8 @@ class InicioController extends AppController {
         
     }
     public function buscar(){
+        $tag = $this->request->getData('barrabusqueda'); 
+        //aca va el codigo para buscar productos
         
     }
 }
