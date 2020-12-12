@@ -77,3 +77,7 @@ body{
     justify-content: center;
 }
 
+#productosContainer{
+    background-color: white !important;
+    padding: 5%;
+}
