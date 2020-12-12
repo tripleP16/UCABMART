@@ -1,11 +1,28 @@
 
 <div class="row">
-    <div class="center col s8 offset-s2 white-text" id="imagenContenedor"> 
-        <div class="slogan">
-            <h4>Nuestra mision es la distribucion de Productos con excelencia en precios</h4>
+    <div class="center col s8 offset-s2 white-text" > 
+    <div class="carousel carousel-slider center">
+        <div class="carousel-fixed-item center">
+            <a class="waves-effect yellow accent-2 btn-large black-text">Comprar Ahora</a> <!--Colocar Link -->
         </div>
-        <br>    
-        <a class="waves-effect yellow accent-2 btn-large black-text">Comprar Ahora</a> <!--Colocar Link -->
+        <div class="carousel-item red black-text" id="uno">
+            <h1>UCABMART</h1>
+            <h2>Pague menos y lleve mas</h2>
+        </div>
+        <div class="carousel-item amber black-text" id="dos">
+            <h1>Los mejores precios</h1>
+            <h2>Los mejores productos de todo tipo</h2>
+        </div>
+        <div class="carousel-item green white-text" id="tres">
+            <h1>Los mas frescos</h1>
+            <h2 class="white-text">Frutas y verduras de la mejor calidad</h2>
+        </div>
+        <div class="carousel-item blue white-text" id="cuatro">
+            <h1>De primera</h1>
+            <h2 class="white-text">Las mejores Carnes</h2>
+        </div>
+    </div>
+        
     </div>
 </div>
 <div class="row">
