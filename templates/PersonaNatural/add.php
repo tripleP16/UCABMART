@@ -73,7 +73,7 @@
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
-                'empty'=>'Seleccione uno',
+                
                 'options'=>['Hay', 'Que', 'Poner', 'Estados']
             ));?>
                 <label>Estado</label>
@@ -84,7 +84,7 @@
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
-                'empty'=>'Seleccione uno',
+                
                 'options'=>['Hay', 'Que', 'Poner', 'Ciudades']
             ));?>
                 <label>Ciudad</label>
@@ -94,7 +94,7 @@
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
-                'empty'=>'Seleccione uno',
+                
                 'options'=>['Hay', 'Que', 'Poner', 'Parroquias']
             ));?>
                 <label>Parroquia</label>
@@ -115,11 +115,60 @@
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
-                'empty'=>'Seleccione uno',
+                
                 'options'=>['Hay', 'Que', 'Poner', 'Tiends']
             ));?>
                 <label>Tiendas</label>
             </div>
+            <div class="divider"></div>
+            <div class="section">
+                <h5>Telefonos de Contacto</h5>
+                <h6>Principal</h6>
+                <div class=" input-field col s6">
+                    <?= $this->Form->control('tel_tipo', array( 
+                        'label'=> false, 
+                        'templates'     => ['inputContainer' => '{{content}}'],
+                        'type'=>'select', 
+                        
+                        'options'=>['Celular', 'Local']
+                     ));?>
+                    <label>Tipo</label>
+                </div>
+                <div class=" input-field col inline s6"> 
+                    <?php
+                        echo $this->Form->control('tel_numero', array(
+                            'placeholder'=>'04241405428',
+                            'label'=> false, 
+                            'templates'     => ['inputContainer' => '{{content}}'],
+                            'type'=>'number'
+                    ));?>
+                    <label for="tel_numero">Numero de Telefono</label>
+                </div>
+                <h6>Secundario</h6>
+                <div class=" input-field col s6">
+                    <?= $this->Form->control('tel_tipo', array( 
+                        'label'=> false, 
+                        'templates'     => ['inputContainer' => '{{content}}'],
+                        'type'=>'select', 
+                        
+                        'options'=>['Celular', 'Local']
+                     ));?>
+                    <label>Tipo</label>
+                </div>
+                <div class=" input-field col inline s6"> 
+                    <?php
+                        echo $this->Form->control('tel_numero', array(
+                            'placeholder'=>'04241405428',
+                            'label'=> false, 
+                            'templates'     => ['inputContainer' => '{{content}}'],
+                            'type'=>'number'
+                    ));?>
+                    <label for="tel_numero">Numero de Telefono</label>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="section">
+                <h5>Cuenta de Usuario</h5>
             <div class=" input-field col inline s6"> 
                 <?php
                 echo $this->Form->control('cue_usu_email', array(
@@ -139,6 +188,8 @@
                 ));?>
                 <label for="cue_usu_contrasena">Contraseña</label>
             </div>
+            </div>
+            
                 <br>
                 <br>    
         <div class="divider"></div>
