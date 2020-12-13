@@ -1,5 +1,5 @@
 #logo{
-    height:40px ;
+    height:35px ;
 }
 
 
@@ -9,7 +9,8 @@ body{
     background-size: 100% 100%;
     background-attachment: fixed;
 }
-#imagenContenedor{
+
+#uno{
     background-image: url('/UCABMART/img/main-fondo.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -17,6 +18,33 @@ body{
     min-height: 500px;
     padding: 10%;
 }
+
+#dos{
+    background-image: url('/UCABMART/img/estante.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    min-height: 500px;
+    padding: 10%;
+}
+#tres{
+    background-image: url('/UCABMART/img/frutas.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    min-height: 500px;
+    padding: 10%;
+}
+#cuatro{
+    background-image: url('/UCABMART/img/carnes.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    min-height: 500px;
+    padding: 10%;
+}
+
+
 
 .slogan{
     background-color: #5d4037 !important;
@@ -77,3 +105,11 @@ body{
     justify-content: center;
 }
 
+#productosContainer{
+    background-color: white !important;
+    padding: 5%;
+}
+
+#mobile-nav a{
+    color: white;
+}
