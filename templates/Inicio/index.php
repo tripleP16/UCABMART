@@ -3,7 +3,7 @@
     <div class="center col s8 offset-s2 white-text" > 
     <div class="carousel carousel-slider center">
         <div class="carousel-fixed-item center">
-            <a class="waves-effect yellow accent-2 btn-large black-text">Comprar Ahora</a> <!--Colocar Link -->
+            <a class="waves-effect yellow accent-2 btn-large black-text">Comprar Ahora</a> <li><?= $this->Html->link(__('Submarca'), ['controller'=>'Submarca', 'action' =>'index']);?></li>
         </div>
         <div class="carousel-item red black-text" id="uno">
             <h1>UCABMART</h1>
