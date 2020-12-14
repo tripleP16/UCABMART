@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\PersonaNatural $personaNatural
+ * @var \App\Model\Entity\telefono $telefono
  */
 ?>
 <div class="row" >
