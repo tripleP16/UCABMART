@@ -33,5 +33,17 @@ class LugarComponent extends Component
         $connection = ConnectionManager::get('default');
         return $connection->execute('SELECT lug_nombre, lug_codigo FROM lugar WHERE lug_tipo= "parroquia" AND FK_lug_código = '.$id)->fetchAll('assoc');
     }
+
+    public function estadoSelect($estadoSQL){
+        $estados = array() ; 
+        $i = 0;
+        foreach($estadoSQL as $estado){
+            $estados += [
+                $estadoSQL[$i]['lug_codigo']=>$estadoSQL[$i]['lug_nombre']
+            ];
+            $i ++;
+        };
+        return $estados;
+    }
     
 }

@@ -19,6 +19,20 @@ class PersonaNaturalController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+
+     public function initialize(): void
+     {
+        $this->loadComponent('Lugar');
+        $this->loadComponent('Telefono');
+        $this->loadComponent('Tienda');
+        $this->loadComponent('CuentaUsuario');
+        $estadoSQL= $this->Lugar->estados();
+        $estados = $this->Lugar->estadoSelect($estadoSQL) ; 
+        $this->set('estados', $estados);
+       print_r( $this->request->getData("Estado"));
+     }
+
+    
     public function index()
     {
         $personaNatural = $this->paginate($this->PersonaNatural);
@@ -49,19 +63,9 @@ class PersonaNaturalController extends AppController
      */
     public function add()
     {
-        $this->loadComponent('Lugar');
-        $this->loadComponent('Telefono');
-        $this->loadComponent('Tienda');
-        $this->loadComponent('CuentaUsuario');
-        $lugares = $this->Lugar->estados();
-        $this->set('lugares',$lugares);
-        $municipios = $this->Lugar->municipios(1);
-        $this->set('municipios', $municipios);
-        $parroquias =$this->Lugar->parroquias(2);
-        $this->set('parroquias', $parroquias);
+        
         
         $personaNatural = $this->PersonaNatural->newEmptyEntity();
-       
         
         $this->set(compact('personaNatural'));
     }

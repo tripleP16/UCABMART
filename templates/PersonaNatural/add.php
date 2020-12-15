@@ -75,8 +75,7 @@
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
-                
-                'options'=>$lugares
+                'options'=>$estados
             ));?>
                 <label>Estado</label>
             </div>

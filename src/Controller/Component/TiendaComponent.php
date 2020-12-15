@@ -20,6 +20,6 @@ class TiendaComponent extends Component
 
     public function tiendas(){
         $connection = ConnectionManager::get('default');
-        return $connection->execute('SELECT tie_direccion , tie_codigo FROM tienda')->fetchAll('assoc');
+        return $connection->execute('SELECT tie_direccion FROM tienda')->fetchAll('assoc');
     }
 }
