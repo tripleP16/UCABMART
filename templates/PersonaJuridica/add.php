@@ -73,14 +73,14 @@
             </div>
 
             <div class=" input-field col s12">
-            <?= $this->Form->control('Ciudad', array( 
+            <?= $this->Form->control('municipio', array( 
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
                 
-                'options'=>['Hay', 'Que', 'Poner', 'Ciudades']
+                'options'=>['Hay', 'Que', 'Poner', 'municipios']
             ));?>
-                <label for="Ciudad">Ciudad</label>
+                <label for="municipio">municipio</label>
             </div>
             <div class=" input-field col s12">
             <?= $this->Form->control('lugar', array( 
@@ -118,14 +118,14 @@
             </div>
 
             <div class=" input-field col s12">
-            <?= $this->Form->control('Ciudad', array( 
+            <?= $this->Form->control('municipio', array( 
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
                 
-                'options'=>['Hay', 'Que', 'Poner', 'Ciudades']
+                'options'=>['Hay', 'Que', 'Poner', 'municipios']
             ));?>
-                <label for="Ciudad">Ciudad</label>
+                <label for="municipio">municipio</label>
             </div>
             <div class=" input-field col s12">
             <?= $this->Form->control('lugar_fiscal', array( 

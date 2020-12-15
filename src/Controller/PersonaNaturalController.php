@@ -2,11 +2,14 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * PersonaNatural Controller
  *
  * @property \App\Model\Table\PersonaNaturalTable $PersonaNatural
+ * @property \App\Model\Table\LugarTable $lugares
+ * 
  * @method \App\Model\Entity\PersonaNatural[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class PersonaNaturalController extends AppController
@@ -46,16 +49,20 @@ class PersonaNaturalController extends AppController
      */
     public function add()
     {
+        $this->loadComponent('Lugar');
+        $this->loadComponent('Telefono');
+        $this->loadComponent('Tienda');
+        $this->loadComponent('CuentaUsuario');
+        $lugares = $this->Lugar->estados();
+        $this->set('lugares',$lugares);
+        $municipios = $this->Lugar->municipios(1);
+        $this->set('municipios', $municipios);
+        $parroquias =$this->Lugar->parroquias(2);
+        $this->set('parroquias', $parroquias);
+        
         $personaNatural = $this->PersonaNatural->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());
-            if ($this->PersonaNatural->save($personaNatural)) {
-                $this->Flash->success(__('The persona natural has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The persona natural could not be saved. Please, try again.'));
-        }
+       
+        
         $this->set(compact('personaNatural'));
     }
 

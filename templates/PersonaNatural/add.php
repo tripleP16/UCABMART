@@ -2,7 +2,8 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\PersonaNatural $personaNatural
- * @var \App\Model\Entity\telefono $telefono
+ * @var \App\Model\Entity\Telefono $telefono
+ * @var \App\Model\Entity\Lugar $lugares 
  */
 ?>
 <div class="row" >
@@ -75,20 +76,20 @@
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
                 
-                'options'=>['Hay', 'Que', 'Poner', 'Estados']
+                'options'=>$lugares
             ));?>
                 <label>Estado</label>
             </div>
 
             <div class=" input-field col s12">
-            <?= $this->Form->control('Ciudad', array( 
+            <?= $this->Form->control('municipio', array( 
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
                 
-                'options'=>['Hay', 'Que', 'Poner', 'Ciudades']
+                'options'=>$municipios
             ));?>
-                <label>Ciudad</label>
+                <label>municipio</label>
             </div>
             <div class=" input-field col s12">
             <?= $this->Form->control('FK_lug_codigo', array( 
@@ -96,7 +97,7 @@
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
                 
-                'options'=>['Hay', 'Que', 'Poner', 'Parroquias']
+                'options'=>$parroquias
             ));?>
                 <label>Parroquia</label>
             </div>
@@ -117,7 +118,7 @@
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
                 
-                'options'=>['Hay', 'Que', 'Poner', 'Tiends']
+                'options'=>$tiendas
             ));?>
                 <label>Tiendas</label>
             </div>
