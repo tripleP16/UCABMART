@@ -40,6 +40,10 @@ class TelefonoTable extends Table
         $this->setTable('telefono');
         $this->setDisplayField('tel_numero');
         $this->setPrimaryKey('tel_numero');
+        $this->belongsToMany('PersonaNatural', [
+            'foreignKey' => 'per_nat_cedula',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -52,7 +56,8 @@ class TelefonoTable extends Table
     {
         $validator
             ->integer('tel_numero')
-            ->allowEmptyString('tel_numero', null, 'create')
+            ->requirePresence('tel_numero', 'create')
+            ->notEmptyString('tel_numero')
             ->add('tel_numero', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator

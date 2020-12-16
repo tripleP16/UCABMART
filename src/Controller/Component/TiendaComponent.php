@@ -20,6 +20,18 @@ class TiendaComponent extends Component
 
     public function tiendas(){
         $connection = ConnectionManager::get('default');
-        return $connection->execute('SELECT tie_direccion FROM tienda')->fetchAll('assoc');
+        return $connection->execute('SELECT tie_direccion, tie_codigo FROM tienda')->fetchAll('assoc');
+    }
+
+    public function tiendaSelect($tiendaSQL){
+        $tiendas = array() ; 
+        $i = 0;
+        foreach($tiendaSQL as $tienda){
+            $tiendas += [
+                $tiendaSQL[$i]['tie_codigo']=>$tiendaSQL[$i]['tie_direccion']
+            ];
+            $i ++;
+        };
+        return $tiendas;
     }
 }

@@ -113,3 +113,7 @@ body{
 #mobile-nav a{
     color: white;
 }
+
+.error{
+    color: red;
+}
