@@ -36,10 +36,13 @@ class PersonaNaturalTable extends Table
     public function initialize(array $config): void
     {
         parent::initialize($config);
-
+       
         $this->setTable('persona_natural');
         $this->setDisplayField('per_nat_cedula');
         $this->setPrimaryKey('per_nat_cedula');
+        $this->hasMany('Telefono', [
+            'foreignKey'=>'per_nat_cedula'
+        ]);
     }
 
     /**
@@ -53,15 +56,16 @@ class PersonaNaturalTable extends Table
         $validator
             ->scalar('per_nat_cedula')
             ->maxLength('per_nat_cedula', 50)
-            ->allowEmptyString('per_nat_cedula', null, 'create')
-            ->add('per_nat_cedula', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->requirePresence('per_nat_cedula', 'create')
+            ->notEmptyString('per_nat_cedula')
+            ->add('per_nat_cedula', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message'=>'Ya se encuentra Registrado']);
 
         $validator
             ->scalar('per_nat_rif')
             ->maxLength('per_nat_rif', 50)
             ->requirePresence('per_nat_rif', 'create')
             ->notEmptyString('per_nat_rif')
-            ->add('per_nat_rif', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('per_nat_rif', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message'=>'Ya se encuentra Registrado']);
 
         $validator
             ->scalar('per_nat_primer_nombre')

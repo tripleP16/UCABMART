@@ -10,17 +10,16 @@
         <?= $this->Form->create($personaNatural, array('class' =>'col s8 offset-s2 formulario')) ?>
         <div class="row formularioCont">
             <h5 class="center">Registro Persona Natural</h5>
-            <div class=" input-field col inline s6"> 
+            <div class=" input-field col inline s12"> 
                 <?php
                     echo $this->Form->control('per_nat_cedula', array(
                             'placeholder'=>'27784169',
-                            'label'=> false, 
+                            'label'=> 'Cedula', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
                     ));?>
-                <label for="per_nat_cedula">Cedula</label>
             </div>
-            <div class=" input-field col inline s6"> 
+            <div class=" input-field col inline s12"> 
                 <?php
                     echo $this->Form->control('per_nat_rif', array(
                             'placeholder'=>'V-27784169-4',
@@ -30,7 +29,7 @@
                     ));?>
                 <label for="per_nat_rif">RIF</label>
             </div>
-            <div class=" input-field col inline s6"> 
+            <div class=" input-field col inline s12"> 
                 <?php
                 echo $this->Form->control('per_nat_primer_nombre',array(
                     'placeholder'=>'Pablo',
@@ -40,7 +39,7 @@
                 ) );?>
                 <label for="per_nat_primer_nombre">Primer Nombre</label>
             </div>
-            <div class=" input-field col inline s6"> 
+            <div class=" input-field col inline s12"> 
                 <?php
                 echo $this->Form->control('per_nat_segundo_nombre',array(
                     'placeholder'=>'Miguel',
@@ -50,7 +49,7 @@
                 ) );?>
                 <label for="per_nat_segundo_nombre">Segundo Nombre</label>
             </div>
-            <div class=" input-field col inline s6"> 
+            <div class=" input-field col inline s12"> 
                 <?php
                 echo $this->Form->control('per_nat_primer_apellido', array(
                     'placeholder'=>'Perez',
@@ -60,7 +59,7 @@
                 ));?>
                 <label for="per_nat_primer_apellido">Primer Apellido</label>
             </div>
-            <div class=" input-field col inline s6"> 
+            <div class=" input-field col inline s12"> 
                 <?php
                 echo $this->Form->control('per_nat_segundo_apellido', array(
                     'placeholder'=>'Perez',
@@ -88,7 +87,7 @@
                 
                 'options'=>$municipios
             ));?>
-                <label>municipio</label>
+                <label>Municipio</label>
             </div>
             <div class=" input-field col s12">
             <?= $this->Form->control('FK_lug_codigo', array( 
@@ -125,17 +124,17 @@
             <div class="section">
                 <h5>Telefonos de Contacto</h5>
                 <h6>Principal</h6>
-                <div class=" input-field col s6">
+                <div class=" input-field col s12">
                     <?= $this->Form->control('tel_tipo', array( 
                         'label'=> false, 
                         'templates'     => ['inputContainer' => '{{content}}'],
                         'type'=>'select', 
                         
-                        'options'=>['Celular', 'Local']
+                        'options'=>['celular'=>'Celular', 'local'=>'Local']
                      ));?>
                     <label>Tipo</label>
                 </div>
-                <div class=" input-field col inline s6"> 
+                <div class=" input-field col inline s12"> 
                     <?php
                         echo $this->Form->control('tel_numero', array(
                             'placeholder'=>'04241405428',
@@ -146,7 +145,7 @@
                     <label for="tel_numero">Numero de Telefono</label>
                 </div>
                 <h6>Secundario</h6>
-                <div class=" input-field col s6">
+                <div class=" input-field col s12">
                     <?= $this->Form->control('tel_tipo', array( 
                         'label'=> false, 
                         'templates'     => ['inputContainer' => '{{content}}'],
@@ -156,7 +155,7 @@
                      ));?>
                     <label>Tipo</label>
                 </div>
-                <div class=" input-field col inline s6"> 
+                <div class=" input-field col inline s12"> 
                     <?php
                         echo $this->Form->control('tel_numero', array(
                             'placeholder'=>'04241405428',
@@ -170,7 +169,7 @@
             <div class="divider"></div>
             <div class="section">
                 <h5>Cuenta de Usuario</h5>
-            <div class=" input-field col inline s6"> 
+            <div class=" input-field col inline s12"> 
                 <?php
                 echo $this->Form->control('cue_usu_email', array(
                     'placeholder'=>'franco@gmail.com',
@@ -180,12 +179,13 @@
                 ));?>
                 <label for="cue_usu_email">Email</label>
             </div>
-            <div class=" input-field col inline s6"> 
+            <div class=" input-field col inline s12"> 
                 <?php
                 echo $this->Form->control('cue_usu_contrasena', array(
                     'label'=> false, 
                     'templates'     => ['inputContainer' => '{{content}}'],
                     'type' =>'password'
+
                 ));?>
                 <label for="cue_usu_contrasena">Contraseña</label>
             </div>
