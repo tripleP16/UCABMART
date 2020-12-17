@@ -53,7 +53,8 @@ class CuentaUsuarioTable extends Table
         $validator
             ->scalar('cue_usu_email')
             ->maxLength('cue_usu_email', 150)
-            ->allowEmptyString('cue_usu_email', null, 'create')
+            ->requirePresence('cue_usu_email', 'create')
+            ->notEmptyString('cue_usu_email')
             ->add('cue_usu_email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
@@ -68,9 +69,9 @@ class CuentaUsuarioTable extends Table
             ->notEmptyString('cue_usu_puntos');
 
         $validator
-            ->scalar('FK_persona_natural')
-            ->maxLength('FK_persona_natural', 50)
-            ->allowEmptyString('FK_persona_natural');
+            ->scalar('FK_cue_persona_natural')
+            ->maxLength('FK_cue_persona_natural', 50)
+            ->allowEmptyString('FK_cue_persona_natural');
 
         $validator
             ->scalar('FK_persona_juridica')

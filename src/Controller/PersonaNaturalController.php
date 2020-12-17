@@ -65,9 +65,10 @@ class PersonaNaturalController extends AppController
         if ($this->request->is('post')) {
             $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());  // SE INSERTA LA PERSONA NATURAL 
             if ($this->PersonaNatural->save($personaNatural)) {
-                
+               
+                    return $this->redirect(['controller'=>'inicio','action' => 'index']);
 
-                return $this->redirect(['controller'=>'inicio','action' => 'index']);
+                
             }
             
         }

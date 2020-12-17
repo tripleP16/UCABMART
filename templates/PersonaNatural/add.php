@@ -152,7 +152,7 @@
                         'templates'     => ['inputContainer' => '{{content}}'],
                         'type'=>'select', 
                         
-                        'options'=>['Celular', 'Local']
+                        'options'=>['celular'=>'Celular', 'local'=>'Local']
                      ));?>
                     <label>Tipo</label>
                 </div>
@@ -172,7 +172,7 @@
                 <h5>Cuenta de Usuario</h5>
             <div class=" input-field col inline s12"> 
                 <?php
-                echo $this->Form->control('cue_usu_email', array(
+                echo $this->Form->control('cuenta_usuario.cue_usu_email', array(
                     'placeholder'=>'franco@gmail.com',
                     'label'=> false, 
                     'templates'     => ['inputContainer' => '{{content}}'],
@@ -182,7 +182,7 @@
             </div>
             <div class=" input-field col inline s12"> 
                 <?php
-                echo $this->Form->control('cue_usu_contrasena', array(
+                echo $this->Form->control('cuenta_usuario.cue_usu_contrasena', array(
                     'label'=> false, 
                     'templates'     => ['inputContainer' => '{{content}}'],
                     'type' =>'password'

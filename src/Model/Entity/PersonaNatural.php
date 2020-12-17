@@ -41,7 +41,8 @@ class PersonaNatural extends Entity
         'FK_tie_codigo' => true,
         'FK_lug_codigo' => true,
         'telefono' => true,
-        'per_nat_cedula'=>true
+        'per_nat_cedula'=>true,
+        'cuenta_usuario'=>true
 
     ];
 
