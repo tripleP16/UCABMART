@@ -17,6 +17,7 @@
                             'label'=> 'Cedula', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
+
                     ));?>
             </div>
             <div class=" input-field col inline s12"> 
@@ -125,7 +126,7 @@
                 <h5>Telefonos de Contacto</h5>
                 <h6>Principal</h6>
                 <div class=" input-field col s12">
-                    <?= $this->Form->control('tel_tipo', array( 
+                    <?= $this->Form->control('telefono.0.tel_tipo', array( 
                         'label'=> false, 
                         'templates'     => ['inputContainer' => '{{content}}'],
                         'type'=>'select', 
@@ -136,7 +137,7 @@
                 </div>
                 <div class=" input-field col inline s12"> 
                     <?php
-                        echo $this->Form->control('tel_numero', array(
+                        echo $this->Form->control('telefono.0.tel_numero', array(
                             'placeholder'=>'04241405428',
                             'label'=> false, 
                             'templates'     => ['inputContainer' => '{{content}}'],
@@ -146,7 +147,7 @@
                 </div>
                 <h6>Secundario</h6>
                 <div class=" input-field col s12">
-                    <?= $this->Form->control('tel_tipo', array( 
+                    <?= $this->Form->control('telefono.1.tel_tipo', array( 
                         'label'=> false, 
                         'templates'     => ['inputContainer' => '{{content}}'],
                         'type'=>'select', 
@@ -157,7 +158,7 @@
                 </div>
                 <div class=" input-field col inline s12"> 
                     <?php
-                        echo $this->Form->control('tel_numero', array(
+                        echo $this->Form->control('telefono.1.tel_numero', array(
                             'placeholder'=>'04241405428',
                             'label'=> false, 
                             'templates'     => ['inputContainer' => '{{content}}'],

@@ -17,6 +17,8 @@ use Cake\ORM\Entity;
  * @property string $per_nat_direccion
  * @property int $FK_tie_codigo
  * @property int $FK_lug_codigo
+ *
+ * @property \App\Model\Entity\Telefono[] $telefono
  */
 class PersonaNatural extends Entity
 {
@@ -30,7 +32,6 @@ class PersonaNatural extends Entity
      * @var array
      */
     protected $_accessible = [
-        'per_nat_cedula' =>true,
         'per_nat_rif' => true,
         'per_nat_primer_nombre' => true,
         'per_nat_segundo_nombre' => true,
@@ -39,7 +40,9 @@ class PersonaNatural extends Entity
         'per_nat_direccion' => true,
         'FK_tie_codigo' => true,
         'FK_lug_codigo' => true,
-        'tel_tipo'=>true, 
-        'tel_numero'=>true
+        'telefono' => true,
+        'per_nat_cedula'=>true
+
     ];
+
 }

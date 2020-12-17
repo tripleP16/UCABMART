@@ -28,6 +28,7 @@ class Telefono extends Entity
      */
     protected $_accessible = [
         'tel_tipo' => true,
+        'tel_numero'=>true,
         'FK_persona_natural' => true,
         'FK_persona_juridica' => true,
         'FK_personal_de_contacto' => true,

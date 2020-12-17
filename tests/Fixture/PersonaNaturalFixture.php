@@ -40,8 +40,8 @@ class PersonaNaturalFixture extends TestFixture
             'primary' => ['type' => 'primary', 'columns' => ['per_nat_cedula'], 'length' => []],
             'per_nat_cedula' => ['type' => 'unique', 'columns' => ['per_nat_cedula'], 'length' => []],
             'per_nat_rif' => ['type' => 'unique', 'columns' => ['per_nat_rif'], 'length' => []],
-            'persona_natural_ibfk_2' => ['type' => 'foreign', 'columns' => ['FK_lug_codigo'], 'references' => ['lugar', 'lug_codigo'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
             'persona_natural_ibfk_1' => ['type' => 'foreign', 'columns' => ['FK_tie_codigo'], 'references' => ['tienda', 'tie_codigo'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'persona_natural_ibfk_2' => ['type' => 'foreign', 'columns' => ['FK_lug_codigo'], 'references' => ['lugar', 'lug_codigo'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -58,7 +58,7 @@ class PersonaNaturalFixture extends TestFixture
     {
         $this->records = [
             [
-                'per_nat_cedula' => 'bb65d6e6-550c-45dd-910a-b2051913dce4',
+                'per_nat_cedula' => 'b39f2b5a-0878-4f82-905f-18d1ba98b700',
                 'per_nat_rif' => 'Lorem ipsum dolor sit amet',
                 'per_nat_primer_nombre' => 'Lorem ipsum dolor sit amet',
                 'per_nat_segundo_nombre' => 'Lorem ipsum dolor sit amet',
