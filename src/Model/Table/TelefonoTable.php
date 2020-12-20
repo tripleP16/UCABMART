@@ -40,10 +40,6 @@ class TelefonoTable extends Table
         $this->setTable('telefono');
         $this->setDisplayField('tel_numero');
         $this->setPrimaryKey('tel_numero');
-        $this->belongsToMany('PersonaNatural', [
-            'foreignKey' => 'per_nat_cedula',
-            'joinType' => 'INNER',
-        ]);
     }
 
     /**

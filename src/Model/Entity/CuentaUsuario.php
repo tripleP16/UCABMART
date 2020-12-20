@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property string $cue_usu_email
  * @property string $cue_usu_contrasena
  * @property int $cue_usu_puntos
- * @property string|null $FK_persona_natural
+ * @property string|null $FK_cue_persona_natural
  * @property string|null $FK_persona_juridica
  * @property string|null $FK_empleado
  */
@@ -27,9 +27,10 @@ class CuentaUsuario extends Entity
      * @var array
      */
     protected $_accessible = [
+        'cue_usu_email'=>true,
         'cue_usu_contrasena' => true,
         'cue_usu_puntos' => true,
-        'FK_persona_natural' => true,
+        'FK_cue_persona_natural' => true,
         'FK_persona_juridica' => true,
         'FK_empleado' => true,
     ];

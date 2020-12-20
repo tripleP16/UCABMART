@@ -2,16 +2,11 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-use Cake\Datasource\ConnectionManager;
 
 /**
  * PersonaNatural Controller
  *
  * @property \App\Model\Table\PersonaNaturalTable $PersonaNatural
- * @property \App\Model\Table\LugarTable $lugares
- * @property \App\Model\Table\TelefonoTable $telefono
- * @property \App\Model\Table\CuentaUsuarioTable $cuenta
- * 
  * @method \App\Model\Entity\PersonaNatural[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class PersonaNaturalController extends AppController
@@ -21,13 +16,6 @@ class PersonaNaturalController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-
-     public function initialize(): void
-     {
-        $this->loadComponent('Flash');
-     }
-
-    
     public function index()
     {
         $personaNatural = $this->paginate($this->PersonaNatural);
@@ -58,33 +46,31 @@ class PersonaNaturalController extends AppController
      */
     public function add()
     {
-        $this->loadModel('Telefono');
-        $personaNatural = $this->PersonaNatural->newEmptyEntity(); 
-       // $telefono = $this->telefono->newEntity();
-        //$cuenta_usuario = $this->cuenta->newEmptyEntity();
-        $this->loadComponent('Lugar');
+        $this->loadComponent('Lugar');   
         $this->loadComponent('Tienda');
-        $this->loadComponent('CuentaUsuario');
-        $estadoSQL= $this->Lugar->estados();
-        $municipioSQL = $this->Lugar->municipios(); 
-        $parroquiasSQL= $this->Lugar->parroquias();
-        $tiendasSQL = $this->Tienda->tiendas(); 
-        $tiendas = $this->Tienda->tiendaSelect($tiendasSQL);
-        $estados = $this->Lugar->lugarSelect($estadoSQL) ; 
-        $municipios = $this->Lugar->lugarSelect($municipioSQL); 
-        $parroquias = $this->Lugar->lugarSelect($parroquiasSQL);
+        $estadosSQL = $this->Lugar->estados(); 
+        $estados = $this->Lugar->lugarSelect($estadosSQL);
         $this->set('estados', $estados);
-        $this->set('parroquias',$parroquias); 
-        $this->set('municipios',$municipios);
+        $municipiosSQL = $this->Lugar->municipios(); 
+        $municipios = $this->Lugar->lugarSelect($municipiosSQL);
+        $this->set('municipios', $municipios);
+        $parroquiasSQL = $this->Lugar->parroquias(); 
+        $parroquias = $this->Lugar->lugarSelect($parroquiasSQL);    // SE CARGA EL CONTENIDO DE LOS SELECT DEL FORMULARIO
+        $this->set('parroquias', $parroquias);
+        $tiendasSQL= $this->Tienda->tiendas(); 
+        $tiendas = $this->Tienda->tiendaSelect($tiendasSQL); 
         $this->set('tiendas',$tiendas);
+        
         $personaNatural = $this->PersonaNatural->newEmptyEntity();
         if ($this->request->is('post')) {
-            $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());
+            $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());  // SE INSERTA LA PERSONA NATURAL 
             if ($this->PersonaNatural->save($personaNatural)) {
-                $this->request->data['Telefono']['FK_persona_natural'] = $this->PersonaNatural->per_nat_cedula; 
-                $this->PersonaNatural->Telefono->save($this->request->data);
-                return $this->redirect(['controller' => 'Inicio', 'action' => 'index', 'home']);
+               
+                    return $this->redirect(['controller'=>'inicio','action' => 'index']);
+
+                
             }
+            
         }
         $this->set(compact('personaNatural'));
     }
