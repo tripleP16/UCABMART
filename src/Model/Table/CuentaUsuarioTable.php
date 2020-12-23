@@ -69,9 +69,9 @@ class CuentaUsuarioTable extends Table
             ->notEmptyString('cue_usu_puntos');
 
         $validator
-            ->scalar('FK_cue_persona_natural')
-            ->maxLength('FK_cue_persona_natural', 50)
-            ->allowEmptyString('FK_cue_persona_natural');
+            ->scalar('FK_persona_natural')
+            ->maxLength('FK_persona_natural', 50)
+            ->allowEmptyString('FK_persona_natural');
 
         $validator
             ->scalar('FK_persona_juridica')

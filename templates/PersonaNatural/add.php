@@ -4,9 +4,13 @@
  * @var \App\Model\Entity\PersonaNatural $personaNatural
  * @var \App\Model\Entity\Telefono $telefono
  * @var \App\Model\Entity\Lugar $lugares 
+ * 
+ * 
  */
 ?>
+
 <div class="row" >
+        
         <?= $this->Form->create($personaNatural, array('class' =>'col s8 offset-s2 formulario')) ?>
         <div class="row formularioCont">
             <h5 class="center">Registro Persona Natural</h5>
@@ -74,31 +78,25 @@
             <?= $this->Form->control('Estado', array( 
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
+                'type'=>'select',
+
+                'empty'=> [-1 => 'Seleccione un estado' ],
+                'class'=>"browser-default",
+                'required'=>true,
+                
                 'options'=>$estados
             ));?>
-                <label>Estado</label>
             </div>
 
             <div class=" input-field col s12">
-            <?= $this->Form->control('municipio', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>$municipios
-            ));?>
-                <label>Municipio</label>
+            <select name="municipio" id="municipio" class="browser-default" required>
+                <option value="-1" >Seleccione un municipio</option>
+            </select>
             </div>
             <div class=" input-field col s12">
-            <?= $this->Form->control('FK_lug_codigo', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>$parroquias
-            ));?>
-                <label>Parroquia</label>
+            <select name="FK_lug_codigo" id="parroquia" class="browser-default" required>
+                <option value="-1">Seleccione una parroquia</option>
+            </select>
             </div>
             <div class=" input-field col inline s12">
                 <?php
@@ -176,7 +174,9 @@
                     'placeholder'=>'franco@gmail.com',
                     'label'=> false, 
                     'templates'     => ['inputContainer' => '{{content}}'],
-                    'type' =>'email'
+                    'type' =>'email', 
+                    'required'=>true
+
                 ));?>
                 <label for="cue_usu_email">Email</label>
             </div>
@@ -185,7 +185,8 @@
                 echo $this->Form->control('cuenta_usuario.cue_usu_contrasena', array(
                     'label'=> false, 
                     'templates'     => ['inputContainer' => '{{content}}'],
-                    'type' =>'password'
+                    'type' =>'password', 
+                    'required'=>true
 
                 ));?>
                 <label for="cue_usu_contrasena">Contraseña</label>
@@ -209,3 +210,71 @@
         
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#estado').change(function(){
+            var id = $(this).val();
+            if(id !=-1){
+                $.ajax({
+                type:'post', 
+                url:"<?php echo $this->Url->build(['controller'=>'PersonaNatural', 'action'=>'municipios']);?>",
+                data:{id:id},
+                headers:{
+                    'X-CSRF-Token':$('[name = "_csrfToken"]').val()
+                }
+            }).done(function(response){
+                var data = JSON.parse(response);
+                desplegar(data, 'municipio');
+                vacio('parroquia');
+            })
+            }else{
+                vacio('parroquia');
+                vacio('municipio');
+               
+            }
+            
+            
+        })
+        
+        $('#municipio').change(function(){
+            var id = $(this).val();
+            if(id !=-1){
+                $.ajax({
+                type:'post', 
+                url:"<?php echo $this->Url->build(['controller'=>'PersonaNatural', 'action'=>'parroquias']);?>",
+                data:{id:id},
+                headers:{
+                    'X-CSRF-Token':$('[name = "_csrfToken"]').val()
+                }
+            }).done(function(response){
+                var data = JSON.parse(response);
+                desplegar(data, 'parroquia');
+            })
+            }else{
+                vacio('parroquia');
+            }
+            
+            
+        })
+        function vacio(id){
+            $('#'+id).empty();
+            var tabla = [];
+            tabla +=`<option value = "-1" disabled> Seleccione un ${id} </option>`
+            $('#'+id).append(tabla);
+          
+        }
+        function desplegar(data, id){
+            $('#'+id).empty();
+            var tabla = [];
+            tabla +=`<option value = "-1" disabled> Seleccione un ${id} </option>`
+            for(let i = 0 ; i<data.lugar.length; i++){
+                tabla +=`<option value = "${data.lugar[i].lug_codigo}"> ${data.lugar[i].lug_nombre} </option>`
+            }
+
+            $('#'+id).append(tabla);
+          
+        }
+    
+  });
+
+</script>
