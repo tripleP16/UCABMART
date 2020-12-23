@@ -42,6 +42,8 @@ class PersonaNaturalTable extends Table
         $this->setPrimaryKey('per_nat_cedula');
         $this->hasMany('telefono')
             ->setForeignKey('FK_persona_natural');
+        $this->hasOne('cuenta_usuario')
+            ->setForeignKey('FK_persona_natural');
     }
 
     /**

@@ -45,5 +45,6 @@ class PersonaNatural extends Entity
         'cuenta_usuario'=>true
 
     ];
+    
 
 }

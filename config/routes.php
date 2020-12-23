@@ -23,6 +23,7 @@
 
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
 
 /*
  * The default class to use for all routes
@@ -43,7 +44,9 @@ use Cake\Routing\RouteBuilder;
  */
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
-
+Router::scope('/persona-natural', function($routes){
+    $routes->connect('/mun/:id', ['controller'=>'PersonaNatural', 'action'=>'getMunicipios' ], ['id'=> '\d+', 'pass' => ['id']]);
+});
 $routes->scope('/', function (RouteBuilder $builder) {
     /*
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
