@@ -95,7 +95,7 @@
             </div>
             <div class=" input-field col s12">
             <select name="FK_lug_codigo" id="parroquia" class="browser-default" required>
-                <option value="-1">Seleccione una parroquia</option>
+                <option value="-1" disabled>Seleccione una parroquia</option>
             </select>
             </div>
             <div class=" input-field col inline s12">

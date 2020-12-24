@@ -46,19 +46,52 @@ class PersonaJuridicaController extends AppController
      */
     public function add()
     {
+        $this->loadComponent('Lugar');   
+        $this->loadComponent('Tienda');
+        $this->getEstados();
+        $this->getTiendas();
         $personaJuridica = $this->PersonaJuridica->newEmptyEntity();
         if ($this->request->is('post')) {
             $personaJuridica = $this->PersonaJuridica->patchEntity($personaJuridica, $this->request->getData());
             if ($this->PersonaJuridica->save($personaJuridica)) {
-                $this->Flash->success(__('The persona juridica has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+               
+                return $this->redirect(['controller'=>'inicio','action' => 'index']);
             }
-            $this->Flash->error(__('The persona juridica could not be saved. Please, try again.'));
+            
         }
         $this->set(compact('personaJuridica'));
     }
 
+    public function getTiendas(){
+        $tiendasSQL = $this->Tienda->tiendas(); 
+        $tiendas = $this->Tienda->tiendaSelect($tiendasSQL);
+        $this->set('tiendas', $tiendas);
+    }
+
+    public function getEstados(){
+        $estadosSQL = $this->Lugar->estados(); 
+        $estados = $this->Lugar->lugarSelect($estadosSQL);
+        $this->set('estados', $estados);
+    }
+
+    public function municipios(){
+        $id = $this->request->getData('id');
+        $tipo = 'lugar';
+        $this->loadComponent('Lugar'); 
+        $municipiosSQL = $this->Lugar->municipios($id); 
+        $municipios = $this->Lugar->devolverSelect($municipiosSQL, $tipo);
+        exit(json_encode($municipios));
+    
+    }
+
+    public function parroquias(){
+        $id = $this->request->getData('id');
+        $this->loadComponent('Lugar'); 
+        $tipo = 'lugar';
+        $parroquiasSQL= $this->Lugar->parroquias($id); 
+        $parroquias = $this->Lugar->devolverSelect($parroquiasSQL, $tipo);
+        exit(json_encode($parroquias));
+    }
     /**
      * Edit method
      *
