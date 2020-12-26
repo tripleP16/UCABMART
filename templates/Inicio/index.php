@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="center col s8 offset-s2 white-text" > 
     <div class="carousel carousel-slider center">
@@ -28,6 +27,9 @@
         
     </div>
 </div>
+        <div>
+             <?= $this->html->link(__('PRUEBAJASPER'), ['controller'=>'Reporte', 'action' =>'archivo']) ?>
+        </div>
 <div class="row">
 <div class="col s1 "></div>
     <div class="col s4" id="tiendas">
@@ -42,3 +44,4 @@
         </div>
     </div>
 </div>
+
