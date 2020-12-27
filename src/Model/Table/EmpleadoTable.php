@@ -71,7 +71,8 @@ class EmpleadoTable extends Table
         $validator
             ->scalar('emp_cedula')
             ->maxLength('emp_cedula', 50)
-            ->allowEmptyString('emp_cedula', null, 'create');
+            ->notEmptyString('emp_cedula')
+            ->requirePresence('emp_cedula', 'create');
 
         $validator
             ->scalar('emp_primer_nombre')

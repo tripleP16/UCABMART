@@ -30,6 +30,7 @@ class Empleado extends Entity
      * @var array
      */
     protected $_accessible = [
+        'emp_cedula' => true,
         'emp_primer_nombre' => true,
         'emp_segundo_nombre' => true,
         'emp_primer_apellido' => true,

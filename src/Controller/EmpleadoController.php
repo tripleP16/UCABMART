@@ -96,6 +96,8 @@ class EmpleadoController extends AppController
         exit(json_encode($parroquias));
     }
 
+    
+
     /**
      * Edit method
      *
