@@ -46,19 +46,53 @@ class TiendaController extends AppController
      */
     public function add()
     {
+        $this->loadComponent('Lugar'); 
+        $this->loadComponent('Almacen');
+        $this->getAlmacenes();
+        $this->getEstados(); 
         $tienda = $this->Tienda->newEmptyEntity();
         if ($this->request->is('post')) {
             $tienda = $this->Tienda->patchEntity($tienda, $this->request->getData());
             if ($this->Tienda->save($tienda)) {
-                $this->Flash->success(__('The tienda has been saved.'));
+               
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller'=>'inicio','action' => 'index']);
             }
             $this->Flash->error(__('The tienda could not be saved. Please, try again.'));
         }
         $this->set(compact('tienda'));
     }
+    public function getAlmacenes(){
+        $almacenSQL = $this->Almacen->almacenes(); 
+        $almacenes = $this->Almacen->almacenSelect($almacenSQL);
+        $this->set('almacenes',$almacenes);
+    }
 
+    public function getEstados(){
+        $estadosSQL = $this->Lugar->estados(); 
+        $estados = $this->Lugar->lugarSelect($estadosSQL);
+        $this->set('estados', $estados);
+    }
+
+    public function municipios(){
+        $id = $this->request->getData('id');
+        $tipo = 'lugar';
+        $this->loadComponent('Lugar'); 
+        $municipiosSQL = $this->Lugar->municipios($id); 
+        $municipios = $this->Lugar->devolverSelect($municipiosSQL, $tipo);
+        exit(json_encode($municipios));
+    
+    }
+
+    public function parroquias(){
+        $id = $this->request->getData('id');
+        $this->loadComponent('Lugar'); 
+        $tipo = 'lugar';
+        $parroquiasSQL= $this->Lugar->parroquias($id); 
+        $parroquias = $this->Lugar->devolverSelect($parroquiasSQL, $tipo);
+        exit(json_encode($parroquias));
+    }
+    
     /**
      * Edit method
      *
