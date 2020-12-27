@@ -46,18 +46,54 @@ class EmpleadoController extends AppController
      */
     public function add()
     {
+        $this->loadComponent('Lugar');   
+        $this->loadComponent('Tienda');
+       
+        $this->getEstados();
+        $this->getTiendas();
         $empleado = $this->Empleado->newEmptyEntity();
         if ($this->request->is('post')) {
-            $empleado = $this->Empleado->patchEntity($empleado, $this->request->getData());
+            $empleado = $this->Empleado->patchEntity($empleado, $this->request->getData());  // SE INSERTA LA PERSONA NATURAL 
             if ($this->Empleado->save($empleado)) {
-                $this->Flash->success(__('The empleado has been saved.'));
+               
+                    return $this->redirect(['controller'=>'inicio','action' => 'index']);
 
-                return $this->redirect(['action' => 'index']);
+                
             }
-            $this->Flash->error(__('The empleado could not be saved. Please, try again.'));
+            
         }
-        $beneficio = $this->Empleado->Beneficio->find('list', ['limit' => 200]);
-        $this->set(compact('empleado', 'beneficio'));
+        $this->set(compact('empleado'));
+    }
+
+    public function getTiendas(){
+        $tiendasSQL = $this->Tienda->tiendas(); 
+        $tiendas = $this->Tienda->tiendaSelect($tiendasSQL);
+        $this->set('tiendas', $tiendas);
+    }
+
+    public function getEstados(){
+        $estadosSQL = $this->Lugar->estados(); 
+        $estados = $this->Lugar->lugarSelect($estadosSQL);
+        $this->set('estados', $estados);
+    }
+
+    public function municipios(){
+        $id = $this->request->getData('id');
+        $tipo = 'lugar';
+        $this->loadComponent('Lugar'); 
+        $municipiosSQL = $this->Lugar->municipios($id); 
+        $municipios = $this->Lugar->devolverSelect($municipiosSQL, $tipo);
+        exit(json_encode($municipios));
+    
+    }
+
+    public function parroquias(){
+        $id = $this->request->getData('id');
+        $this->loadComponent('Lugar'); 
+        $tipo = 'lugar';
+        $parroquiasSQL= $this->Lugar->parroquias($id); 
+        $parroquias = $this->Lugar->devolverSelect($parroquiasSQL, $tipo);
+        exit(json_encode($parroquias));
     }
 
     /**

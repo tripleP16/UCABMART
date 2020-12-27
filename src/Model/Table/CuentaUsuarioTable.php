@@ -40,6 +40,9 @@ class CuentaUsuarioTable extends Table
         $this->setTable('cuenta_usuario');
         $this->setDisplayField('cue_usu_email');
         $this->setPrimaryKey('cue_usu_email');
+        $this->hasMany('rol_cuenta_usuario')
+            ->setForeignKey('FK_empleado');
+        
     }
 
     /**

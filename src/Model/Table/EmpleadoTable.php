@@ -42,6 +42,16 @@ class EmpleadoTable extends Table
         $this->setTable('empleado');
         $this->setDisplayField('emp_cedula');
         $this->setPrimaryKey('emp_cedula');
+        $this->hasMany('telefono')
+            ->setForeignKey('FK_empleado');
+        $this->hasOne('cuenta_usuario')
+            ->setForeignKey('FK_empleado');
+        $this->hasMany('beneficio_empleado')
+            ->setForeignKey('ben_codigo');
+        
+        
+
+
 
         $this->belongsToMany('Beneficio', [
             'foreignKey' => 'empleado_id',

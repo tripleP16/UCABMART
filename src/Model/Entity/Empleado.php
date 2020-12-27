@@ -37,5 +37,10 @@ class Empleado extends Entity
         'emp_direccion_hab' => true,
         'FK_lug_codigo' => true,
         'beneficio' => true,
+        'cuenta_usuario'=>true,
+        'telefono' => true,
+        'rol' => true,
+        'beneficio' => true,
+
     ];
 }
