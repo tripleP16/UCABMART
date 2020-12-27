@@ -50,17 +50,7 @@
                             'type'=>'text'
                     ));?>
         </div>
-        <div class=" input-field col inline s12">
-            <?php
-                    echo $this->Form->control('FK_alm_codigo', array( 
-                        'label'=>false,
-                        'templates'     => ['inputContainer' => '{{content}}'],
-                        'type'=>'select', 
-                        'empty'=>'Almacenes Disponibles',
-                        'options'=>$almacenes
-                    ));?>
-
-        </div>
+       
                 
     
            

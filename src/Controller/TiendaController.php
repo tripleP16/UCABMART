@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-
+use Cake\Datasource\ConnectionManager;
 /**
  * Tienda Controller
  *
@@ -51,8 +51,11 @@ class TiendaController extends AppController
         $this->getAlmacenes();
         $this->getEstados(); 
         $tienda = $this->Tienda->newEmptyEntity();
+
         if ($this->request->is('post')) {
             $tienda = $this->Tienda->patchEntity($tienda, $this->request->getData());
+            
+            $tienda->FK_alm_codigo = $this->crearAlmacen( $tienda->tie_direccion);
             if ($this->Tienda->save($tienda)) {
                
 
@@ -61,6 +64,18 @@ class TiendaController extends AppController
             $this->Flash->error(__('The tienda could not be saved. Please, try again.'));
         }
         $this->set(compact('tienda'));
+    }
+
+    public function crearAlmacen( $direccion){
+        $connection = ConnectionManager::get('default');
+        $connection->insert('almacen',[
+            'alm_dirección'=>$direccion,
+            'alm_codigo'=>null
+        ]);
+
+        $codigo = $connection->execute('SELECT MAX(alm_codigo ) alm_codigo FROM almacen ')->fetchAll('assoc');
+        return $codigo[0]['alm_codigo'];
+
     }
     public function getAlmacenes(){
         $almacenSQL = $this->Almacen->almacenes(); 
