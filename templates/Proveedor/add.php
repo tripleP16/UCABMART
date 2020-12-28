@@ -58,7 +58,7 @@
                     'templates'     => ['inputContainer' => '{{content}}'],
                     'type'=>'select', 
                     'multiple'=>true,
-                    
+                    'required'=>true,
                     'options'=>$rubros
                 ));?>
                 <label for="rubro._ids">Rubros</label>
@@ -73,6 +73,7 @@
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
                 'empty'=> [-1 => 'Seleccione un estado' ],
+                'id'=>'estadoPrincipal',
                 'class'=>'browser-default',
                 'options'=>$estados
             ));?>
@@ -80,24 +81,14 @@
             </div>
 
             <div class=" input-field col s12">
-            <?= $this->Form->control('municipio', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>['Hay', 'Que', 'Poner', 'municipios']
-            ));?>
-                <label for="municipio">municipio</label>
+            <select name="municipio" id="municipioPrincipal" class="browser-default" required>
+                <option value="-1" >Seleccione un municipio</option>
+            </select>
             </div>
             <div class=" input-field col s12">
-            <?= $this->Form->control('lugar', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>['Hay', 'Que', 'Poner', 'Parroquias']
-            ));?>
-                <label for="lugar">Parroquia</label>
+                <select name="lugar" id="parroquiaPrincipal" class="browser-default" required>
+                    <option value="-1" disabled>Seleccione una parroquia</option>
+                </select>
             </div>
             <div class=" input-field col s12">
                 <?php
@@ -118,6 +109,7 @@
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
+                'id'=>'estadoFiscal',
                 'empty'=> [-1 => 'Seleccione un estado' ],
                 'class'=>'browser-default',
                 'options'=>$estados
@@ -126,25 +118,16 @@
             </div>
 
             <div class=" input-field col s12">
-            <?= $this->Form->control('municipio', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>['Hay', 'Que', 'Poner', 'municipios']
-            ));?>
-                <label for="municipio">municipio</label>
+            <select name="municipio" id="municipioFiscal" class="browser-default" required>
+                <option value="-1" >Seleccione un municipio</option>
+            </select>
             </div>
             <div class=" input-field col s12">
-            <?= $this->Form->control('lugar_fiscal', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>['Hay', 'Que', 'Poner', 'Parroquias']
-            ));?>
-                <label for="lugar_fiscal">Parroquia</label>
+                <select name="lugar_fiscal" id="parroquiaFiscal" class="browser-default" required>
+                    <option value="-1" disabled>Seleccione una parroquia</option>
+                </select>
             </div>
+            
             <div class=" input-field col s12">
                 <?php
                     echo $this->Form->control('pro_direccion_fiscal', array(
@@ -156,96 +139,126 @@
                 <label for="pro_direccion_fiscal">Direccion Fiscal</label>
             </div>
         </div>
-        <div class="divider"></div>
-        <div class="section">
-            <h5>Informacion de Contacto</h5>
-            <h6>Personal de Contacto</h6>
-            <h6>Principal</h6>
-            <div class=" input-field col s3"> 
-                <?php
-                echo $this->Form->control('per_con_nombre',array(
-                    'placeholder'=>'Pablo',
-                    'label'=> false, 
-                    'templates'     => ['inputContainer' => '{{content}}'],
-                    'type' =>'text'
-                ) );?>
-                <label for="per_con_nombre">Nombre</label>
-            </div>
-            <div class=" input-field col s3"> 
-                <?php
-                echo $this->Form->control('per_con_apellido',array(
-                    'placeholder'=>'Perez',
-                    'label'=> false, 
-                    'templates'     => ['inputContainer' => '{{content}}'],
-                    'type' =>'text'
-                ) );?>
-                <label for="per_con_apellido">Apellido</label>
-            </div>
-                <div class=" input-field col s3">
-                    <?= $this->Form->control('tel_tipo', array( 
-                        'label'=> false, 
-                        'templates'     => ['inputContainer' => '{{content}}'],
-                        'type'=>'select', 
-                        
-                        'options'=>['Celular', 'Local']
-                     ));?>
-                    <label>Tipo</label>
-                </div>
-                <div class=" input-field col inline s3"> 
-                    <?php
-                        echo $this->Form->control('tel_numero', array(
-                            'placeholder'=>'04241405428',
-                            'label'=> false, 
-                            'templates'     => ['inputContainer' => '{{content}}'],
-                            'type'=>'number'
-                    ));?>
-                    <label for="tel_numero">Numero de Telefono</label>
-                </div>
-                <h6>Secundario</h6>
-            <div class=" input-field col s3"> 
-                <?php
-                echo $this->Form->control('per_con_nombre',array(
-                    'placeholder'=>'Pablo',
-                    'label'=> false, 
-                    'templates'     => ['inputContainer' => '{{content}}'],
-                    'type' =>'text'
-                ) );?>
-                <label for="per_con_nombre">Nombre</label>
-            </div>
-            <div class=" input-field col s3"> 
-                <?php
-                echo $this->Form->control('per_con_apellido',array(
-                    'placeholder'=>'Perez',
-                    'label'=> false, 
-                    'templates'     => ['inputContainer' => '{{content}}'],
-                    'type' =>'text'
-                ) );?>
-                <label for="per_con_apellido">Apellido</label>
-            </div>
-                <div class=" input-field col s3">
-                    <?= $this->Form->control('tel_tipo', array( 
-                        'label'=> false, 
-                        'templates'     => ['inputContainer' => '{{content}}'],
-                        'type'=>'select', 
-                        
-                        'options'=>['Celular', 'Local']
-                     ));?>
-                    <label>Tipo</label>
-                </div>
-                <div class=" input-field col inline s3"> 
-                    <?php
-                        echo $this->Form->control('tel_numero', array(
-                            'placeholder'=>'04241405428',
-                            'label'=> false, 
-                            'templates'     => ['inputContainer' => '{{content}}'],
-                            'type'=>'number'
-                    ));?>
-                    <label for="tel_numero">Numero de Telefono</label>
-                </div>
-        </div>
+        
+        
                 
         <?= $this->Form->button(__('Registrar Proveedor'), array('class'=> 'waves-effect waves-light btn-large black-text ')) ?>
         <?= $this->Form->end() ?>
     </div>
    
 </div>
+<script>
+    $(document).ready(function(){
+        $('#estadoFiscal').change(function(){
+            var id = $(this).val();
+            if(id !=-1){
+                $.ajax({
+                type:'post', 
+                url:"<?php echo $this->Url->build(['controller'=>'PersonaJuridica', 'action'=>'municipios']);?>",
+                data:{id:id},
+                headers:{
+                    'X-CSRF-Token':$('[name = "_csrfToken"]').val()
+                }
+            }).done(function(response){
+                var data = JSON.parse(response);
+                desplegar(data, 'municipioFiscal');
+                vacio('parroquiaFiscal');
+            })
+            }else{
+                vacio('parroquiaFiscal');
+                vacio('municipioFiscal');
+               
+            }
+            
+            
+        })
+        
+        $('#municipioFiscal').change(function(){
+            var id = $(this).val();
+            if(id !=-1){
+                $.ajax({
+                type:'post', 
+                url:"<?php echo $this->Url->build(['controller'=>'PersonaJuridica', 'action'=>'parroquias']);?>",
+                data:{id:id},
+                headers:{
+                    'X-CSRF-Token':$('[name = "_csrfToken"]').val()
+                }
+            }).done(function(response){
+                var data = JSON.parse(response);
+                desplegar(data, 'parroquiaFiscal');
+            })
+            }else{
+                vacio('parroquiaFiscal');
+            }
+            
+            
+        })
+
+        /// 
+
+        $('#estadoPrincipal').change(function(){
+            var id = $(this).val();
+            if(id !=-1){
+                $.ajax({
+                type:'post', 
+                url:"<?php echo $this->Url->build(['controller'=>'PersonaJuridica', 'action'=>'municipios']);?>",
+                data:{id:id},
+                headers:{
+                    'X-CSRF-Token':$('[name = "_csrfToken"]').val()
+                }
+            }).done(function(response){
+                var data = JSON.parse(response);
+                desplegar(data, 'municipioPrincipal');
+                vacio('parroquiaPrincipal');
+            })
+            }else{
+                vacio('parroquiaPrincipal');
+                vacio('municipioPrincipal');
+               
+            }
+            
+            
+        })
+        
+        $('#municipioPrincipal').change(function(){
+            var id = $(this).val();
+            if(id !=-1){
+                $.ajax({
+                type:'post', 
+                url:"<?php echo $this->Url->build(['controller'=>'PersonaJuridica', 'action'=>'parroquias']);?>",
+                data:{id:id},
+                headers:{
+                    'X-CSRF-Token':$('[name = "_csrfToken"]').val()
+                }
+            }).done(function(response){
+                var data = JSON.parse(response);
+                desplegar(data, 'parroquiaPrincipal');
+            })
+            }else{
+                vacio('parroquiaPrincipal');
+            }
+            
+            
+        })
+        function vacio(id){
+            $('#'+id).empty();
+            var tabla = [];
+            tabla +=`<option value = "-1" disabled> Seleccione un ${id} </option>`
+            $('#'+id).append(tabla);
+          
+        }
+        function desplegar(data, id){
+            $('#'+id).empty();
+            var tabla = [];
+            tabla +=`<option value = "-1" disabled> Seleccione un ${id} </option>`
+            for(let i = 0 ; i<data.lugar.length; i++){
+                tabla +=`<option value = "${data.lugar[i].lug_codigo}"> ${data.lugar[i].lug_nombre} </option>`
+            }
+
+            $('#'+id).append(tabla);
+          
+        }
+    
+  });
+
+</script>

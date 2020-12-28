@@ -31,6 +31,7 @@ class Proveedor extends Entity
      * @var array
      */
     protected $_accessible = [
+        'pro_rif'=>true,
         'pro_razon_social' => true,
         'pro_denominacion_comercial' => true,
         'pro_pagina_web' => true,
@@ -39,5 +40,6 @@ class Proveedor extends Entity
         'lugar' => true,
         'lugar_fiscal' => true,
         'rubro' => true,
+        'personal_de_contacto'=>true
     ];
 }

@@ -43,9 +43,12 @@ class ProveedorTable extends Table
         $this->setDisplayField('pro_rif');
         $this->setPrimaryKey('pro_rif');
 
+        $this->hasMany('personal_de_contacto')
+                ->setForeignKey('FK_pro_rif');
+
         $this->belongsToMany('Rubro', [
-            'foreignKey' => 'proveedor_id',
-            'targetForeignKey' => 'rubro_id',
+            'foreignKey' => 'pro_rif',
+            'targetForeignKey' => 'rub_codigo',
             'joinTable' => 'proveedor_rubro',
         ]);
     }
@@ -61,7 +64,8 @@ class ProveedorTable extends Table
         $validator
             ->scalar('pro_rif')
             ->maxLength('pro_rif', 50)
-            ->allowEmptyString('pro_rif', null, 'create')
+            ->requirePresence('pro_rif', 'create')
+            ->notEmptyString('pro_rif')
             ->add('pro_rif', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
