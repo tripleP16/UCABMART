@@ -7,6 +7,7 @@ namespace App\Controller;
  * Proveedor Controller
  *
  * @property \App\Model\Table\ProveedorTable $Proveedor
+ *  @property \App\Model\Table\PersonalDeContactoTable $personalDeContacto
  * @method \App\Model\Entity\Proveedor[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ProveedorController extends AppController
@@ -105,8 +106,11 @@ class ProveedorController extends AppController
         $proveedor = $this->Proveedor->get($id, [
             'contain' => ['Rubro'],
         ]);
+        $this->loadComponent('Lugar');  
+        $this->getEstados();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proveedor = $this->Proveedor->patchEntity($proveedor, $this->request->getData());
+            
             if ($this->Proveedor->save($proveedor)) {
                 $this->Flash->success(__('The proveedor has been saved.'));
 
@@ -114,8 +118,10 @@ class ProveedorController extends AppController
             }
             $this->Flash->error(__('The proveedor could not be saved. Please, try again.'));
         }
-        $rubro = $this->Proveedor->Rubro->find('list', ['limit' => 200]);
-        $this->set(compact('proveedor', 'rubro'));
+        
+        $this->loadComponent('Rubro');
+         $this->getRubros();
+        $this->set(compact('proveedor'));
     }
 
     /**
@@ -129,6 +135,7 @@ class ProveedorController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $proveedor = $this->Proveedor->get($id);
+        
         if ($this->Proveedor->delete($proveedor)) {
             $this->Flash->success(__('The proveedor has been deleted.'));
         } else {
