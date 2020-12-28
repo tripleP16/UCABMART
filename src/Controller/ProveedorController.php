@@ -47,6 +47,8 @@ class ProveedorController extends AppController
     public function add()
     {
         $this->loadComponent('Rubro');
+        $this->loadComponent('Lugar');  
+        $this->getEstados();
         $this->getRubros();
         $proveedor = $this->Proveedor->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -67,7 +69,30 @@ class ProveedorController extends AppController
         $rubros = $this->Rubro->rubroSelect($rubrosSQL);
         $this->set('rubros', $rubros);
     }
+    public function getEstados(){
+        $estadosSQL = $this->Lugar->estados(); 
+        $estados = $this->Lugar->lugarSelect($estadosSQL);
+        $this->set('estados', $estados);
+    }
 
+    public function municipios(){
+        $id = $this->request->getData('id');
+        $tipo = 'lugar';
+        $this->loadComponent('Lugar'); 
+        $municipiosSQL = $this->Lugar->municipios($id); 
+        $municipios = $this->Lugar->devolverSelect($municipiosSQL, $tipo);
+        exit(json_encode($municipios));
+    
+    }
+
+    public function parroquias(){
+        $id = $this->request->getData('id');
+        $this->loadComponent('Lugar'); 
+        $tipo = 'lugar';
+        $parroquiasSQL= $this->Lugar->parroquias($id); 
+        $parroquias = $this->Lugar->devolverSelect($parroquiasSQL, $tipo);
+        exit(json_encode($parroquias));
+    }
     /**
      * Edit method
      *

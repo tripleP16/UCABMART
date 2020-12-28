@@ -72,10 +72,11 @@
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
-                
-                'options'=>['Hay', 'Que', 'Poner', 'Estados']
+                'empty'=> [-1 => 'Seleccione un estado' ],
+                'class'=>'browser-default',
+                'options'=>$estados
             ));?>
-                <label for="Estado">Estado</label>
+                
             </div>
 
             <div class=" input-field col s12">
@@ -117,10 +118,11 @@
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
-                
-                'options'=>['Hay', 'Que', 'Poner', 'Estados']
+                'empty'=> [-1 => 'Seleccione un estado' ],
+                'class'=>'browser-default',
+                'options'=>$estados
             ));?>
-                <label for="Estado">Estado</label>
+               
             </div>
 
             <div class=" input-field col s12">
