@@ -31,6 +31,7 @@ class PersonaJuridica extends Entity
      * @var array
      */
     protected $_accessible = [
+        'per_jur_rif'=>true,
         'per_jur_denominacion_comercial' => true,
         'per_jur_razon_social' => true,
         'per_jur_pagina_web' => true,
@@ -38,6 +39,8 @@ class PersonaJuridica extends Entity
         'per_jur_direccion_fiscal' => true,
         'per_jur_direccion_fiscal_principal' => true,
         'FK_tie_codigo' => true,
+        'telefono'=>true, 
+        'cuenta_usuario'=>true,
         'lugar' => true,
         'lugar_fiscal' => true,
     ];

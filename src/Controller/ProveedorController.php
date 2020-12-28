@@ -46,6 +46,8 @@ class ProveedorController extends AppController
      */
     public function add()
     {
+        $this->loadComponent('Rubro');
+        $this->getRubros();
         $proveedor = $this->Proveedor->newEmptyEntity();
         if ($this->request->is('post')) {
             $proveedor = $this->Proveedor->patchEntity($proveedor, $this->request->getData());
@@ -58,6 +60,12 @@ class ProveedorController extends AppController
         }
         $rubro = $this->Proveedor->Rubro->find('list', ['limit' => 200]);
         $this->set(compact('proveedor', 'rubro'));
+    }
+
+    public function getRubros(){
+        $rubrosSQL = $this->Rubro->rubros(); 
+        $rubros = $this->Rubro->rubroSelect($rubrosSQL);
+        $this->set('rubros', $rubros);
     }
 
     /**

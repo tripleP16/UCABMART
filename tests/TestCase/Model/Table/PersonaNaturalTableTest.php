@@ -25,6 +25,7 @@ class PersonaNaturalTableTest extends TestCase
      */
     protected $fixtures = [
         'app.PersonaNatural',
+        'app.Telefono',
     ];
 
     /**

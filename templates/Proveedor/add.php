@@ -59,7 +59,7 @@
                     'type'=>'select', 
                     'multiple'=>true,
                     
-                    'options'=>['Hay', 'Que', 'Poner', 'Rubros']
+                    'options'=>$rubros
                 ));?>
                 <label for="rubro._ids">Rubros</label>
             </div>
@@ -79,14 +79,14 @@
             </div>
 
             <div class=" input-field col s12">
-            <?= $this->Form->control('Ciudad', array( 
+            <?= $this->Form->control('municipio', array( 
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
                 
-                'options'=>['Hay', 'Que', 'Poner', 'Ciudades']
+                'options'=>['Hay', 'Que', 'Poner', 'municipios']
             ));?>
-                <label for="Ciudad">Ciudad</label>
+                <label for="municipio">municipio</label>
             </div>
             <div class=" input-field col s12">
             <?= $this->Form->control('lugar', array( 
@@ -124,14 +124,14 @@
             </div>
 
             <div class=" input-field col s12">
-            <?= $this->Form->control('Ciudad', array( 
+            <?= $this->Form->control('municipio', array( 
                 'label'=> false, 
                 'templates'     => ['inputContainer' => '{{content}}'],
                 'type'=>'select', 
                 
-                'options'=>['Hay', 'Que', 'Poner', 'Ciudades']
+                'options'=>['Hay', 'Que', 'Poner', 'municipios']
             ));?>
-                <label for="Ciudad">Ciudad</label>
+                <label for="municipio">municipio</label>
             </div>
             <div class=" input-field col s12">
             <?= $this->Form->control('lugar_fiscal', array( 
@@ -157,51 +157,6 @@
         <div class="divider"></div>
         <div class="section">
             <h5>Informacion de Contacto</h5>
-            <h6>Dias de Atencion</h6>
-            <div class=" input-field col s6">
-            <?= $this->Form->control('desde', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
-            ));?>
-            <label for="desde">Desde</label>
-                
-            </div>
-            <div class=" input-field col s6">
-            <?= $this->Form->control('hasta', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
-            ));?>
-            <label for="hasta">Hasta</label>
-        </div>
-            <h6>Horas de Atencion</h6>
-            <div class=" input-field col s6">
-            <?= $this->Form->control('desdeHora', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>['7am','8am','9am','10am','11am','12m','1pm','2pm','3pm','4pm','5pm','6pm','7pm']
-            ));?>
-            <label for="desdeHora">Desde </label>
-                
-            </div>
-            <div class=" input-field col s6">
-            <?= $this->Form->control('hasta', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select', 
-                
-                'options'=>['7am','8am','9am','10am','11am','12m','1pm','2pm','3pm','4pm','5pm','6pm','7pm']
-            ));?>
-            <label for="hasta">Hasta</label>
-            
-            </div>
             <h6>Personal de Contacto</h6>
             <h6>Principal</h6>
             <div class=" input-field col s3"> 

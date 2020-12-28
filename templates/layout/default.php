@@ -21,12 +21,13 @@ $cakeDescription = 'UCABMART pague y lleve';
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken'));?>
     <title>
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
     <link href="/UCABMART/img/cake.icon.png" type="image/x-icon" rel="icon">
-
+    
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/UCABMART/css/navbar.css">
@@ -36,7 +37,7 @@ $cakeDescription = 'UCABMART pague y lleve';
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
    
     <script type="text/javascript" src="/UCABMART/js/index.js"></script>
-
+    
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
 </head>

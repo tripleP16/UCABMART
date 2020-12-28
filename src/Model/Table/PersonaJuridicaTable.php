@@ -40,6 +40,11 @@ class PersonaJuridicaTable extends Table
         $this->setTable('persona_juridica');
         $this->setDisplayField('per_jur_rif');
         $this->setPrimaryKey('per_jur_rif');
+        
+        $this->hasOne('cuenta_usuario')
+            ->setForeignKey('FK_persona_juridica');
+        $this->hasMany('telefono')
+            ->setForeignKey('FK_persona_juridica');
     }
 
     /**
@@ -53,7 +58,8 @@ class PersonaJuridicaTable extends Table
         $validator
             ->scalar('per_jur_rif')
             ->maxLength('per_jur_rif', 50)
-            ->allowEmptyString('per_jur_rif', null, 'create')
+            ->requirePresence('per_jur_rif', 'create')
+            ->notEmptyString('per_jur_rif')
             ->add('per_jur_rif', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator

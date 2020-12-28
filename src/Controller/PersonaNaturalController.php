@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+
+use Cake\Event\EventInterface;
+
 /**
  * PersonaNatural Controller
  *
@@ -16,13 +19,18 @@ class PersonaNaturalController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+   
+   
+   
     public function index()
     {
         $personaNatural = $this->paginate($this->PersonaNatural);
 
         $this->set(compact('personaNatural'));
+        parent::initialize();
+    $this->loadComponent('RequestHandler');
     }
-
+    
     /**
      * View method
      *
@@ -46,19 +54,55 @@ class PersonaNaturalController extends AppController
      */
     public function add()
     {
+        $this->loadComponent('Lugar');   
+        $this->loadComponent('Tienda');
+       
+        $this->getEstados();
+        $this->getTiendas();
         $personaNatural = $this->PersonaNatural->newEmptyEntity();
         if ($this->request->is('post')) {
-            $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());
+            $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());  // SE INSERTA LA PERSONA NATURAL 
             if ($this->PersonaNatural->save($personaNatural)) {
-                $this->Flash->success(__('The persona natural has been saved.'));
+               
+                    return $this->redirect(['controller'=>'inicio','action' => 'index']);
 
-                return $this->redirect(['action' => 'index']);
+                
             }
-            $this->Flash->error(__('The persona natural could not be saved. Please, try again.'));
+            
         }
         $this->set(compact('personaNatural'));
     }
 
+    public function getTiendas(){
+        $tiendasSQL = $this->Tienda->tiendas(); 
+        $tiendas = $this->Tienda->tiendaSelect($tiendasSQL);
+        $this->set('tiendas', $tiendas);
+    }
+
+    public function getEstados(){
+        $estadosSQL = $this->Lugar->estados(); 
+        $estados = $this->Lugar->lugarSelect($estadosSQL);
+        $this->set('estados', $estados);
+    }
+
+    public function municipios(){
+        $id = $this->request->getData('id');
+        $tipo = 'lugar';
+        $this->loadComponent('Lugar'); 
+        $municipiosSQL = $this->Lugar->municipios($id); 
+        $municipios = $this->Lugar->devolverSelect($municipiosSQL, $tipo);
+        exit(json_encode($municipios));
+    
+    }
+
+    public function parroquias(){
+        $id = $this->request->getData('id');
+        $this->loadComponent('Lugar'); 
+        $tipo = 'lugar';
+        $parroquiasSQL= $this->Lugar->parroquias($id); 
+        $parroquias = $this->Lugar->devolverSelect($parroquiasSQL, $tipo);
+        exit(json_encode($parroquias));
+    }
     /**
      * Edit method
      *
