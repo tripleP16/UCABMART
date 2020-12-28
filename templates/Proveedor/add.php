@@ -59,7 +59,7 @@
                     'type'=>'select', 
                     'multiple'=>true,
                     
-                    'options'=>['Hay', 'Que', 'Poner', 'Rubros']
+                    'options'=>$rubros
                 ));?>
                 <label for="rubro._ids">Rubros</label>
             </div>
