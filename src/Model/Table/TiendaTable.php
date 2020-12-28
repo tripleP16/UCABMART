@@ -62,7 +62,8 @@ class TiendaTable extends Table
             ->notEmptyString('tie_direccion');
 
         $validator
-            ->integer('tie_rif')
+            ->scalar('tie_rif')
+            ->maxLength('tie_rif', 50)
             ->requirePresence('tie_rif', 'create')
             ->notEmptyString('tie_rif')
             ->add('tie_rif', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);

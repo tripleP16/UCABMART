@@ -120,6 +120,8 @@ class TiendaController extends AppController
         $tienda = $this->Tienda->get($id, [
             'contain' => [],
         ]);
+        $this->loadComponent('Lugar'); 
+        $this->getEstados(); 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tienda = $this->Tienda->patchEntity($tienda, $this->request->getData());
             if ($this->Tienda->save($tienda)) {

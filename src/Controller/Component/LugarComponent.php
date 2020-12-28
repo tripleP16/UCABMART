@@ -57,6 +57,10 @@ class LugarComponent extends Component
         return $lugares;
     }
 
+    public function getLugar($id){
+        $connection = ConnectionManager::get('default');
+        return $connection->execute('SELECT lug_nombre FROM lugar WHERE lug_tipo= "parroquia" AND lug_codigo ='.$id)->fetchAll('assoc');
+    }
  
     
 }
