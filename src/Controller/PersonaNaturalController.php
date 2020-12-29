@@ -64,7 +64,7 @@ class PersonaNaturalController extends AppController
             $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());  // SE INSERTA LA PERSONA NATURAL 
             if ($this->PersonaNatural->save($personaNatural)) {
                
-                    return $this->redirect(['controller'=>'inicio','action' => 'index']);
+                    return $this->redirect(['controller'=>'PersonaNatural','action' => 'index']);
 
                 
             }
@@ -115,6 +115,11 @@ class PersonaNaturalController extends AppController
         $personaNatural = $this->PersonaNatural->get($id, [
             'contain' => [],
         ]);
+        $this->loadComponent('Lugar');   
+        $this->loadComponent('Tienda');
+       
+        $this->getEstados();
+        $this->getTiendas();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());
             if ($this->PersonaNatural->save($personaNatural)) {

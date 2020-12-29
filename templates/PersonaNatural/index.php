@@ -5,22 +5,22 @@
  */
 ?>
 <div class="personaNatural index content">
-    <?= $this->Html->link(__('New Persona Natural'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Persona Natural') ?></h3>
-    <div class="table-responsive">
+    <?= $this->Html->link(__('Agregar Persona Natural'), ['action' => 'add'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>
+    <h3 class="white-text"><?= __('Persona Natural') ?></h3>
+    <div class="white">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('per_nat_cedula') ?></th>
-                    <th><?= $this->Paginator->sort('per_nat_rif') ?></th>
-                    <th><?= $this->Paginator->sort('per_nat_primer_nombre') ?></th>
-                    <th><?= $this->Paginator->sort('per_nat_segundo_nombre') ?></th>
-                    <th><?= $this->Paginator->sort('per_nat_primer_apellido') ?></th>
-                    <th><?= $this->Paginator->sort('per_nat_segundo_apellido') ?></th>
-                    <th><?= $this->Paginator->sort('per_nat_direccion') ?></th>
-                    <th><?= $this->Paginator->sort('FK_tie_codigo') ?></th>
-                    <th><?= $this->Paginator->sort('FK_lug_codigo') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th><?= $this->Paginator->sort('Cedula') ?></th>
+                    <th><?= $this->Paginator->sort('RIF') ?></th>
+                    <th><?= $this->Paginator->sort('Primer Nombre') ?></th>
+                    <th><?= $this->Paginator->sort('Segundo Nombre') ?></th>
+                    <th><?= $this->Paginator->sort('Primer Apellido') ?></th>
+                    <th><?= $this->Paginator->sort('Segundo Apellido') ?></th>
+                    <th><?= $this->Paginator->sort('Direccion') ?></th>
+                    <th><?= $this->Paginator->sort('Tienda numero') ?></th>
+                    <th><?= $this->Paginator->sort('Numero de Parroquia') ?></th>
+                    <th class="actions"><?= __('Opciones') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -36,23 +36,22 @@
                     <td><?= $this->Number->format($personaNatural->FK_tie_codigo) ?></td>
                     <td><?= $this->Number->format($personaNatural->FK_lug_codigo) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $personaNatural->per_nat_cedula]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $personaNatural->per_nat_cedula]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $personaNatural->per_nat_cedula], ['confirm' => __('Are you sure you want to delete # {0}?', $personaNatural->per_nat_cedula)]) ?>
+                        <?= $this->Html->link(__('Ver'), ['action' => 'view', $personaNatural->per_nat_cedula]) ?>
+                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $personaNatural->per_nat_cedula]) ?>
+                        <?= $this->Form->postLink(__('Borrar'), ['action' => 'delete', $personaNatural->per_nat_cedula], ['confirm' => __('Are you sure you want to delete # {0}?', $personaNatural->per_nat_cedula)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-    <div class="paginator">
+    <div class="paginator white">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('Primera')) ?>
+            <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('Siguiente') . ' >') ?>
+            <?= $this->Paginator->last(__('Ultima') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>

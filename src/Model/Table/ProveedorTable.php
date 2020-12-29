@@ -42,7 +42,11 @@ class ProveedorTable extends Table
         $this->setTable('proveedor');
         $this->setDisplayField('pro_rif');
         $this->setPrimaryKey('pro_rif');
-
+       /* $this->hasMany('producto', [
+            'dependent' => true,
+            'cascadeCallbacks' => true,
+        ])
+            ->setForeignKey('FK_proveedor');*/
         $this->hasMany('personal_de_contacto', [
             'dependent' => true,
             'cascadeCallbacks' => true,
