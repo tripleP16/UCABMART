@@ -104,6 +104,10 @@ class PersonaJuridicaController extends AppController
         $personaJuridica = $this->PersonaJuridica->get($id, [
             'contain' => [],
         ]);
+        $this->loadComponent('Lugar'); 
+        $this->loadComponent('Tienda');
+        $this->getEstados();
+        $this->getTiendas();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $personaJuridica = $this->PersonaJuridica->patchEntity($personaJuridica, $this->request->getData());
             if ($this->PersonaJuridica->save($personaJuridica)) {
