@@ -11,10 +11,10 @@
     <div class="row formularioCont">
                 <?php
                     echo $this->Form->control('emp_primer_nombre', array("label"=>"Primer Nombre"));
-                    echo $this->Form->control('emp_segundo_nombre');
-                    echo $this->Form->control('emp_primer_apellido');
-                    echo $this->Form->control('emp_segundo_apellido');
-                    echo $this->Form->control('emp_direccion_hab');
+                    echo $this->Form->control('emp_segundo_nombre', array("label"=>"Segundo Nombre"));
+                    echo $this->Form->control('emp_primer_apellido', array("label"=>"Primer Apellido"));
+                    echo $this->Form->control('emp_segundo_apellido', array("label"=>"Segundo Apellido"));
+                    echo $this->Form->control('emp_direccion_hab', array("label"=>"Direccion"));
                     echo $this->Form->control('beneficio._ids', ['options' => $beneficio]);
                 ?>
 
