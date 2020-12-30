@@ -5,7 +5,7 @@
  */
 ?>
 <div class="empleado index content">
-    <?= $this->Html->link(__('New Empleado'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+<?= $this->Html->link(__('Contratar Empleado'), ['action' => 'add'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>
     <h3><?= __('Empleado') ?></h3>
     <div class="white">
         <table>
