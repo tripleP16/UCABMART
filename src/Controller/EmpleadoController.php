@@ -48,7 +48,7 @@ class EmpleadoController extends AppController
     {
         $this->loadComponent('Lugar');   
         $this->loadComponent('Tienda');
-       
+     
         $this->getEstados();
         $this->getTiendas();
         $empleado = $this->Empleado->newEmptyEntity();
@@ -65,6 +65,8 @@ class EmpleadoController extends AppController
         $this->set(compact('empleado'));
     }
 
+
+
     public function getTiendas(){
         $tiendasSQL = $this->Tienda->tiendas(); 
         $tiendas = $this->Tienda->tiendaSelect($tiendasSQL);
@@ -76,6 +78,7 @@ class EmpleadoController extends AppController
         $estados = $this->Lugar->lugarSelect($estadosSQL);
         $this->set('estados', $estados);
     }
+
 
     public function municipios(){
         $id = $this->request->getData('id');
@@ -110,6 +113,12 @@ class EmpleadoController extends AppController
         $empleado = $this->Empleado->get($id, [
             'contain' => ['Beneficio'],
         ]);
+        $this->loadComponent('Lugar');   
+        $this->loadComponent('Tienda');
+        $this->getEstados();
+        $this->getTiendas();
+
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $empleado = $this->Empleado->patchEntity($empleado, $this->request->getData());
             if ($this->Empleado->save($empleado)) {

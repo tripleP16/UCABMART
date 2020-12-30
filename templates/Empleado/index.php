@@ -7,7 +7,7 @@
 <div class="empleado index content">
     <?= $this->Html->link(__('New Empleado'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Empleado') ?></h3>
-    <div class="table-responsive">
+    <div class="white">
         <table>
             <thead>
                 <tr>
@@ -32,9 +32,9 @@
                     <td><?= h($empleado->emp_direccion_hab) ?></td>
                     <td><?= $this->Number->format($empleado->FK_lug_codigo) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $empleado->emp_cedula]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $empleado->emp_cedula]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $empleado->emp_cedula], ['confirm' => __('Are you sure you want to delete # {0}?', $empleado->emp_cedula)]) ?>
+                        <?= $this->Html->link(__('Ver'), ['action' => 'View', $empleado->emp_cedula]) ?>
+                        <?= $this->Html->link(__('Editar'), ['action' => 'Edit', $empleado->emp_cedula]) ?>
+                        <?= $this->Form->postLink(__('Borrar'), ['action' => 'Delete', $empleado->emp_cedula], ['confirm' => __('Are you sure you want to delete # {0}?', $empleado->emp_cedula)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -52,3 +52,13 @@
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+

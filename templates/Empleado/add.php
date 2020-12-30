@@ -76,6 +76,8 @@
                           </div>
 
 
+                          <div class=" input-field col s12">
+       
 
             <div class=" input-field col s12">
             <?= $this->Form->control('Estado', array( 
@@ -117,6 +119,7 @@
                 <label for="emp_direccion_hab">Direccion</label>
             </div>
 
+            
 
             <div class="divider"></div>
             <div class="section">

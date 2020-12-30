@@ -54,10 +54,13 @@ class EmpleadoTable extends Table
 
 
         $this->belongsToMany('Beneficio', [
-            'foreignKey' => 'empleado_id',
-            'targetForeignKey' => 'beneficio_id',
+            'foreignKey' => 'emp_cedula',
+            'targetForeignKey' => 'ben_codigo',
             'joinTable' => 'beneficio_empleado',
         ]);
+        $this->hasOne('rol')
+        ->setForeignKey('rol_codigo');
+
     }
 
     /**
