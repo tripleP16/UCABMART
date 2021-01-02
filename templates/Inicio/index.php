@@ -28,7 +28,7 @@
     </div>
 </div>
         <div>
-             <?= $this->html->link(__('PRUEBAJASPER'), ['controller'=>'Reporte', 'action' =>'archivo']) ?>
+             <?= $this->html->link(__('PRUEBAJASPER'), ['controller'=>'Reporte', 'action' =>'pruebaparametro']) ?>
         </div>
 <div class="row">
 <div class="col s1 "></div>

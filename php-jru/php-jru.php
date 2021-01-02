@@ -58,7 +58,7 @@ require_once 'JdbcConnection.php';
 /**
  * @see PJRU.php 
  * */ 
-require_once('PJRU.php');
+require_once ('PJRU.php');
 /**
  * @see JdbcAdapterInterface
  */
@@ -70,4 +70,4 @@ require_once 'PJRUConexion.php';
 /**
  * @see ReportManager.php 
  * */ 
-require_once('ReportManager/ReportManager.php');
+require_once ('ReportManager/ReportManager.php');

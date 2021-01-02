@@ -6,17 +6,17 @@
  * */
 final class PJRUConexion
 {
-	const TYPE	= 'pgsql'; //mysql, pgsql, mssql
+	const TYPE	= 'mysql'; //mysql, pgsql, mssql
 		
-	const HOST	= '';
+	const HOST	= 'localhost';
 	
-	const PORT	= '';
+	const PORT	= '3306';
 	
-	const DATABASE	= '';
+	const DATABASE	= 'ucabmart';
 		
-	const USER	= '';
+	const USER	= 'admin';
 	
-	const PASSWORD	= '';
+	const PASSWORD	= '123';
 
 	/**
 	 * permite obtener una conexion jdbc segun el los datos indicados en la url 
@@ -59,12 +59,11 @@ final class PJRUConexion
 			$database	= isset($url['path']) && $url['path']? trim($url['path'],'/'): self::DATABASE;			
 		}
 				
-		include_once 'JdbcAdapters/'.$type.'.php';
-			
-		$className = ucfirst($type); 
-			
-		$conn =  new $className();
+		require ('../php-jru/JdbcAdapters/mysql.php');
+
+		$conn = new Mysql();
 					
-		return $conn->getConexion($host,$port,$database,$user,$pass);		
+		$conn->getConexion('localhost','3306','ucabmart','admin','123');		
+		return $conn;
 	}
 }
