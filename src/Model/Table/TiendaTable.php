@@ -77,6 +77,10 @@ class TiendaTable extends Table
             ->integer('FK_lug_codigo')
             ->requirePresence('FK_lug_codigo', 'create')
             ->notEmptyString('FK_lug_codigo');
+        $validator
+            ->integer('FK_tie_codigo')
+            ->requirePresence('FK_tie_codigo', 'create')
+            ->notEmptyString('FK_tie_codigo');
 
         return $validator;
     }

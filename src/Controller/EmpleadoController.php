@@ -51,6 +51,7 @@ class EmpleadoController extends AppController
      
         $this->getEstados();
         $this->getTiendas();
+        $this->getBeneficios();
         $empleado = $this->Empleado->newEmptyEntity();
         if ($this->request->is('post')) {
             $empleado = $this->Empleado->patchEntity($empleado, $this->request->getData());  // SE INSERTA LA PERSONA NATURAL 
@@ -66,6 +67,12 @@ class EmpleadoController extends AppController
     }
 
 
+    public function getBeneficios(){
+        $this->loadComponent('Beneficio');
+        $beneficioSQL= $this->Beneficio->beneficios(); 
+        $beneficios = $this->Beneficio->beneficioSelect($beneficioSQL); 
+        $this->set('beneficio',$beneficios);
+    }
 
     public function getTiendas(){
         $tiendasSQL = $this->Tienda->tiendas(); 
@@ -117,7 +124,7 @@ class EmpleadoController extends AppController
         $this->loadComponent('Tienda');
         $this->getEstados();
         $this->getTiendas();
-
+        $this->getBeneficios();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $empleado = $this->Empleado->patchEntity($empleado, $this->request->getData());
@@ -129,7 +136,7 @@ class EmpleadoController extends AppController
             $this->Flash->error(__('The empleado could not be saved. Please, try again.'));
         }
         $beneficio = $this->Empleado->Beneficio->find('list', ['limit' => 200]);
-        $this->set(compact('empleado', 'beneficio'));
+        $this->set(compact('empleado'));
     }
 
     /**

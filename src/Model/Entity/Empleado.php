@@ -42,6 +42,7 @@ class Empleado extends Entity
         'telefono' => true,
         'rol' => true,
         'beneficio' => true,
+        'FK_tie_codigo'=>true
 
     ];
 }
