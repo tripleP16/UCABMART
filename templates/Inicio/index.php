@@ -28,7 +28,9 @@
     </div>
 </div>
         <div>
-             <?= $this->html->link(__('PRUEBAJASPER'), ['controller'=>'Reporte', 'action' =>'pruebaparametro']) ?>
+            <?= $this->html->link(__('REPORT CARNET NATURAL'), ['controller'=>'Reporte', 'action' =>'personanaturalreport']) ?>
+            <br>
+             <?= $this->html->link(__('REPORT CARNET JURIDICO'), ['controller'=>'Reporte', 'action' =>'personajuridicareport']) ?>
         </div>
 <div class="row">
 <div class="col s1 "></div>

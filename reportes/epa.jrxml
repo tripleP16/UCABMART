@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="epa" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c13cfbf7-d87c-4edb-99ad-6e4f5eaf22ed">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCABMART"/>
+	<queryString>
+		<![CDATA[SELECT * FROM almacen]]>
+	</queryString>
+	<field name="alm_codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="alm_dirección" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="alm_codigo">
+		<groupExpression><![CDATA[$F{alm_codigo}]]></groupExpression>
+	</group>
+	<group name="alm_dirección">
+		<groupExpression><![CDATA[$F{alm_dirección}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="20" width="257" height="37" uuid="e837a2c8-733e-49b6-b50c-06c295a8c6c4"/>
+				<textElement textAlignment="Center" markup="html">
+					<font size="26" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[EPA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="30" width="100" height="20" uuid="0eb11c4b-5211-497d-a995-8093099bbde2"/>
+				<text><![CDATA[alm_codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="30" width="100" height="20" uuid="0de6e268-7b18-4964-8366-e10f3d6221b0"/>
+				<text><![CDATA[alm_dirección]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="20" width="100" height="20" uuid="491f147c-e858-41db-a682-a07167acfac1"/>
+				<textFieldExpression><![CDATA[$F{alm_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="20" width="100" height="20" uuid="07c9014d-aa20-487a-9996-0f2b3c568150"/>
+				<textFieldExpression><![CDATA[$F{alm_dirección}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="290" y="17" width="87" height="90" uuid="7f45a77a-862e-47fa-b077-33462baf7b6a"/>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
+new com.google.zxing.qrcode.QRCodeWriter().encode(
+$F{alm_dirección},
+com.google.zxing.BarcodeFormat.QR_CODE, 300, 300))]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
