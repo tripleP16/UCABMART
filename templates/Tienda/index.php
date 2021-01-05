@@ -28,7 +28,7 @@
                     <td><?= $this->Number->format($tienda->FK_alm_codigo) ?></td>
                     <td><?= $this->Number->format($tienda->FK_lug_codigo) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Ver'), ['action' => 'view', $tienda->tie_codigo]) ?>
+                        <?= $this->Html->link(__('Ver'), ['controller'=>'ZonaProducto', 'action' => 'index', $tienda->tie_codigo]) ?>
                         <?= $this->Html->link(__('Editar'), ['action' => 'edit', $tienda->tie_codigo]) ?>
                         <?= $this->Form->postLink(__('Borrar'), ['action' => 'delete', $tienda->tie_codigo], ['confirm' => __('Are you sure you want to delete # {0}?', $tienda->tie_codigo)]) ?>
                     </td>
