@@ -46,6 +46,15 @@
                 <option value="-1" disabled>Seleccione una parroquia</option>
             </select>
             </div>
+            <div class=" input-field col s12">
+                <?= $this->Form->control('FK_tie_codigo', array( 
+                    'label'=> false, 
+                    'templates'     => ['inputContainer' => '{{content}}'],
+                    'type'=>'select',
+                    'required'=>true,
+                    'options'=>$tiendas
+                ));?>
+            </div>
              
         <?= $this->Form->button(__('Editar'), array('class'=> 'waves-effect waves-light btn-large black-text ')) ?>
         <?= $this->Form->end() ?>

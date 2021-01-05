@@ -6,19 +6,20 @@
 ?>
 <div class="empleado index content">
 <?= $this->Html->link(__('Contratar Empleado'), ['action' => 'add'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>
-    <h3><?= __('Empleado') ?></h3>
+    <h3 class="white-text"><?= __('Empleado') ?></h3>
     <div class="white">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('emp_cedula') ?></th>
-                    <th><?= $this->Paginator->sort('emp_primer_nombre') ?></th>
-                    <th><?= $this->Paginator->sort('emp_segundo_nombre') ?></th>
-                    <th><?= $this->Paginator->sort('emp_primer_apellido') ?></th>
-                    <th><?= $this->Paginator->sort('emp_segundo_apellido') ?></th>
-                    <th><?= $this->Paginator->sort('emp_direccion_hab') ?></th>
-                    <th><?= $this->Paginator->sort('FK_lug_codigo') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th><?= $this->Paginator->sort('Cedula') ?></th>
+                    <th><?= $this->Paginator->sort('Primer Nombre') ?></th>
+                    <th><?= $this->Paginator->sort('Segundo Nombre') ?></th>
+                    <th><?= $this->Paginator->sort('Primer Apellido') ?></th>
+                    <th><?= $this->Paginator->sort('Segundo Apellido') ?></th>
+                    <th><?= $this->Paginator->sort('Direccion') ?></th>
+                    <th><?= $this->Paginator->sort('Parroquia') ?></th>
+                    <th><?= $this->Paginator->sort('Tienda') ?></th>
+                    <th class="actions"><?= __('Opciones') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,7 @@
                     <td><?= h($empleado->emp_segundo_apellido) ?></td>
                     <td><?= h($empleado->emp_direccion_hab) ?></td>
                     <td><?= $this->Number->format($empleado->FK_lug_codigo) ?></td>
+                    <td><?= $this->Number->format($empleado->FK_tie_codigo) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('Ver'), ['action' => 'View', $empleado->emp_cedula]) ?>
                         <?= $this->Html->link(__('Editar'), ['action' => 'Edit', $empleado->emp_cedula]) ?>
@@ -41,15 +43,14 @@
             </tbody>
         </table>
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+    <div class="paginator white">
+    <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('Primera')) ?>
+            <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('Siguiente') . ' >') ?>
+            <?= $this->Paginator->last(__('Ultima') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
 

@@ -5,11 +5,10 @@
  */
 ?>
 <div class="row" >
-
-                    <?= $this->Form->create($empleado, array('class' =>'col s8 offset-s2 formulario')) ?>
-                        <div class="row formularioCont">
-                            <h5 class="center">Registro de personal</h5>
-                            <div class=" input-field col inline s12"> 
+    <?= $this->Form->create($empleado, array('class' =>'col s8 offset-s2 formulario')) ?>
+    <div class="row formularioCont">   
+        <h5 class="center">Registro de personal</h5>
+            <div class=" input-field col inline s12"> 
                         <?php
                             echo $this->Form->control('emp_cedula', array(
                             'placeholder'=>'27985319',
@@ -18,10 +17,8 @@
                             'type'=>'text'
 
                     ));?>
-                        </div>
-                        
-
-                        <div class=" input-field col inline s12"> 
+            </div>
+            <div class=" input-field col inline s12"> 
                         <?php
                             echo $this->Form->control('emp_primer_nombre', array(
                             'placeholder'=>'Diego',
@@ -30,11 +27,9 @@
                             'type'=>'text'
                     ));?>
                     <label for="emp_primer_nombre">Primer Nombre</label>
-                          </div>
+            </div>
 
-                          
-
-                          <div class=" input-field col inline s12"> 
+            <div class=" input-field col inline s12"> 
                         <?php
                             echo $this->Form->control('emp_segundo_nombre', array(
                             'placeholder'=>'Alejandro',
@@ -43,11 +38,8 @@
                             'type'=>'text'
                     ));?>
                     <label for="emp_segundo_nombre">Segundo Nombre</label>
-                          </div>
-
-
-
-                          <div class=" input-field col inline s12"> 
+            </div>
+            <div class=" input-field col inline s12"> 
                         <?php
                             echo $this->Form->control('emp_primer_apellido', array(
                             'placeholder'=>'Cumares',
@@ -56,11 +48,8 @@
                             'type'=>'text'
                     ));?>
                     <label for="emp_primer_apellido">Primer Apellido</label>
-                          </div>
-
-
-
-                          <div class=" input-field col inline s12"> 
+            </div>
+            <div class=" input-field col inline s12"> 
                         <?php
                             echo $this->Form->control('emp_segundo_apellido', array(
                             'placeholder'=>'Cumares',
@@ -69,45 +58,33 @@
                             'type'=>'text'
                     ));?>
                     <label for="emp_segundo_apellido">Segundo Apellido</label>
-                          </div>
-
-
-
-                          </div>
-
-
-                          <div class=" input-field col s12">
-       
-
+            </div>
             <div class=" input-field col s12">
-            <?= $this->Form->control('Estado', array( 
-                'label'=> false, 
-                'templates'     => ['inputContainer' => '{{content}}'],
-                'type'=>'select',
+                <?= $this->Form->control('Estado', array( 
+                    'label'=> false, 
+                    'templates'     => ['inputContainer' => '{{content}}'],
+                    'type'=>'select',
 
-                'empty'=> [-1 => 'Seleccione un estado' ],
-                'class'=>"browser-default",
-                'required'=>true,
-                
-                'options'=>$estados
-            ));?>
+                    'empty'=> [-1 => 'Seleccione un estado' ],
+                    'class'=>"browser-default",
+                    'required'=>true,
+                    
+                    'options'=>$estados
+                ));?>
             </div>
 
 
 
             <div class=" input-field col s12">
-            <select name="municipio" id="municipio" class="browser-default" required>
-                <option value="-1" >Seleccione un municipio</option>
-            </select>
+                <select name="municipio" id="municipio" class="browser-default" required>
+                    <option value="-1" >Seleccione un municipio</option>
+                </select>
             </div>
             <div class=" input-field col s12">
-            <select name="FK_lug_codigo" id="parroquia" class="browser-default" required>
-                <option value="-1" disabled>Seleccione una parroquia</option>
-            </select>
+                <select name="FK_lug_codigo" id="parroquia" class="browser-default" required>
+                    <option value="-1" disabled>Seleccione una parroquia</option>
+                </select>
             </div>
-
-
-
             <div class=" input-field col inline s12">
                 <?php
                 echo $this->Form->control('emp_direccion_hab', array(
@@ -119,8 +96,23 @@
                 <label for="emp_direccion_hab">Direccion</label>
             </div>
 
-            
+            <div class=" input-field col s12">
+                <?= $this->Form->control('FK_tie_codigo', array( 
+                    'label'=> false, 
+                    'templates'     => ['inputContainer' => '{{content}}'],
+                    'type'=>'select',
+                    'required'=>true,
+                    'options'=>$tiendas
+                ));?>
+            </div>
 
+
+            <div class=" input-field col inline s12">
+                <?php
+                    echo $this->Form->control('beneficio._ids', ['options' => $beneficio]);
+                ?>
+            </div>
+            
             <div class="divider"></div>
             <div class="section">
                 <h5>Cuenta de Usuario</h5>
@@ -158,6 +150,7 @@
             <?= $this->Form->button(__('Registrarse') , array('class'=> 'waves-effect waves-light btn-large black-text ')) ?>
         </div>
         <?= $this->Form->end() ?>
+    </div>
 
 
 
