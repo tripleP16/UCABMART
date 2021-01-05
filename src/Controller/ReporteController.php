@@ -105,7 +105,10 @@ class ReporteController extends AppController
     public function archivo (){
         
     }
-    public function pruebaparametro (){
+    public function personanaturalreport (){
+
+    }
+    public function personajuridicareport (){
 
     }
 }
