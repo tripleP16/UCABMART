@@ -27,7 +27,7 @@
 /**
  * @see ReportExtensionInterface.php 
  * */ 
-require('ReportExtensionInterface.php');
+require ('ReportExtensionInterface.php');
 
  /**
  * Esta clase permite definir una extension para reportes

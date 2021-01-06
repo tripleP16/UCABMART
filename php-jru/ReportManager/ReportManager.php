@@ -28,12 +28,12 @@
 /**
  * @see ReportExtensionInterface.php 
  * */ 
-require('ExtensionManager.php');
+require ('ExtensionManager.php');
 
 /**
  * @see Report	Extension.php
  * */ 
-require('ReportExtension.php');  
+require ('ReportExtension.php');  
  /**
  * esta clase permite administrar repotes y cargar extensiones con distintos repotes
  * */
