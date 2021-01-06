@@ -4,11 +4,11 @@
  * @var \App\Model\Entity\ZonaProducto[]|\Cake\Collection\CollectionInterface $zonaProducto
  */
 ?>
-<div class="row  white" >
+<div class="row white" >
     
-    <div class="col s10 offset-s1 " >
+    <div class="col s10 offset-s1 " id="inventarioCont">
         <h3 class="center">Almacen</h3>
-        <table id="inventario" class="striped centered">
+        <table id="inventario" class="responsive-table centered highlight" >
             <thead>
                 <tr>
                     <th>Tienda</th>

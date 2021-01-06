@@ -4,47 +4,46 @@
  * @var \App\Model\Entity\Tienda[]|\Cake\Collection\CollectionInterface $tienda
  */
 ?>
-<div class="tienda index content">
+<div class="row ">
     <?= $this->Html->link(__('Crear Tienda'), ['action' => 'add'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>
     <h3 class="white-text"><?= __('Tiendas') ?></h3>
-    <div class="white">
-        <table>
+    <div class="col s12 white" id="inventarioCont">
+        <table id="tiendas" class="responsive-table centered highlight" >
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('tie_codigo') ?></th>
-                    <th><?= $this->Paginator->sort('tie_direccion') ?></th>
-                    <th><?= $this->Paginator->sort('Rif') ?></th>
-                    <th><?= $this->Paginator->sort('Codigo de Almacen') ?></th>
-                    <th><?= $this->Paginator->sort('Codigo de lugar') ?></th>
+                    <th>Direccion de la tienda</th>
+                    <th>Rif de la tienda</th>
+                    <th>Codigo del almacen</th>
+                    <th>Parroquia</th>
                     <th class="actions"><?= __('Opciones') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($tienda as $tienda): ?>
+                <?php foreach ($query as $query): ?>
                 <tr>
-                    <td><?= $this->Number->format($tienda->tie_codigo) ?></td>
-                    <td><?= h($tienda->tie_direccion) ?></td>
-                    <td><?= h($tienda->tie_rif) ?></td>
-                    <td><?= $this->Number->format($tienda->FK_alm_codigo) ?></td>
-                    <td><?= $this->Number->format($tienda->FK_lug_codigo) ?></td>
+                    <td><?= h($query['tie_direccion']) ?></td>
+                    <td><?= h($query['tie_rif']) ?></td>
+                    <td><?= $this->Number->format($query['FK_alm_codigo']) ?></td>
+                    <td><?= h($query['lug_nombre']) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Ver'), ['controller'=>'ZonaProducto', 'action' => 'index', $tienda->tie_codigo]) ?>
-                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $tienda->tie_codigo]) ?>
-                        <?= $this->Form->postLink(__('Borrar'), ['action' => 'delete', $tienda->tie_codigo], ['confirm' => __('Are you sure you want to delete # {0}?', $tienda->tie_codigo)]) ?>
+                        <?= $this->Html->link(__('Ver'), ['controller'=>'ZonaProducto', 'action' => 'index', $query['FK_alm_codigo']], ['class'=>'waves-effect waves-light btn-large black-text ']) ?>
+                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $query['tie_codigo']], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>
+                        <?= $this->Form->postLink(__('Borrar'), ['action' => 'delete', $query['tie_codigo']],['class' => 'waves-effect red accent-2 btn-large white-text'], ['confirm' => __('Estas seguro # {0}?', $query['tie_codigo'])]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-    <div class="paginator white">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('Primera')) ?>
-            <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('Siguiente') . ' >') ?>
-            <?= $this->Paginator->last(__('Ultima') . ' >>') ?>
-        </ul>
-        
-    </div>
 </div>
+<script>
+$(document).ready( function () {
+    $('#tiendas').DataTable({
+        
+    });
+    $('select').formSelect();
+    $('input').css('border-top','0px')
+    $('input').css('border-left','0px')
+    $('input').css('border-right','0px')
+} );
+</script>

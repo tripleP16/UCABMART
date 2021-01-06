@@ -4,56 +4,49 @@
  * @var \App\Model\Entity\PersonaJuridica[]|\Cake\Collection\CollectionInterface $personaJuridica
  */
 ?>
-<div class="personaJuridica index content">
+<div class="row ">
     <?= $this->Html->link(__('Agregar Persona Juridica'), ['action' => 'add'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>
     <h3 class="white-text"><?= __('Personas Juridicas') ?></h3>
-    <div class="white">
-        <table>
+    <div class="col s12 white" id="inventarioCont">
+        <table  id="tiendas" class="responsive-table centered highlight">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('Rif') ?></th>
-                    <th><?= $this->Paginator->sort('Denominacion Comercial') ?></th>
-                    <th><?= $this->Paginator->sort('Razon Social') ?></th>
-                    <th><?= $this->Paginator->sort('Pagina Web') ?></th>
-                    <th><?= $this->Paginator->sort('Capital Disponible') ?></th>
-                    <th><?= $this->Paginator->sort('Direccion Fiscal') ?></th>
-                    <th><?= $this->Paginator->sort('Direccion Fiscal Principal') ?></th>
-                    <th><?= $this->Paginator->sort('Tienda Codigo') ?></th>
-                    <th><?= $this->Paginator->sort('Codigo Parroquia') ?></th>
-                    <th><?= $this->Paginator->sort('Codigo Parroquia Fiscal Principal') ?></th>
+                    <th>RIF</th>
+                    <th>Denominacion Comercial</th>
+                    <th>Capital disponible</th>
+                    <th>Tienda</th>
+                    <th>Parroquia Fiscal Principal</th>
                     <th class="actions"><?= __('Opciones') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($personaJuridica as $personaJuridica): ?>
+                <?php foreach ($query as $query): ?>
                 <tr>
-                    <td><?= h($personaJuridica->per_jur_rif) ?></td>
-                    <td><?= h($personaJuridica->per_jur_denominacion_comercial) ?></td>
-                    <td><?= h($personaJuridica->per_jur_razon_social) ?></td>
-                    <td><?= h($personaJuridica->per_jur_pagina_web) ?></td>
-                    <td><?= $this->Number->format($personaJuridica->per_jur_capital_disponible) ?></td>
-                    <td><?= h($personaJuridica->per_jur_direccion_fiscal) ?></td>
-                    <td><?= h($personaJuridica->per_jur_direccion_fiscal_principal) ?></td>
-                    <td><?= $this->Number->format($personaJuridica->FK_tie_codigo) ?></td>
-                    <td><?= $this->Number->format($personaJuridica->lugar) ?></td>
-                    <td><?= $this->Number->format($personaJuridica->lugar_fiscal) ?></td>
+                    <td><?= h($query['per_jur_rif']) ?></td>
+                    <td><?= h($query['per_jur_denominacion_comercial']) ?></td>
+                    <td><?= $this->Number->format($query['per_jur_capital_disponible']) ?></td>
+                    <td><?= h($query['tie_direccion']) ?></td>
+                    <td><?= h($query['lug_nombre']) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Ver'), ['action' => 'view', $personaJuridica->per_jur_rif]) ?>
-                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $personaJuridica->per_jur_rif]) ?>
-                        <?= $this->Form->postLink(__('Borrar'), ['action' => 'delete', $personaJuridica->per_jur_rif], ['confirm' => __('Are you sure you want to delete # {0}?', $personaJuridica->per_jur_rif)]) ?>
+                        <?= $this->Html->link(__('Ver'), ['action' => 'view', $query['per_jur_rif']],['class'=>'waves-effect waves-light btn-small black-text ']) ?>
+                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $query['per_jur_rif']], ['class' => 'waves-effect yellow accent-2 btn-small black-text']) ?>
+                        <?= $this->Form->postLink(__('Borrar'), ['action' => 'delete', $query['per_jur_rif']],['class' => 'waves-effect red accent-2 btn-small  white-text'], ['confirm' => __('Are you sure you want to delete # {0}?', $query['per_jur_rif'])]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-    <div class="paginator white">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('Primera')) ?>
-            <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('Siguiente') . ' >') ?>
-            <?= $this->Paginator->last(__('Ultima') . ' >>') ?>
-        </ul>
-    </div>
+
 </div>
+<script>
+$(document).ready( function () {
+    $('#tiendas').DataTable({
+        
+    });
+    $('select').formSelect();
+    $('input').css('border-top','0px')
+    $('input').css('border-left','0px')
+    $('input').css('border-right','0px')
+} );
+</script>
