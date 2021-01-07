@@ -41,7 +41,7 @@
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
 				<reportElement x="40" y="40" width="689" height="469" uuid="5a57e6d3-82d7-4bf2-b696-de5b592bcaad"/>
-				<imageExpression><![CDATA["C:/Program Files/xampp/htdocs/UCABMART/webroot/img/carnet.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:/xampp2/htdocs/UCABMART/webroot/img/carnet.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement stretchType="RelativeToTallestObject" x="57" y="176" width="292" height="263" uuid="aae93681-3c25-4da8-936c-ebec4fe508af">
