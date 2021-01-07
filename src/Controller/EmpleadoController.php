@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Empleado Controller
@@ -18,9 +19,10 @@ class EmpleadoController extends AppController
      */
     public function index()
     {
-        $empleado = $this->paginate($this->Empleado);
-
-        $this->set(compact('empleado'));
+        $connection = ConnectionManager::get('default');
+        $query = $connection->execute('SELECT emp_cedula, emp_primer_nombre, emp_primer_apellido, lug_nombre, tie_direccion FROM ucabmart.empleado JOIN ucabmart.lugar ON lugar.lug_codigo = FK_lug_codigo JOIN ucabmart.tienda ON tie_codigo = FK_tie_codigo ;')->fetchAll('assoc');
+        $this->set(compact('query'));
+       
     }
 
     /**

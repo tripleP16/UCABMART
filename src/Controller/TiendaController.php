@@ -18,9 +18,10 @@ class TiendaController extends AppController
      */
     public function index()
     {
-        $tienda = $this->paginate($this->Tienda);
+        $connection = ConnectionManager::get('default');
+        $query = $connection->execute('SELECT tie_codigo, tie_direccion, tie_rif,FK_alm_codigo, lug_nombre FROM ucabmart.tienda JOIN ucabmart.lugar ON tienda.FK_lug_codigo = lugar.lug_codigo;');
 
-        $this->set(compact('tienda'));
+        $this->set(compact('query'));
     }
 
     /**

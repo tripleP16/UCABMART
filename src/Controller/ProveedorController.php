@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Proveedor Controller
@@ -19,9 +20,10 @@ class ProveedorController extends AppController
      */
     public function index()
     {
-        $proveedor = $this->paginate($this->Proveedor);
+        $connection = ConnectionManager::get('default');
+        $query = $connection->execute('SELECT pro_rif,pro_razon_social,(SELECT lug_nombre FROM ucabmart.lugar WHERE proveedor.lugar = lug_codigo) as lugar, (SELECT lug_nombre FROM ucabmart.lugar WHERE proveedor.lugar_fiscal = lug_codigo) as lugar_fiscal FROM ucabmart.proveedor;')->fetchAll('assoc');
 
-        $this->set(compact('proveedor'));
+        $this->set(compact('query'));
     }
 
     /**
