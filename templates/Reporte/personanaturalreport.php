@@ -35,6 +35,7 @@ $Parametro->put("codigo", .$VALOR.++++);
 //Indicamos la sentencia mysql
 //$sql = "SELECT alm_codigo,alm_dirección FROM almacen WHERE alm_dirección = '".$VALOR."'"; //no borrar porsiacaso
 //$sql = "SELECT per_nat_cedula, per_nat_primer_nombre, per_nat_segundo_nombre , per_nat_primer_apellido, per_nat_segundo_apellido, lug_nombre,FK_tie_codigo FROM ucabmart.persona_natural JOIN ucabmart.tienda ON fk_tie_codigo = tie_codigo JOIN ucabmart.lugar ON tienda.FK_lug_codigo = lug_codigo WHERE per_nat_cedula = 'V69999715'";
+$sql = "SELECT per_nat_cedula, per_nat_primer_nombre, per_nat_segundo_nombre , per_nat_primer_apellido, per_nat_segundo_apellido, lug_nombre,FK_tie_codigo FROM ucabmart.persona_natural JOIN ucabmart.tienda ON fk_tie_codigo = tie_codigo JOIN ucabmart.lugar ON tienda.FK_lug_codigo = lug_codigo WHERE per_nat_cedula = '".$persona."'";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte
