@@ -28,7 +28,7 @@
                     <td><?= h($query['tie_direccion']) ?></td>
                     <td><?= h($query['lug_nombre']) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Ver'), ['action' => 'view', $query['per_jur_rif']],['class'=>'waves-effect waves-light btn-small black-text ']) ?>
+                        <?= $this->Html->link(__('Ver'), ['controller'=>'Reporte', 'action' => 'personajuridicareport', $query['per_jur_rif'], $query['tie_codigo']],['class'=>'waves-effect waves-light btn-small black-text ']) ?>
                         <?= $this->Html->link(__('Editar'), ['action' => 'edit', $query['per_jur_rif']], ['class' => 'waves-effect yellow accent-2 btn-small black-text']) ?>
                         <?= $this->Form->postLink(__('Borrar'), ['action' => 'delete', $query['per_jur_rif']],['class' => 'waves-effect red accent-2 btn-small  white-text'], ['confirm' => __('Are you sure you want to delete # {0}?', $query['per_jur_rif'])]) ?>
                     </td>

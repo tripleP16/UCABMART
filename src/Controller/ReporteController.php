@@ -128,7 +128,8 @@ class ReporteController extends AppController
         $this->set('persona', $persona);
         //return $this->redirect(['controller'=>'PersonaNatural','action' => 'index']);
     }
-    public function personajuridicareport (){
+    public function personajuridicareport ($id, $tienda){
+        die($id. " ". $tienda);
 
     }
 }

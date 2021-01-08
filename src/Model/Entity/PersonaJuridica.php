@@ -43,5 +43,6 @@ class PersonaJuridica extends Entity
         'cuenta_usuario'=>true,
         'lugar' => true,
         'lugar_fiscal' => true,
+        'per_jur_identificador_tienda' => true
     ];
 }
