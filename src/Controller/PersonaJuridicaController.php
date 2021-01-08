@@ -19,7 +19,7 @@ class PersonaJuridicaController extends AppController
     public function index()
     {
         $connection = ConnectionManager::get('default');
-        $query = $connection->execute('SELECT per_jur_rif, per_jur_denominacion_comercial,per_jur_capital_disponible,tie_direccion,lug_nombre FROM ucabmart.persona_juridica JOIN ucabmart.lugar ON lug_codigo = lugar_fiscal JOIN ucabmart.tienda ON persona_juridica.FK_tie_codigo = tie_codigo;')->fetchAll('assoc');
+        $query = $connection->execute('SELECT per_jur_rif, per_jur_denominacion_comercial,per_jur_capital_disponible,tie_direccion,lug_nombre, tie_codigo FROM ucabmart.persona_juridica JOIN ucabmart.lugar ON lug_codigo = lugar_fiscal JOIN ucabmart.tienda ON persona_juridica.FK_tie_codigo = tie_codigo;')->fetchAll('assoc');
 
         $this->set(compact('query'));
     }
