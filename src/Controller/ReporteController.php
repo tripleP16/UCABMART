@@ -132,7 +132,7 @@ class ReporteController extends AppController
         $persona = $id;
         $connection = ConnectionManager::get('default');
         $maximo_nat = $connection->execute('SELECT MAX(per_nat_identificador_tienda) maximo FROM ucabmart.persona_natural WHERE FK_tie_codigo ='.$tienda)->fetchAll('assoc');
-        $identificador = $connection->execute('SELECT per_nat_identificador_tienda FROM ucabmart.persona_natural WHERE per_nat_cedula = '."'".$id."'" )->fetchAll('assoc');
+        $identificador = $connection->execute('SELECT per_jur_identificador_tienda FROM ucabmart.persona_juridica WHERE per_jur_rif= '."'".$id."'" )->fetchAll('assoc');
         $maximo_jur = $connection->execute('SELECT MAX(per_jur_identificador_tienda) maximo FROM ucabmart.persona_juridica WHERE FK_tie_codigo ='.$tienda)->fetchAll('assoc');
         if(empty($identificador[0]['per_jur_identificador_tienda'])){
 
@@ -145,7 +145,7 @@ class ReporteController extends AppController
             }
             
         }else{
-            $this->set('identificador',$identificador[0]['per_nat_identificador_tienda'] );
+            $this->set('identificador',$identificador[0]['per_jur_identificador_tienda'] );
         }
         $this->set('persona', $persona);
     }
