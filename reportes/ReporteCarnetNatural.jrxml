@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte-Carnet-Natural" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e2363d2e-e505-4c1c-9026-a82232c43aa0">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCABMART"/>
-	<queryString>
+	<queryString language="SQL">
 		<![CDATA[SELECT per_nat_cedula, per_nat_primer_nombre, per_nat_segundo_nombre , per_nat_primer_apellido, per_nat_segundo_apellido, lug_nombre,FK_tie_codigo FROM ucabmart.persona_natural JOIN ucabmart.tienda ON fk_tie_codigo = tie_codigo JOIN ucabmart.lugar ON tienda.FK_lug_codigo = lug_codigo]]>
 	</queryString>
 	<field name="per_nat_cedula" class="java.lang.String">
@@ -53,7 +53,7 @@
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
 				<reportElement x="60" y="40" width="669" height="469" uuid="154c9fe6-90bb-435b-a323-7b4c21ce19b9"/>
-				<imageExpression><![CDATA["C:/Program Files/xampp/htdocs/UCABMART/webroot/img/carnet.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:/xampp2/htdocs/UCABMART/webroot/img/carnet.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement stretchType="RelativeToTallestObject" x="82" y="176" width="248" height="263" uuid="9b9fe843-0a32-427c-aeba-a6acb7fa2370">

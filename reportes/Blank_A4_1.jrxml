@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c61362d-d474-4cd8-b66b-546a2559b835">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCABMART"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ucabmart.producto]]>
+	</queryString>
+	<field name="prod_codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prod_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prod_descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prod_imagen" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prod_precio_bolivar" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FK_submarca" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FK_proveedor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="prod_codigo">
+		<groupExpression><![CDATA[$F{prod_codigo}]]></groupExpression>
+	</group>
+	<group name="prod_nombre">
+		<groupExpression><![CDATA[$F{prod_nombre}]]></groupExpression>
+	</group>
+	<group name="prod_descripcion">
+		<groupExpression><![CDATA[$F{prod_descripcion}]]></groupExpression>
+	</group>
+	<group name="prod_imagen">
+		<groupExpression><![CDATA[$F{prod_imagen}]]></groupExpression>
+	</group>
+	<group name="prod_precio_bolivar">
+		<groupExpression><![CDATA[$F{prod_precio_bolivar}]]></groupExpression>
+	</group>
+	<group name="FK_submarca">
+		<groupExpression><![CDATA[$F{FK_submarca}]]></groupExpression>
+	</group>
+	<group name="FK_proveedor">
+		<groupExpression><![CDATA[$F{FK_proveedor}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="106" y="0" width="100" height="20" uuid="fba969ce-521d-427b-8894-5c2d75a23a92"/>
+				<text><![CDATA[prod_nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="0" width="100" height="20" uuid="9615a669-74b0-4809-bb70-ff59212d44df"/>
+				<text><![CDATA[prod_nombre]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="126" splitType="Stretch">
+			<textField>
+				<reportElement x="106" y="86" width="100" height="20" uuid="21d2d4f7-6738-4b5d-92c2-adf992eab7dd"/>
+				<textFieldExpression><![CDATA[$F{prod_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="60" width="100" height="20" uuid="46309a45-a79e-4bbe-8775-f465dac6d037"/>
+				<textFieldExpression><![CDATA[$F{prod_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

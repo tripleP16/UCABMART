@@ -26,14 +26,14 @@ require ('../php-jru/php-jru.php');
 //Llamando la funcion JRU de la libreria php-jru
 $jru=new PJRU();
 //Ruta del reporte compilado Jasper generado por IReports
-$Reporte = $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//reportes//ReporteCarnetNatural.jrxml';
+$Reporte = $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//reportes//Blank_A4_1.jrxml';
 //Ruta a donde deseo guardar mi archivo de salida pdf 
 $SalidaReporte=  $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//salidareportes//'.$filename;
 //Parametro en caso de que el reporte no este parametrizado
 $Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
 //$sql = "SELECT alm_codigo,alm_dirección FROM almacen WHERE alm_dirección = '".$VALOR."'"; //no borrar porsiacaso
-$sql = "SELECT per_nat_cedula, per_nat_primer_nombre, per_nat_segundo_nombre , per_nat_primer_apellido, per_nat_segundo_apellido, lug_nombre,FK_tie_codigo FROM ucabmart.persona_natural JOIN ucabmart.tienda ON fk_tie_codigo = tie_codigo JOIN ucabmart.lugar ON tienda.FK_lug_codigo = lug_codigo WHERE per_nat_cedula = 'V69999715'";
+//$sql = "SELECT per_nat_cedula, per_nat_primer_nombre, per_nat_segundo_nombre , per_nat_primer_apellido, per_nat_segundo_apellido, lug_nombre,FK_tie_codigo FROM ucabmart.persona_natural JOIN ucabmart.tienda ON fk_tie_codigo = tie_codigo JOIN ucabmart.lugar ON tienda.FK_lug_codigo = lug_codigo WHERE per_nat_cedula = 'V69999715'";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte
