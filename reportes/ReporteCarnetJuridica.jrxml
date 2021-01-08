@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCarnetJuridica,jrxml" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5d17d07-ab14-42dc-b037-77d53e1c899e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCABMART"/>
+	<parameter name="codigoN" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT per_jur_rif, per_jur_razon_social, per_jur_denominacion_comercial, lug_nombre,FK_tie_codigo FROM ucabmart.persona_juridica JOIN ucabmart.tienda ON FK_tie_codigo = tie_codigo JOIN ucabmart.lugar ON tienda.FK_lug_codigo = lug_codigo]]>
+	</queryString>
+	<field name="per_jur_rif" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="per_jur_razon_social" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="per_jur_denominacion_comercial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lug_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FK_tie_codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="per_jur_rif">
+		<groupExpression><![CDATA[$F{per_jur_rif}]]></groupExpression>
+	</group>
+	<group name="per_jur_razon_social">
+		<groupExpression><![CDATA[$F{per_jur_razon_social}]]></groupExpression>
+	</group>
+	<group name="per_jur_denominacion_comercial">
+		<groupExpression><![CDATA[$F{per_jur_denominacion_comercial}]]></groupExpression>
+	</group>
+	<group name="lug_nombre">
+		<groupExpression><![CDATA[$F{lug_nombre}]]></groupExpression>
+	</group>
+	<group name="FK_tie_codigo">
+		<groupExpression><![CDATA[$F{FK_tie_codigo}]]></groupExpression>
+	</group>
+	<detail>
+		<band height="554" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="40" y="40" width="689" height="469" uuid="5a57e6d3-82d7-4bf2-b696-de5b592bcaad"/>
+				<imageExpression><![CDATA["C:/program files/xampp/htdocs/UCABMART/webroot/img/carnet.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement stretchType="RelativeToTallestObject" x="57" y="176" width="292" height="263" uuid="aae93681-3c25-4da8-936c-ebec4fe508af">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
+new com.google.zxing.qrcode.QRCodeWriter().encode(
+"RIF: "+$F{per_jur_rif}+", Razón Social: "+$F{per_jur_razon_social}+", Denominación Comercial: "+$F{per_jur_denominacion_comercial}+", Identificador: "+$F{FK_tie_codigo}+" - FALTA",
+com.google.zxing.BarcodeFormat.QR_CODE, 300, 300))]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="200" y="430" width="273" height="40" uuid="586848c7-6eef-4155-9121-2e29e97d6df8"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de identificación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="181" width="362" height="50" uuid="3317a31d-a7bb-4a7f-931b-8c410327d52d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="35" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Cliente Ucabmart]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="318" y="254" width="100" height="25" uuid="a0742f24-6177-41e8-a665-141d757ee7d6"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Razón Social:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="318" y="292" width="112" height="30" uuid="0661f6c7-6cb0-4e2f-8297-a1c5146771e1"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Denominación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="330" width="51" height="30" uuid="bbe22e4a-88a6-4e3d-8ec4-11916dffc0ed"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RIF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="318" y="372" width="101" height="40" uuid="566a6b70-db5b-448b-87d7-b38124ff3cc4"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tienda:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="418" y="254" width="272" height="30" uuid="e2733035-62a5-4211-ad7d-ffe479277754"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{per_jur_razon_social}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="292" width="258" height="30" uuid="e19b1de2-292e-443f-ba4e-5e333a375176"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{per_jur_denominacion_comercial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="330" width="319" height="30" uuid="e719ecb2-d7cc-4e0c-9632-97ecd75ffd52"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="18" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{per_jur_rif}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="370" width="268" height="40" forecolor="#207D2F" uuid="9ada5b62-3b5b-47db-8a89-b93113323701"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lug_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="430" width="65" height="40" forecolor="#18AEE6" uuid="2da59cfb-fed9-4a6f-8f93-17dc52252de1"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FK_tie_codigo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="542" y="428" width="15" height="40" forecolor="#18AEE6" uuid="dba8f0a4-5a42-4496-94ab-ad232e490724"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="567" y="430" width="117" height="40" forecolor="#18AEE6" uuid="c59d1fe3-7539-453d-9050-4877f4e0adac"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{codigoN}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

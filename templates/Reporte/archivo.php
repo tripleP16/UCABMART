@@ -47,4 +47,7 @@ if(file_exists($SalidaReporte))
         }
     }
 }
+
+//Indicamos la sentencia mysql
+//$sql = "SELECT alm_codigo,alm_dirección FROM almacen WHERE alm_dirección = '".$VALOR."'"; //no borrar porsiacaso
 ?>

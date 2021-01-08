@@ -2,7 +2,10 @@
 <!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte-Carnet-Natural" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e2363d2e-e505-4c1c-9026-a82232c43aa0">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCABMART"/>
-	<queryString language="SQL">
+	<parameter name="codigoN" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
 		<![CDATA[SELECT per_nat_cedula, per_nat_primer_nombre, per_nat_segundo_nombre , per_nat_primer_apellido, per_nat_segundo_apellido, lug_nombre,FK_tie_codigo FROM ucabmart.persona_natural JOIN ucabmart.tienda ON fk_tie_codigo = tie_codigo JOIN ucabmart.lugar ON tienda.FK_lug_codigo = lug_codigo]]>
 	</queryString>
 	<field name="per_nat_cedula" class="java.lang.String">
@@ -53,7 +56,7 @@
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
 				<reportElement x="60" y="40" width="669" height="469" uuid="154c9fe6-90bb-435b-a323-7b4c21ce19b9"/>
-				<imageExpression><![CDATA["C:/xampp2/htdocs/UCABMART/webroot/img/carnet.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:/Program Files/xampp/htdocs/UCABMART/webroot/img/carnet.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement stretchType="RelativeToTallestObject" x="82" y="176" width="248" height="263" uuid="9b9fe843-0a32-427c-aeba-a6acb7fa2370">
@@ -152,19 +155,26 @@ com.google.zxing.BarcodeFormat.QR_CODE, 300, 300))]]></imageExpression>
 				<textFieldExpression><![CDATA[$F{lug_nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="470" y="430" width="50" height="40" forecolor="#18AEE6" uuid="696987e9-db00-462f-ab82-6ed99f0bec50"/>
+				<reportElement x="474" y="430" width="50" height="40" forecolor="#18AEE6" uuid="696987e9-db00-462f-ab82-6ed99f0bec50"/>
 				<textElement textAlignment="Center">
 					<font size="24" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FK_tie_codigo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="523" y="428" width="19" height="40" forecolor="#18AEE6" uuid="f8d50b1f-9a20-4088-a988-2df6f261f63a"/>
+				<reportElement x="532" y="428" width="19" height="40" forecolor="#18AEE6" uuid="f8d50b1f-9a20-4088-a988-2df6f261f63a"/>
 				<textElement textAlignment="Center">
 					<font size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="551" y="430" width="150" height="40" forecolor="#18AEE6" uuid="2924f573-d723-443b-824c-780f9f2ad6c6"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{codigoN}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
