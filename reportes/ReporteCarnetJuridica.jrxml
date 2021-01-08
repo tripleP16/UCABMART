@@ -55,7 +55,7 @@
 				</reportElement>
 				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
 new com.google.zxing.qrcode.QRCodeWriter().encode(
-"RIF: "+$F{per_jur_rif}+", Razón Social: "+$F{per_jur_razon_social}+", Denominación Comercial: "+$F{per_jur_denominacion_comercial}+", Identificador: "+$F{FK_tie_codigo}+" - FALTA",
+"RIF: "+$F{per_jur_rif}+", Razón Social: "+$F{per_jur_razon_social}+", Denominación Comercial: "+$F{per_jur_denominacion_comercial}+", Identificador: "+$F{FK_tie_codigo}+" - "+$P{codigoN},
 com.google.zxing.BarcodeFormat.QR_CODE, 300, 300))]]></imageExpression>
 			</image>
 			<staticText>

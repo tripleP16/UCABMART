@@ -67,7 +67,7 @@
 				</reportElement>
 				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
 new com.google.zxing.qrcode.QRCodeWriter().encode(
-"Cedula: "+$F{per_nat_cedula}+", Primer Nombre: "+$F{per_nat_primer_nombre}+", Segundo Nombre: "+$F{per_nat_segundo_nombre}+", Primer Apellido: "+$F{per_nat_primer_apellido}+", Segundo Apellido: "+$F{per_nat_segundo_apellido}+", Identificador: "+$F{FK_tie_codigo}+" - FALTA",
+"Cedula: "+$F{per_nat_cedula}+", Primer Nombre: "+$F{per_nat_primer_nombre}+", Segundo Nombre: "+$F{per_nat_segundo_nombre}+", Primer Apellido: "+$F{per_nat_primer_apellido}+", Segundo Apellido: "+$F{per_nat_segundo_apellido}+", Identificador: "+$F{FK_tie_codigo}+" - "+$P{codigoN},
 com.google.zxing.BarcodeFormat.QR_CODE, 300, 300))]]></imageExpression>
 			</image>
 			<staticText>
