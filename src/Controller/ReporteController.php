@@ -129,7 +129,24 @@ class ReporteController extends AppController
         //return $this->redirect(['controller'=>'PersonaNatural','action' => 'index']);
     }
     public function personajuridicareport ($id, $tienda){
-        die($id. " ". $tienda);
+        $persona = $id;
+        $connection = ConnectionManager::get('default');
+        $maximo_nat = $connection->execute('SELECT MAX(per_nat_identificador_tienda) maximo FROM ucabmart.persona_natural WHERE FK_tie_codigo ='.$tienda)->fetchAll('assoc');
+        $identificador = $connection->execute('SELECT per_nat_identificador_tienda FROM ucabmart.persona_natural WHERE per_nat_cedula = '."'".$id."'" )->fetchAll('assoc');
+        $maximo_jur = $connection->execute('SELECT MAX(per_jur_identificador_tienda) maximo FROM ucabmart.persona_juridica WHERE FK_tie_codigo ='.$tienda)->fetchAll('assoc');
+        if(empty($identificador[0]['per_jur_identificador_tienda'])){
 
+            if($maximo_nat[0]['maximo']> $maximo_jur[0]['maximo']){
+                $connection->update('persona_juridica', ['per_jur_identificador_tienda' => $maximo_nat[0]['maximo'] + 1 ], ['per_jur_rif' => $id]);
+                $this->set('identificador',$maximo_nat[0]['maximo'] + 1 );
+            }else{
+                $connection->update('persona_juridica', ['per_jur_identificador_tienda' => $maximo_jur[0]['maximo'] + 1 ], ['per_jur_rif' => $id]);
+                $this->set('identificador',$maximo_jur[0]['maximo'] + 1 );
+            }
+            
+        }else{
+            $this->set('identificador',$identificador[0]['per_nat_identificador_tienda'] );
+        }
+        $this->set('persona', $persona);
     }
 }
