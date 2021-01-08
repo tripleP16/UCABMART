@@ -108,13 +108,14 @@ class ReporteController extends AppController
     public function personanaturalreport ($id, $tienda){
         $persona = $id;
         $connection = ConnectionManager::get('default');
-        $maximo_nat = $connection->execute('SELECT MAX(per_nat_identificador_tienda) as maximo FROM ucabmart.persona_natural WHERE FK_tie_codigo ='.$tienda)->fetchAll('assoc');
+        $maximo_nat = $connection->execute('SELECT MAX(per_nat_identificador_tienda) maximo FROM ucabmart.persona_natural WHERE FK_tie_codigo ='.$tienda)->fetchAll('assoc');
         $identificador = $connection->execute('SELECT per_nat_identificador_tienda FROM ucabmart.persona_natural WHERE per_nat_cedula = '."'".$id."'" )->fetchAll('assoc');
-        if(empty($identificador['per_nat_identificador_tienda'])){
-            $connection->update('persona_natural', ['per_nat_identificador_tienda' => $maximo_nat['maximo'] + 1 ], ['per_nat_cedula' => $id]);
-            $this->set('identificador',$maximo_nat['maximo'] + 1 );
+        
+        if(empty($identificador[0]['per_nat_identificador_tienda'])){
+            $connection->update('persona_natural', ['per_nat_identificador_tienda' => $maximo_nat[0]['maximo'] + 1 ], ['per_nat_cedula' => $id]);
+            $this->set('identificador',$maximo_nat[0]['maximo'] + 1 );
         }else{
-            $this->set('identificador',$identificador['per_nat_identificador_tienda'] );
+            $this->set('identificador',$identificador[0]['per_nat_identificador_tienda'] );
         }
         $this->set('persona', $persona);
         //return $this->redirect(['controller'=>'PersonaNatural','action' => 'index']);
