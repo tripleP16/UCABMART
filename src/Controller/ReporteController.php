@@ -110,10 +110,18 @@ class ReporteController extends AppController
         $connection = ConnectionManager::get('default');
         $maximo_nat = $connection->execute('SELECT MAX(per_nat_identificador_tienda) maximo FROM ucabmart.persona_natural WHERE FK_tie_codigo ='.$tienda)->fetchAll('assoc');
         $identificador = $connection->execute('SELECT per_nat_identificador_tienda FROM ucabmart.persona_natural WHERE per_nat_cedula = '."'".$id."'" )->fetchAll('assoc');
-        
+        $maximo_jur = $connection->execute('SELECT MAX(per_jur_identificador_tienda) maximo FROM ucabmart.persona_juridica WHERE FK_tie_codigo ='.$tienda)->fetchAll('assoc');
+
         if(empty($identificador[0]['per_nat_identificador_tienda'])){
-            $connection->update('persona_natural', ['per_nat_identificador_tienda' => $maximo_nat[0]['maximo'] + 1 ], ['per_nat_cedula' => $id]);
-            $this->set('identificador',$maximo_nat[0]['maximo'] + 1 );
+
+            if($maximo_nat[0]['maximo']> $maximo_jur[0]['maximo']){
+                $connection->update('persona_natural', ['per_nat_identificador_tienda' => $maximo_nat[0]['maximo'] + 1 ], ['per_nat_cedula' => $id]);
+                $this->set('identificador',$maximo_nat[0]['maximo'] + 1 );
+            }else{
+                $connection->update('persona_natural', ['per_nat_identificador_tienda' => $maximo_jur[0]['maximo'] + 1 ], ['per_nat_cedula' => $id]);
+                $this->set('identificador',$maximo_jur[0]['maximo'] + 1 );
+            }
+            
         }else{
             $this->set('identificador',$identificador[0]['per_nat_identificador_tienda'] );
         }
