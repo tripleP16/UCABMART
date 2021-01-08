@@ -105,8 +105,9 @@ class ReporteController extends AppController
     public function archivo (){
         
     }
-    public function personanaturalreport (){
-
+    public function personanaturalreport ($id){
+        $persona = $id;
+        $this->set('persona', $persona);
     }
     public function personajuridicareport (){
 
