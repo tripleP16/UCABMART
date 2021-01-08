@@ -30,7 +30,7 @@
                     <td><?= h($query['tie_direccion'])?></td>
                     <td><?= h($query['lug_nombre']) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Ver'), ['controller'=>'Reporte','action' => 'personanaturalreport', $query['per_nat_cedula']], ['class'=>'waves-effect waves-light btn-small black-text ']) ?>
+                        <?= $this->Html->link(__('Ver'), ['controller'=>'Reporte','action' => 'personanaturalreport', $query['per_nat_cedula'], $query['tie_codigo']], ['class'=>'waves-effect waves-light btn-small black-text ']) ?>
                         <?= $this->Html->link(__('Editar'), ['action' => 'edit', $query['per_nat_cedula']], ['class' => 'waves-effect yellow accent-2 btn-small black-text']) ?>
                         <?= $this->Form->postLink(__('Borrar'), ['action' => 'delete', $query['per_nat_cedula']],['class' => 'waves-effect red accent-2 btn-small white-text'], ['confirm' => __('Are you sure you want to delete # {0}?', $query['per_nat_cedula'])]) ?>
                     </td>

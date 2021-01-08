@@ -27,7 +27,7 @@ class PersonaNaturalController extends AppController
     {
         $personaNatural = $this->paginate($this->PersonaNatural);
         $connection = ConnectionManager::get('default');
-        $query = $connection->execute('SELECT per_nat_cedula, per_nat_primer_nombre, per_nat_primer_apellido, per_nat_direccion, tie_direccion, lug_nombre FROM ucabmart.persona_natural JOIN ucabmart.tienda ON persona_natural.FK_tie_codigo = tie_codigo JOIN ucabmart.lugar ON persona_natural.FK_lug_codigo = lug_codigo  ')->fetchAll('assoc');
+        $query = $connection->execute('SELECT per_nat_cedula, per_nat_primer_nombre, per_nat_primer_apellido, per_nat_direccion, tie_direccion, lug_nombre, tie_codigo FROM ucabmart.persona_natural JOIN ucabmart.tienda ON persona_natural.FK_tie_codigo = tie_codigo JOIN ucabmart.lugar ON persona_natural.FK_lug_codigo = lug_codigo  ')->fetchAll('assoc');
         $this->set(compact('query'));
         parent::initialize();
     $this->loadComponent('RequestHandler');
