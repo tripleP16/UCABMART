@@ -28,10 +28,6 @@
     </div>
 </div>
         <div>
-            <?= $this->html->link(__('REPORT CARNET NATURAL'), ['controller'=>'Reporte', 'action' =>'personanaturalreport']) ?>
-            <br>
-             <?= $this->html->link(__('REPORT CARNET JURIDICO'), ['controller'=>'Reporte', 'action' =>'personajuridicareport']) ?>
-             <br>
              <?= $this->html->link(__('IMPORTAR UN EXCEL'), ['controller'=>'Excel', 'action' =>'pruebaexcel']) ?>
         </div>
 <div class="row">
