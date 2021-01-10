@@ -52,7 +52,6 @@ else{ //11111111
 //require_once ("http://localhost:8080/JavaBridge/java/Java.inc");
 require ('../JavaBridge/java/Java.inc');
 require ('../php-jru/php-jru.php');
-//$VALOR='AVENIDA SOUBLETTE';
 //Llamando la funcion JRU de la libreria php-jru
 $jru=new PJRU();
 //Ruta del reporte compilado Jasper generado por IReports

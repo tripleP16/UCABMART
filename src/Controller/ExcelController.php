@@ -113,5 +113,4 @@ class ExcelController extends AppController
     public function pruebaexcel ($ruta, $dia_inicio, $dia_fin){
         die($ruta." ".$dia_inicio." ".$dia_fin);
     }
-    
 }
