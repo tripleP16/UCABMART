@@ -53,7 +53,7 @@ class ExcelController extends AppController
                 $name = $attachment->getClientFilename();
                 $target = WWW_ROOT.'excel'.DS.$name;
                 $attachment->moveTo($target);
-                $this->reporteasistenciaexcel($target, $this->request->getData('dia_inicio'),$this->request->getData('dia_fin'));
+                return $this->redirect(['action' => 'reporteasistenciaexcel', $name, $this->request->getData('dia_inicio'),$this->request->getData('dia_fin')]);
                 $this->Flash->success('We will get back to you soon.');
                
             } else {
@@ -111,6 +111,7 @@ class ExcelController extends AppController
     
 
     public function reporteasistenciaexcel ($ruta, $dia_inicio, $dia_fin){
+     $ruta = WWW_ROOT.'excel'.DS.$ruta;
         $this->set('rutaArchivo', $ruta);
         $this->set('dia_inicio', $dia_inicio);
         $this->set('dia_fin', $dia_fin);

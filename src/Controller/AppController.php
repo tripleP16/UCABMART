@@ -44,7 +44,7 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-
+        set_time_limit(0);
         ini_set('memory_limit', '10000M');
        
     
