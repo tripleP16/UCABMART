@@ -46,22 +46,63 @@ $numeroMayorDeFila = $hojaDeProductos->getHighestRow(); // Numérico
 $letraMayorDeColumna = $hojaDeProductos->getHighestColumn(); // Letra
 //Convierte la letra al número de columna correspondiente
 $numeroMayorDeColumna = Coordinate::columnIndexFromString($letraMayorDeColumna);
+//Hago la sentencia para buscar la cedula del empleado y recorrerla
+$query = "SELECT * FROM ucabmart.horario_empleado JOIN ucabmart.empleado ON FK_emp_cedula = emp_cedula JOIN ucabmart.horario ON FK_hor_codigo = hor_codigo";
+$result2 = mysqli_query($conn, $query);    
 //Recorre filas; comienza en la fila 2 porque omitimos el encabezado
 for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
 
 //Las columnas están en este orden: Cedula, Codigo, Hora Entrada, Hora Salida, Dia, Primer Nombre, Segundo Nombre, Primer Apellido, Segundo Apellido
     $cedulaExcel = $hojaDeProductos->getCellByColumnAndRow(1, $indiceFila);
     $codigohorarioExcel = $hojaDeProductos->getCellByColumnAndRow(2, $indiceFila);
-    $fecha_entradaExcel = $hojaDeProductos->getCellByColumnAndRow(3, $indiceFila);
-    $fecha_salidaExcel = $hojaDeProductos->getCellByColumnAndRow(4, $indiceFila); 
+    $hora_entradaExcel = $hojaDeProductos->getCellByColumnAndRow(3, $indiceFila);
+    $hora_salidaExcel = $hojaDeProductos->getCellByColumnAndRow(4, $indiceFila); 
     $diaExcel = $hojaDeProductos->getCellByColumnAndRow(5, $indiceFila); 
     $primer_nombreExcel = $hojaDeProductos->getCellByColumnAndRow(6, $indiceFila);
     $primer_apellidoExcel = $hojaDeProductos->getCellByColumnAndRow(8, $indiceFila);
 
-    //CODIGO PARA COMPARAR Y PONER EL CHECK EN EL QUERY
+    //recorre la consulta
+    while ($row == mysqli_fetch_array($result2)){
 
-    $query = "INSERT INTO horario_empleado (hor_validacion) VALUES('".$validacion."')";
-    $result = mysqli_query($conn, $query);
+        if($row[FK_emp_cedula] == $cedulaExcel ){
+
+            //Codigo para validar si tiene horas extas,cumplio o no cumplio el horario
+            //Haciendolo por horas contadas , existe otro modo de validar tipo hora exacta(HABLARLO)
+
+            if($row[hor_hora_entrada] == '08:00:00'){ // 8:00-16:00 son 8 horas
+                $duracion_turno_horas = 8;
+                $intervalo = $hora_entradaExcel->diff($hora_salidaExcel);
+                $resultadoI = $intervalo->format('%H');
+                    if ($resultadoI < $duracion_turno_horas){//no cumplio
+                        $validacion = 'incumplio';
+                    }
+                    else if ($resultadoI > $duracion_turno_horas){//tiene horas extas
+                        $validacion = 'hora extras';
+                    }
+                    else{//cumplio
+                        $validacion = 'cumplio';
+                    }
+            }
+            else{ //17:00 - 24:00 son 7 horas
+                $duracion_turno_horas = 7;
+                $intervalo = $hora_entradaExcel->diff($hora_salidaExcel);
+                $resultadoI = $intervalo->format('%H');
+                if ($resultadoI < $duracion_turno_horas){//no cumplio
+                    $validacion = 'incumplio';
+                }
+                else if ($resultadoI > $duracion_turno_horas){//tiene horas extas
+                    $validacion = 'hora extras';
+                }
+                else{//cumplio
+                    $validacion = 'cumplio';
+                }
+            }
+            
+            $query2 = "UPDATE horario_empleado (hor_validacion) VALUES('".$validacion."') WHERE FK_emp_cedula = '".$cedulaExcel."'";
+            $result = mysqli_query($conn, $query2); 
+            //NO SE SI AQUI DEBERIA USAR ALGO TIPO BREAK; para romper el CICLO JAJA ;C
+        } 
+    }
 }
 
 //Parametro en caso de que el reporte no este parametrizado
