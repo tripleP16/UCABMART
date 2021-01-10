@@ -111,6 +111,8 @@ class ExcelController extends AppController
     
 
     public function reporteasistenciaexcel ($ruta, $dia_inicio, $dia_fin){
-        die($ruta." ".$dia_inicio." ".$dia_fin);
+        $this->set('rutaArchivo', $ruta);
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
     }
 }
