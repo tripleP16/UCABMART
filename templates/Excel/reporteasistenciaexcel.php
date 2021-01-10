@@ -50,19 +50,19 @@ $numeroMayorDeColumna = Coordinate::columnIndexFromString($letraMayorDeColumna);
 for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
 
     //Las columnas están en este orden: Nombres, Descripción
-    $nombre = $hojaDeProductos->getCellByColumnAndRow(1, $indiceFila);
-    $descripcion = $hojaDeProductos->getCellByColumnAndRow(2, $indiceFila);  
+    $fecha_entrada = $hojaDeProductos->getCellByColumnAndRow(3, $indiceFila);
+    $fecha_salida = $hojaDeProductos->getCellByColumnAndRow(4, $indiceFila);  
 
     //CODIGO PARA COMPARAR Y PONER EL CHECK EN EL QUERY
 
-    //$query = "INSERT INTO horario (ATRIBUTOCHECK) VALUES('".$check."')";
+    $query = "INSERT INTO horario_empleado (hor_validacion) VALUES('".$validacion."')";
     $result = mysqli_query($conn, $query);
 }
 
 //Parametro en caso de que el reporte no este parametrizado
 $Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-$sql = " SELECT FK_emp_cedula,FK_hor_codigo,hor_hora_entrada,hor_hora_salida,hor_dia,hor_validacion,emp_primer_nombre,emp_segundo_nombre,emp_primer_apellido,emp_segundo_apellido,emp_cedula FROM ucabmart.horario_empleado JOIN ucabmart.empleado ON FK_emp_cedula = emp_cedula JOIN ucabmart.horario ON FK_hor_codigo = hor_codigo ";
+$sql = " SELECT FK_emp_cedula,FK_hor_codigo,hor_hora_entrada,hor_hora_salida,hor_dia,hor_validacion,emp_primer_nombre,emp_segundo_nombre,emp_primer_apellido,emp_segundo_apellido,emp_cedula FROM ucabmart.horario_empleado JOIN ucabmart.empleado ON FK_emp_cedula = emp_cedula JOIN ucabmart.horario ON FK_hor_codigo = hor_codigo ORDER BY hor_dia";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte

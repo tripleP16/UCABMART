@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCumplimientoHorario" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bff3bc4a-17c2-46ce-857c-4bc05d7bd3cf">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCABMART"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT *  FROM ucabmart.horario_empleado JOIN ucabmart.empleado ON FK_emp_cedula = emp_cedula JOIN ucabmart.horario ON FK_hor_codigo = hor_codigo ORDER BY hor_dia]]>
+	</queryString>
+	<field name="FK_emp_cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FK_hor_codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="emp_cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="emp_primer_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="emp_segundo_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="emp_primer_apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="emp_segundo_apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="emp_direccion_hab" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FK_lug_codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FK_tie_codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hor_codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hor_hora_entrada" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hor_hora_salida" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hor_dia" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hor_validacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{FK_emp_cedula}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="40" forecolor="#B89F7D" backcolor="#FFFFFF" uuid="c89459b5-66f0-41c2-a3d1-cea377fe80a7"/>
+					<textField>
+						<reportElement x="0" y="0" width="61" height="39" forecolor="#000000" uuid="9b86d5df-933f-4dd4-b04a-9731dd1785fb">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textFieldExpression><![CDATA[$F{FK_emp_cedula}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="61" y="0" width="61" height="39" forecolor="#000000" uuid="e1934371-a546-4916-95a9-4f85f6702926">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{emp_primer_nombre}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="122" y="0" width="61" height="39" forecolor="#000000" uuid="c4990c4d-2095-43cb-8276-f1047b27b3b9">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{emp_segundo_nombre}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="183" y="0" width="61" height="38" forecolor="#000000" uuid="7e90b6da-0e23-48e9-941b-312eec544055">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{emp_primer_apellido}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="246" y="0" width="61" height="38" forecolor="#000000" uuid="6f0f682b-44e9-4a62-a713-fdcf8799efe7">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{emp_segundo_apellido}]]></textFieldExpression>
+					</textField>
+					<textField pattern="d,MMM,yyyy">
+						<reportElement x="307" y="0" width="61" height="39" forecolor="#000000" uuid="743945c5-aaaf-40e1-9a0d-82b4f88bb22d">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{hor_dia}]]></textFieldExpression>
+					</textField>
+					<textField pattern="h:mm a">
+						<reportElement x="368" y="0" width="61" height="38" forecolor="#000000" uuid="3d077f66-8166-4592-a96b-f6e743cc6256">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{hor_hora_entrada}]]></textFieldExpression>
+					</textField>
+					<textField pattern="h:mm a">
+						<reportElement x="429" y="0" width="61" height="39" forecolor="#000000" uuid="f2ca290f-f7d3-4ffc-9492-6bd08c4c9b10">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{hor_hora_salida}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="490" y="0" width="64" height="38" forecolor="#000000" uuid="600dbb59-b380-4cbc-a36c-3b88c3709c7b">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{hor_validacion}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[$F{FK_hor_codigo}]]></groupExpression>
+	</group>
+	<group name="emp_cedula">
+		<groupExpression><![CDATA[$F{emp_cedula}]]></groupExpression>
+	</group>
+	<group name="emp_primer_nombre">
+		<groupExpression><![CDATA[$F{emp_primer_nombre}]]></groupExpression>
+	</group>
+	<group name="emp_segundo_nombre">
+		<groupExpression><![CDATA[$F{emp_segundo_nombre}]]></groupExpression>
+	</group>
+	<group name="emp_primer_apellido">
+		<groupExpression><![CDATA[$F{emp_primer_apellido}]]></groupExpression>
+	</group>
+	<group name="emp_segundo_apellido">
+		<groupExpression><![CDATA[$F{emp_segundo_apellido}]]></groupExpression>
+	</group>
+	<group name="emp_direccion_hab">
+		<groupExpression><![CDATA[$F{emp_direccion_hab}]]></groupExpression>
+	</group>
+	<group name="FK_lug_codigo">
+		<groupExpression><![CDATA[$F{FK_lug_codigo}]]></groupExpression>
+	</group>
+	<group name="FK_tie_codigo">
+		<groupExpression><![CDATA[$F{FK_tie_codigo}]]></groupExpression>
+	</group>
+	<group name="hor_codigo">
+		<groupExpression><![CDATA[$F{hor_codigo}]]></groupExpression>
+	</group>
+	<group name="hor_hora_entrada">
+		<groupExpression><![CDATA[$F{hor_hora_entrada}]]></groupExpression>
+	</group>
+	<group name="hor_hora_salida">
+		<groupExpression><![CDATA[$F{hor_hora_salida}]]></groupExpression>
+	</group>
+	<group name="hor_dia">
+		<groupExpression><![CDATA[$F{hor_dia}]]></groupExpression>
+	</group>
+	<group name="hor_validacion">
+		<groupExpression><![CDATA[$F{hor_validacion}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="141" splitType="Stretch">
+			<frame>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="555" height="95" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="507ed9d8-e9c3-4f55-a814-ae2ebddaae1d"/>
+				<staticText>
+					<reportElement style="Title" positionType="FixRelativeToBottom" x="0" y="0" width="553" height="59" forecolor="#5D4037" uuid="a9a8a200-43d4-4950-835c-42de0246416b"/>
+					<textElement textAlignment="Center">
+						<font size="50" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Cumplimiento de horario]]></text>
+				</staticText>
+				<frame>
+					<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="0" y="62" width="189" height="33" forecolor="#000000" backcolor="#EDFB0C" uuid="372d6798-d1ed-41f9-af15-1a0a04eb34c0">
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</frame>
+				<frame>
+					<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" mode="Opaque" x="189" y="62" width="192" height="33" forecolor="#000000" backcolor="#207D2F" uuid="466508fa-8c2c-4834-ac90-f43530eccca1">
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</frame>
+				<frame>
+					<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="381" y="62" width="174" height="33" forecolor="#000000" backcolor="#18AEE6" uuid="7e7f6d79-e2c8-4b98-8d64-f971abcdbcc5"/>
+				</frame>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="-2" y="110" width="558" height="31" forecolor="#D0B48E" backcolor="#5D4037" uuid="ba949e62-2c37-4640-b60c-c74ca3656d11"/>
+				<staticText>
+					<reportElement x="0" y="5" width="62" height="26" forecolor="#FFFFFF" uuid="5bfce299-5e2c-4153-ab68-07ae6398bd67"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Cédula]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="63" y="0" width="60" height="30" forecolor="#FFFFFF" uuid="dc53e227-0f18-4910-9fc0-4be6418028c4"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Primer Nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="124" y="0" width="60" height="30" forecolor="#FFFFFF" uuid="85ce20c1-4219-43c5-9bfd-631390428f7d"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Segundo Nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="185" y="0" width="60" height="30" forecolor="#FFFFFF" uuid="f33fc3e5-4584-4b03-a357-cf76ba15e45c"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Primer Apellido]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="246" y="0" width="62" height="30" forecolor="#FFFFFF" uuid="50c6d99e-dfe9-498b-b8f1-25fcff07a98a"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Segundo Apellido]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="309" y="5" width="60" height="24" forecolor="#FFFFFF" uuid="2f4de717-5725-460f-aa1e-eb577e219e32"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="369" y="0" width="62" height="30" forecolor="#FFFFFF" uuid="00dd80cd-52ba-4ef2-b214-15837fd6aa6c"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Hora Entrada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="431" y="0" width="60" height="30" forecolor="#FFFFFF" uuid="83ed5d27-f7dd-4663-8289-c746aa9977dd"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[  Hora  Salida]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="491" y="5" width="66" height="24" forecolor="#FFFFFF" uuid="ab3f1e05-f135-492e-9692-462eceb44fb5"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Validación]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="f19460b5-d095-4298-b4a3-ef5f19cc7ffa"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#5D4037" uuid="1108a42b-0fc9-4269-a318-cf56347c24be"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="7b103790-c3e9-402a-8275-1a7ebe265048"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="4d5978e9-fa90-4440-a017-0c82e571177c"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="18" forecolor="#FFFFFF" uuid="7b4687ea-e6b3-41e1-ac99-4ca47e2df6eb"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
