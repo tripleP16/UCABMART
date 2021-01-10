@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-
+use App\Form\ExcelForm;
 /**
  * Excel Controller
  *
@@ -45,17 +45,22 @@ class ExcelController extends AppController
      */
     public function add()
     {
-        $excel = $this->Excel->newEmptyEntity();
+        $ExcelForm = new ExcelForm();
         if ($this->request->is('post')) {
-            $excel = $this->Excel->patchEntity($excel, $this->request->getData());
-            if ($this->Excel->save($excel)) {
-                $this->Flash->success(__('The excel has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            if ($ExcelForm->execute($this->request->getData())) {
+                $attachment = $this->request->getUploadedFile('archivo_excel');
+               
+                $name = $attachment->getClientFilename();
+                $target = WWW_ROOT.'excel'.DS.$name;
+                $attachment->moveTo($target);
+                $this->pruebaexcel($target, $this->request->getData('dia_inicio'),$this->request->getData('dia_fin'));
+                $this->Flash->success('We will get back to you soon.');
+               
+            } else {
+                $this->Flash->error('There was a problem submitting your form.');
             }
-            $this->Flash->error(__('The excel could not be saved. Please, try again.'));
         }
-        $this->set(compact('excel'));
+        
     }
 
     /**
@@ -102,8 +107,11 @@ class ExcelController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function pruebaexcel (){
 
+    
+
+    public function pruebaexcel ($ruta, $dia_inicio, $dia_fin){
+        die($ruta." ".$dia_inicio." ".$dia_fin);
     }
     
 }

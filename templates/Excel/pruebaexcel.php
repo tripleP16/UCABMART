@@ -27,8 +27,8 @@ for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
     $query = "INSERT INTO excelprueba (exce_nombre,exce_descripcion) VALUES('".$nombre."','".$descripcion."')";
     $result = mysqli_query($conn, $query);
 }
-/*// (1) LOAD & USE PHPSPREADSHEET LIBRARY
-require ('../vendor/autoload.php');
+//LOAD & USE PHPSPREADSHEET LIBRARY
+/*require ('../vendor/autoload.php');
 require ('../vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/IOFactory.php');
 require ('../vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/cell/Coordinate.php');
 require ('../vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php');
@@ -43,6 +43,6 @@ $sheet->setCellValue('A1', 'Hello World !');
 
 // (4) SAVE TO FILE
 $writer = new Xlsx($spreadsheet);
-$writer->save('C:/Program Files/xampp/htdocs/UCABMART/salidareportes/hello world.xlsx');*/
+$writer->save('C:/xampp2/htdocs/UCABMART/salidareportes/hello world.xlsx');*/
 
 ?>
