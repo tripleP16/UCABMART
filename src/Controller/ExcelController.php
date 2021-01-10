@@ -102,8 +102,7 @@ class ExcelController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function pruebaexcel (){
+    public function reporteasistenciaexcel (){
 
     }
-    
 }
