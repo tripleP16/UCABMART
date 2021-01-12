@@ -62,7 +62,8 @@ for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
 
     //CODIGO PARA COMPARAR Y PONER EL CHECK EN EL QUERY
     $select = $conn->prepare("SELECT hor_hora_entrada, hor_hora_salida FROM ucabmart.horario JOIN horario_empleado ON FK_hor_codigo =  hor_codigo JOIN empleado ON FK_emp_cedula = emp_cedula WHERE emp_cedula = ? AND hor_codigo = ?");
-    $select->bind_param("si",$cedulaExcel,intval($codigohorarioExcel)); 
+    $vali = intval($codigohorarioExcel);
+    $select->bind_param("si",$cedulaExcel,$vali); 
     $select->execute();
     $result=$select->get_result();
    
