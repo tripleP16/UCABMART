@@ -90,9 +90,9 @@ for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
 }
 
 //Parametro en caso de que el reporte no este parametrizado
-/*$Parametro=new java("java.util.HashMap");
+$Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-//$sql = " SELECT * FROM ucabmart.horario_empleado JOIN ucabmart.empleado ON FK_emp_cedula = emp_cedula JOIN ucabmart.horario ON FK_hor_codigo = hor_codigo WHERE hor_dia BETWEEN  '".$dia_inicio."' AND '".$dia_fin."'  ORDER BY hor_dia";
+$sql = " SELECT * FROM ucabmart.horario_empleado JOIN ucabmart.empleado ON FK_emp_cedula = emp_cedula JOIN ucabmart.horario ON FK_hor_codigo = hor_codigo WHERE hor_dia BETWEEN  '".$dia_inicio."' AND '".$dia_fin."'  ORDER BY hor_dia";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte
@@ -108,6 +108,6 @@ if(file_exists($SalidaReporte))
 
         }
     }
-}*/
+}
 
 ?>
