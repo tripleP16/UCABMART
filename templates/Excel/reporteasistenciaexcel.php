@@ -70,7 +70,7 @@ for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
             if (strtotime($hora_entradaExcel) > strtotime($compa['hor_hora_entrada'])){
                 $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'incumplio' WHERE FK_hor_codigo =  ".$codigohorarioExcel." AND FK_emp_cedula = '".$cedulaExcel."' ;";
                 $result = mysqli_query($conn, $query);
-            }elseif(strtotime($hora_entradaExcel) == strtotime($compa['hor_hora_entrada']) &&  strtotime($hora_salidaExcel) == strtotime($compa['hor_hora_salida'])){
+            }elseif(strtotime($hora_entradaExcel) == strtotime($compa['hor_hora_entrada'])){
                 $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'cumplio' WHERE FK_hor_codigo =  ".$codigohorarioExcel." AND FK_emp_cedula = '".$cedulaExcel."' ;";
                 $result = mysqli_query($conn, $query);
             }elseif(strtotime($hora_entradaExcel) == strtotime($compa['hor_hora_entrada']) &&  strtotime($hora_salidaExcel) > strtotime($compa['hor_hora_salida'])){
