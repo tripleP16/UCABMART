@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+
 
 function DescargarArchivo($fichero)
 {
@@ -50,9 +50,9 @@ $numeroMayorDeColumna = Coordinate::columnIndexFromString($letraMayorDeColumna);
 //Recorre filas; comienza en la fila 2 porque omitimos el encabezado
 for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
 
-    //Las columnas están en este orden: Cedula, Codigo, Hora Entrada, Hora Salida, Dia, Primer Nombre, Segundo Nombre, Primer Apellido, Segundo Apellido
-    $cedulaExcel = $hojaDeProductos->getCellByColumnAndRow(1, $indiceFila);
-    $codigohorarioExcel = $hojaDeProductos->getCellByColumnAndRow(2, $indiceFila);
+//Las columnas están en este orden: Cedula, Codigo, Hora Entrada, Hora Salida, Dia, Primer Nombre, Segundo Nombre, Primer Apellido, Segundo Apellido
+    $cedulaExcel = $hojaDeProductos->getCellByColumnAndRow(1, $indiceFila)->getFormattedValue();
+    $codigohorarioExcel = $hojaDeProductos->getCellByColumnAndRow(2, $indiceFila)->getFormattedValue();
     $hora_entradaExcel = $hojaDeProductos->getCellByColumnAndRow(3, $indiceFila)->getFormattedValue();
     $hora_salidaExcel = $hojaDeProductos->getCellByColumnAndRow(4, $indiceFila)->getFormattedValue(); 
     $diaExcel = $hojaDeProductos->getCellByColumnAndRow(5, $indiceFila); 
@@ -62,15 +62,16 @@ for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
 
     //CODIGO PARA COMPARAR Y PONER EL CHECK EN EL QUERY
     $select = $conn->prepare("SELECT hor_hora_entrada, hor_hora_salida FROM ucabmart.horario JOIN horario_empleado ON FK_hor_codigo =  hor_codigo JOIN empleado ON FK_emp_cedula = emp_cedula WHERE emp_cedula = ? AND hor_codigo = ?");
-    $select->bind_param("si",$cedulaExcel,$codigohorarioExcel); 
+    $select->bind_param("si",$cedulaExcel,intval($codigohorarioExcel)); 
     $select->execute();
     $result=$select->get_result();
+   
     if($hora_entradaExcel != NULL || $hora_entradaExcel != ""){
       $compa = $result->fetch_assoc();
             if (strtotime($hora_entradaExcel) > strtotime($compa['hor_hora_entrada'])){
                 $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'incumplio' WHERE FK_hor_codigo =  ".$codigohorarioExcel." AND FK_emp_cedula = '".$cedulaExcel."' ;";
                 $result = mysqli_query($conn, $query);
-            }elseif(strtotime($hora_entradaExcel) == strtotime($compa['hor_hora_entrada'])){
+            }elseif(strtotime($hora_entradaExcel) == strtotime($compa['hor_hora_entrada']) &&  strtotime($hora_salidaExcel) == strtotime($compa['hor_hora_salida'])){
                 $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'cumplio' WHERE FK_hor_codigo =  ".$codigohorarioExcel." AND FK_emp_cedula = '".$cedulaExcel."' ;";
                 $result = mysqli_query($conn, $query);
             }elseif(strtotime($hora_entradaExcel) == strtotime($compa['hor_hora_entrada']) &&  strtotime($hora_salidaExcel) > strtotime($compa['hor_hora_salida'])){
@@ -89,9 +90,9 @@ for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
 }
 
 //Parametro en caso de que el reporte no este parametrizado
-$Parametro=new java("java.util.HashMap");
+/*$Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-$sql = "SELECT * FROM ucabmart.horario_empleado JOIN ucabmart.empleado ON FK_emp_cedula = emp_cedula JOIN ucabmart.horario ON FK_hor_codigo = hor_codigo WHERE hor_dia BETWEEN  '".$dia_inicio."' AND '".$dia_fin."'  ORDER BY hor_dia";
+//$sql = " SELECT * FROM ucabmart.horario_empleado JOIN ucabmart.empleado ON FK_emp_cedula = emp_cedula JOIN ucabmart.horario ON FK_hor_codigo = hor_codigo WHERE hor_dia BETWEEN  '".$dia_inicio."' AND '".$dia_fin."'  ORDER BY hor_dia";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte
@@ -107,6 +108,6 @@ if(file_exists($SalidaReporte))
 
         }
     }
-}
+}*/
 
 ?>
