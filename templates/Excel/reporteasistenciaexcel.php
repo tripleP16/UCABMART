@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 
 function DescargarArchivo($fichero)
 {
@@ -61,7 +61,7 @@ for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
 
 
     //CODIGO PARA COMPARAR Y PONER EL CHECK EN EL QUERY
-   $select = $conn->prepare("SELECT hor_hora_entrada, hor_hora_salida FROM ucabmart.horario JOIN horario_empleado ON FK_hor_codigo =  hor_codigo JOIN empleado ON FK_emp_cedula = emp_cedula WHERE emp_cedula = ? AND hor_codigo = ?");
+    $select = $conn->prepare("SELECT hor_hora_entrada, hor_hora_salida FROM ucabmart.horario JOIN horario_empleado ON FK_hor_codigo =  hor_codigo JOIN empleado ON FK_emp_cedula = emp_cedula WHERE emp_cedula = ? AND hor_codigo = ?");
     $select->bind_param("si",$cedulaExcel,$codigohorarioExcel); 
     $select->execute();
     $result=$select->get_result();
