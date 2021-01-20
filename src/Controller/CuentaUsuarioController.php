@@ -104,6 +104,15 @@ class CuentaUsuarioController extends AppController
 
 
     public function login(){
-        
+        if($this->request->is('post')){
+            $cuentaUsuario=$this->Auth->identify();
+            if( $cuentaUsuario){
+                $this->Auth->setUser( $cuentaUsuario);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            else{
+                $this->Flash->error('Datos son invalidos, por favor intente nuevamente',['key'=>'auth']);
+            }
+        }
     }
 }

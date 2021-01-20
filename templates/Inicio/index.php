@@ -28,7 +28,7 @@
     </div>
 </div>
         <div>
-             <?= $this->html->link(__('IMPORTAR UN EXCEL'), ['controller'=>'Excel', 'action' =>'pruebaexcel']) ?>
+             <?= $this->html->link(__('IMPORTAR UN EXCEL'), ['controller'=>'Reporte', 'action' =>'archivo']) ?>
         </div>
 <div class="row">
 <div class="col s1 "></div>
