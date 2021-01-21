@@ -15,95 +15,26 @@ class CuentaUsuarioController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
-    {
-        $cuentaUsuario = $this->paginate($this->CuentaUsuario);
-
-        $this->set(compact('cuentaUsuario'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Cuenta Usuario id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $cuentaUsuario = $this->CuentaUsuario->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set(compact('cuentaUsuario'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $cuentaUsuario = $this->CuentaUsuario->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $cuentaUsuario = $this->CuentaUsuario->patchEntity($cuentaUsuario, $this->request->getData());
-            if ($this->CuentaUsuario->save($cuentaUsuario)) {
-                $this->Flash->success(__('The cuenta usuario has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The cuenta usuario could not be saved. Please, try again.'));
-        }
-        $this->set(compact('cuentaUsuario'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Cuenta Usuario id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $cuentaUsuario = $this->CuentaUsuario->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $cuentaUsuario = $this->CuentaUsuario->patchEntity($cuentaUsuario, $this->request->getData());
-            if ($this->CuentaUsuario->save($cuentaUsuario)) {
-                $this->Flash->success(__('The cuenta usuario has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The cuenta usuario could not be saved. Please, try again.'));
-        }
-        $this->set(compact('cuentaUsuario'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Cuenta Usuario id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $cuentaUsuario = $this->CuentaUsuario->get($id);
-        if ($this->CuentaUsuario->delete($cuentaUsuario)) {
-            $this->Flash->success(__('The cuenta usuario has been deleted.'));
-        } else {
-            $this->Flash->error(__('The cuenta usuario could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
 
 
     public function login(){
+        if($this->request->is('post')){
+           // $cuentaUsuario = $this->Auth->identify();
+            
+            $cuentaUsuario = "Hola";
+            if($cuentaUsuario){
+               $this->Auth->setUser($cuentaUsuario);
+                 return $this->redirect(['controller'=>'PersonaNatural','action' => 'index']);
+            }
+        }
+    }
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
+
+
+    public function autenticacion(){
         
     }
 }
