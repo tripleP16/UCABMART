@@ -41,7 +41,7 @@ class Producto extends Entity
         'FK_proveedor' => true,
         'factura' => true,
         'pasillo' => true,
-        'notimart' => true,
+        'producto_notimart' => true,
         'zona' => true,
     ];
 }

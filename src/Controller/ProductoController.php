@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Event\EventInterface;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Producto Controller
@@ -17,9 +19,11 @@ class ProductoController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index()
-    {
+    {   
+        $connection = ConnectionManager::get('default');
         $producto = $this->paginate($this->Producto);
-
+        $query = $connection->execute('SELECT prod_codigo, prod_nombre, prod_descripcion,prod_imagen, prod_precio_bolivar,sub_nombre FROM ucabmart.producto JOIN ucabmart.submarca ON producto.FK_submarca=sub_nombre ');
+        $this->set(compact('query'));
         $this->set(compact('producto'));
     }
 
@@ -33,9 +37,9 @@ class ProductoController extends AppController
     public function view($id = null)
     {
         $producto = $this->Producto->get($id, [
-            'contain' => ['Factura', 'Pasillo', 'Notimart', 'Zona'],
+            'contain' => [],
         ]);
-
+       // $queryvista = $connection->execute('SELECT prod_codigo, prod_nombre, prod_descripcion,prod_imagen, prod_precio_bolivar,sub_nombre FROM ucabmart.producto JOIN ucabmart.submarca ON producto.FK_submarca=sub_nombre' );
         $this->set(compact('producto'));
     }
 
@@ -58,7 +62,7 @@ class ProductoController extends AppController
         }
         $factura = $this->Producto->Factura->find('list', ['limit' => 200]);
         $pasillo = $this->Producto->Pasillo->find('list', ['limit' => 200]);
-        $notimart = $this->Producto->Notimart->find('list', ['limit' => 200]);
+
         $zona = $this->Producto->Zona->find('list', ['limit' => 200]);
         $this->set(compact('producto', 'factura', 'pasillo', 'notimart', 'zona'));
     }
@@ -86,7 +90,7 @@ class ProductoController extends AppController
         }
         $factura = $this->Producto->Factura->find('list', ['limit' => 200]);
         $pasillo = $this->Producto->Pasillo->find('list', ['limit' => 200]);
-        $notimart = $this->Producto->Notimart->find('list', ['limit' => 200]);
+    
         $zona = $this->Producto->Zona->find('list', ['limit' => 200]);
         $this->set(compact('producto', 'factura', 'pasillo', 'notimart', 'zona'));
     }
