@@ -5,6 +5,7 @@
 /logs/*
 /tmp/*
 /vendor/*
+/reportes/*
 
 # OS generated files #
 ######################
