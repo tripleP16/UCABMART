@@ -229,7 +229,6 @@
             })
             }else{
                 vacio('parroquia');
-                vacio('municipio');
                
             }
             
@@ -259,14 +258,15 @@
         function vacio(id){
             $('#'+id).empty();
             var tabla = [];
-            tabla +=`<option value = "-1" disabled> Seleccione un ${id} </option>`
+            tabla +=`<option value = "-1" > Seleccione un ${id} </option>`
             $('#'+id).append(tabla);
           
         }
         function desplegar(data, id){
             $('#'+id).empty();
             var tabla = [];
-            tabla +=`<option value = "-1" disabled> Seleccione un ${id} </option>`
+            
+            tabla +=`<option value = "-1" > Seleccione un ${id} </option>`
             for(let i = 0 ; i<data.lugar.length; i++){
                 tabla +=`<option value = "${data.lugar[i].lug_codigo}"> ${data.lugar[i].lug_nombre} </option>`
             }
