@@ -8,4 +8,13 @@ if (!isset($params['escape']) || $params['escape'] !== false) {
     $message = h($message);
 }
 ?>
-<span class="error" onclick="this.classList.add('hidden');"><?= $message ?></div>
+ <div class="card-panel white center" id="err"><span class="error center" onclick="this.classList.add('hidden');"><strong><?= $message ?></strong></span></div>
+
+ <script>
+    $(document).ready(function(){
+        $('#err').click(function(){
+            $('#err').hide()
+        })
+    })
+ </script>
+
