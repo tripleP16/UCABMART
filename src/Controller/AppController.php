@@ -56,6 +56,7 @@ class AppController extends Controller
                 'fields' => ['username' => 'cue_usu_email', 'password' => 'cue_usu_contrasena']
             ]
         ]);
+
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
@@ -67,5 +68,13 @@ class AppController extends Controller
         
     }
 
+    public function isAuthorized( $cuentaUsuario)
+    {
+        return true;
+    }
 
+    public function home() 
+    {
+        $this->render();
+    }
 }

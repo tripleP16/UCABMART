@@ -40,6 +40,7 @@ class CuentaUsuarioController extends AppController
     }
 
 
+
     public function autenticacion($email, $contrasena){
         $connection = ConnectionManager::get('default');
         $query = $connection->execute('SELECT cue_usu_email, cue_usu_contrasena FROM cuenta_usuario WHERE cue_usu_email = :e',['e'=>$email])->fetchAll('assoc');
@@ -89,5 +90,6 @@ class CuentaUsuarioController extends AppController
         }
 
         return $respuesta ; 
+
     }
 }
