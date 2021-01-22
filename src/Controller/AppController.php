@@ -46,36 +46,17 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         set_time_limit(0);
         ini_set('memory_limit', '10000M');
-       /*$this->loadComponent('Auth',[
-            'authorize'=>['Controller'],
-            'authenticate'=>[
-                'Form'=>[
-                    'fields'=>[
-                        'username'=>'cue_usu_email',
-                        'password'=>'cue_usu_contrasena'
-                    ]
-                ]
-
-            ],
-            'loginAction'=>[
-                'controller'=>'cuentaUsuario',
-                'action'=>'login'
-            ],
-            'authError'=>'Ingrese sus datos',
-            'loginRedirect'=>[
-                'controller'=>'cuentaUsuario',
-                'action'=>'Home'
-
-            ],
-            'logoutRedirect'=>[
-                'controller'=>'cuentaUsuario',
-                'action'=>'login'
-
+        $this->loadComponent('Auth', [
+            'loginAction' => [
+                'controller' => 'CuentaUsuario',
+                'action' => 'login',
+                //'plugin' => 'Users'
+            ], 
+            'Form' => [
+                'fields' => ['username' => 'cue_usu_email', 'password' => 'cue_usu_contrasena']
             ]
+        ]);
 
-        ]);*/
-       
-   
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
