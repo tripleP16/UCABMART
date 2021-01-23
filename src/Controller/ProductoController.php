@@ -39,8 +39,8 @@ class ProductoController extends AppController
         $producto = $this->Producto->get($id, [
             'contain' => [],
         ]);
-
-        $prueba = $this->autenticacion($this->request->getData('prod_codigo'));
+        die($this->request->getSession()->read('Auth.User.email')); /// ACAAAAAAA ESTA TU EMAILLLL DIEGOOOOOOOOOOOOOO
+        $prueba = $this->request->getData('prod_codigo');
 
         
         //$queryvista = $connection->execute('SELECT prod_codigo, prod_nombre, prod_descripcion,prod_imagen, prod_precio_bolivar,sub_nombre FROM ucabmart.producto JOIN ucabmart.submarca ON producto.FK_submarca=sub_nombre' );
