@@ -26,6 +26,15 @@ class ProductoController extends AppController
         $this->set(compact('query'));
         $this->set(compact('producto'));
     }
+    public function carrito()
+    {   
+        $connection = ConnectionManager::get('default');
+        $producto = $this->paginate($this->Producto);   
+        $query = $connection->execute('SELECT prod_codigo,car_unidades_de_producto,car_com_precio FROM ucabmart.carrito_de_compras_virtual');
+        $this->set(compact('query'));
+        $this->set(compact('producto'));
+    }
+
 
     /**
      * View method
@@ -41,10 +50,9 @@ class ProductoController extends AppController
         ]);
         //die($this->request->getSession()->read('Auth.User.email')); /// ACAAAAAAA ESTA TU EMAILLLL DIEGOOOOOOOOOOOOOO
         $Total = $this->cuantohay($id);
-        
         $this->set('Total',$Total);
 
-
+        $Pedido=$this->request->getData('cantidad');
         
         //$queryvista = $connection->execute('SELECT prod_codigo, prod_nombre, prod_descripcion,prod_imagen, prod_precio_bolivar,sub_nombre FROM ucabmart.producto JOIN ucabmart.submarca ON producto.FK_submarca=sub_nombre' );
         $this->set(compact('producto'));
@@ -128,4 +136,11 @@ class ProductoController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+/**
+ * CarritoDeComprasVirtual Controller
+ *
+ * @property \App\Model\Table\CarritoDeComprasVirtualTable $CarritoDeComprasVirtual
+ * @method \App\Model\Entity\CarritoDeComprasVirtual[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ */
+
 }

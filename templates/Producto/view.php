@@ -46,7 +46,7 @@
 
 
 <tr>
-  <td><?= $this->Html->link(__('Agregar al carrito'), ['action' => 'add'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?></td>
+  <td><?= $this->Html->link(__('Agregar al carrito'), ['controller' => 'CarritoDeComprasVirtual', 'action' => 'index'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?></td>
 </tr>
 
 
