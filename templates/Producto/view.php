@@ -34,14 +34,14 @@
 <tr>
 <td>            <div class=" input-field col inline s12"> 
                 <?php
-                    echo $this->Form->control('prod_codigo', array(
+                    echo $this->Form->control('cantidad', array(
                             'placeholder'=>'00',
                             'label'=> 'Cantidad', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
 
                     ));?>
-            </div><b>Cantidad maxima actual 9000</b></td>
+            </div><b>Cantidad maxima actual<?= $this->Number->format($Total) ?> </b></td>
 </tr>
 
 

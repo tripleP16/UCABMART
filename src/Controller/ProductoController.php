@@ -39,13 +39,23 @@ class ProductoController extends AppController
         $producto = $this->Producto->get($id, [
             'contain' => [],
         ]);
-        die($this->request->getSession()->read('Auth.User.email')); /// ACAAAAAAA ESTA TU EMAILLLL DIEGOOOOOOOOOOOOOO
-        $prueba = $this->request->getData('prod_codigo');
+        //die($this->request->getSession()->read('Auth.User.email')); /// ACAAAAAAA ESTA TU EMAILLLL DIEGOOOOOOOOOOOOOO
+        $Total = $this->cuantohay($id);
+        
+        $this->set('Total',$Total);
+
 
         
         //$queryvista = $connection->execute('SELECT prod_codigo, prod_nombre, prod_descripcion,prod_imagen, prod_precio_bolivar,sub_nombre FROM ucabmart.producto JOIN ucabmart.submarca ON producto.FK_submarca=sub_nombre' );
         $this->set(compact('producto'));
     }
+
+    public function cuantohay($productocodigo){
+        $connection = ConnectionManager::get('default');
+        $cantidad = $connection->execute('SELECT SUM(zon_pro_cantidad_de_producto) as Total FROM zona_producto where prod_codigo= :i',['i'=>$productocodigo])->fetchAll('assoc');
+        return $cantidad[0]['Total'];
+    }
+
 
     /**
      * Add method
