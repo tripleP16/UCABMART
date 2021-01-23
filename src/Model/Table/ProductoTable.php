@@ -47,22 +47,22 @@ class ProductoTable extends Table
         $this->setPrimaryKey('prod_codigo');
 
         $this->belongsToMany('Factura', [
-            'foreignKey' => 'producto_id',
-            'targetForeignKey' => 'factura_id',
+            'foreignKey' => 'prod_codigo',
+            'targetForeignKey' => 'fac_numero',
             'joinTable' => 'factura_producto',
         ]);
         $this->belongsToMany('Pasillo', [
-            'foreignKey' => 'producto_id',
+            'foreignKey' => 'prod_codigo',
             'targetForeignKey' => 'pasillo_id',
             'joinTable' => 'pasillo_producto',
         ]);
         $this->belongsToMany('Notimart', [
-            'foreignKey' => 'producto_id',
+            'foreignKey' => 'prod_codigo',
             'targetForeignKey' => 'notimart_id',
             'joinTable' => 'producto_notimart',
         ]);
         $this->belongsToMany('Zona', [
-            'foreignKey' => 'producto_id',
+            'foreignKey' => 'prod_codigo',
             'targetForeignKey' => 'zona_id',
             'joinTable' => 'zona_producto',
         ]);
