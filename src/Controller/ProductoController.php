@@ -39,7 +39,11 @@ class ProductoController extends AppController
         $producto = $this->Producto->get($id, [
             'contain' => [],
         ]);
-       // $queryvista = $connection->execute('SELECT prod_codigo, prod_nombre, prod_descripcion,prod_imagen, prod_precio_bolivar,sub_nombre FROM ucabmart.producto JOIN ucabmart.submarca ON producto.FK_submarca=sub_nombre' );
+
+        $prueba = $this->autenticacion($this->request->getData('prod_codigo'));
+
+        
+        //$queryvista = $connection->execute('SELECT prod_codigo, prod_nombre, prod_descripcion,prod_imagen, prod_precio_bolivar,sub_nombre FROM ucabmart.producto JOIN ucabmart.submarca ON producto.FK_submarca=sub_nombre' );
         $this->set(compact('producto'));
     }
 
