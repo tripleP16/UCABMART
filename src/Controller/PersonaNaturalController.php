@@ -20,8 +20,15 @@ class PersonaNaturalController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function beforeFilter(EventInterface $event){
+        parent::beforeFilter($event);
+        $this->Auth->allow(['add','getEstados', 'getTiendas', 'municipios', 'parroquias']);
+        
+    }
    
-   
+    public function initialize():void{
+        parent::initialize();
+    }
    
     public function index()
     {
@@ -66,7 +73,7 @@ class PersonaNaturalController extends AppController
             $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());  // SE INSERTA LA PERSONA NATURAL 
             if ($this->PersonaNatural->save($personaNatural)) {
                
-                    return $this->redirect(['controller'=>'PersonaNatural','action' => 'index']);
+                    return $this->redirect(['controller'=>'Inicio','action' => 'index']);
 
                 
             }

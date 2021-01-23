@@ -54,9 +54,21 @@ $cakeDescription = 'UCABMART pague y lleve';
                 <li class="col s6 l5 xl7 ">
                     <?= $this->Element('barrabusquedaform')?>
                 </li>
-                <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Login'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>
+                <?php
+                    if($loggedIn):
+                ?>
+                    <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Logout'), ['controller'=>'CuentaUsuario', 'action' =>'logout']);?></li>
+                <?php 
+                    else:
+                ?>
+                     <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Login'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>
+                     <li class="col s1 l1 xl1 right"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li> 
+                <?php 
+                    endif;
+                ?>
+
                 <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
-                <li class="col s1 l1 xl1 right"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>  
+                 
             </ul>
         </div>
         <ul class="sidenav brown darken-2" id="mobile-nav">
