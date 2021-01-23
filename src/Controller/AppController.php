@@ -63,18 +63,15 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
+
     
-    public function beforeFilter(EventInterface $event){
-        
+    public function beforeRender(EventInterface $event){
+        if($this->request->getSession()->read('Auth.User')){
+            $this->set('loggedIn', true);
+        }else{
+            $this->set('loggedIn', false);
+        }
     }
 
-    public function isAuthorized( $cuentaUsuario)
-    {
-        return true;
-    }
 
-    public function home() 
-    {
-        $this->render();
-    }
 }

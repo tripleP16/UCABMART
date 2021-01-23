@@ -35,10 +35,9 @@ class CuentaUsuarioController extends AppController
     }
     public function logout()
     {
-        $session->destroy();
+        $this->request->getSession()->destroy();
         return $this->redirect($this->Auth->logout());
     }
-
 
 
     public function autenticacion($email, $contrasena){

@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Datasource\ConnectionManager;
+
+use Cake\Event\EventInterface;
+
+
 /**
  * PersonaJuridica Controller
  *
@@ -16,6 +20,8 @@ class PersonaJuridicaController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+
+    
     public function index()
     {
         $connection = ConnectionManager::get('default');
@@ -23,7 +29,17 @@ class PersonaJuridicaController extends AppController
 
         $this->set(compact('query'));
     }
+    public function beforeFilter(EventInterface $event){
+        parent::beforeFilter($event);
+        $this->Auth->allow(['add','getEstados', 'getTiendas', 'municipios', 'parroquias']);
+        
+    }
 
+    
+    public function initialize():void{
+        parent::initialize();
+    }
+   
     /**
      * View method
      *
