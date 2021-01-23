@@ -68,13 +68,5 @@ class AppController extends Controller
         
     }
 
-    public function isAuthorized( $cuentaUsuario)
-    {
-        return true;
-    }
 
-    public function home() 
-    {
-        $this->render();
-    }
 }

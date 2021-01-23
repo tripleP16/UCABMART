@@ -41,7 +41,7 @@
                             'type'=>'text'
 
                     ));?>
-            </div><b>Cantidad maxima actual 9000</b></td>
+            </div><b>Cantidad maxima actual<?= $this->Number->format($Total) ?> </b></td>
 </tr>
 
 
