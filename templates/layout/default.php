@@ -46,10 +46,20 @@ $cakeDescription = 'UCABMART pague y lleve';
 </head>
 <body>
 <ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
+    <?php
+        foreach ($privilegios as $privilegio): ?>
+    <?php
+        if($privilegio == 'E nat'):
+    ?>
+        <li><?= $this->Html->link(__('Editar Usuario'), ['controller'=>'PersonaNatural','action' => 'edit', $this->request->getSession()->read('Auth.User.Persona')]) ?></li>
+        <li><?= $this->Html->link(__('Ver Carnet'), ['controller'=>'Reporte','action' => 'personanaturalreport',$this->request->getSession()->read('Auth.User.Persona'), $tienda]) ?></li>
+    <?php 
+         endif;
+                    
+    ?>
+    <?php
+        endforeach;
+    ?>
 </ul>
     <nav class="row  brown darken-2">
         <div class="nav-wrapper row">
@@ -75,6 +85,7 @@ $cakeDescription = 'UCABMART pague y lleve';
                      <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li> 
                 <?php 
                     endif;
+                    
                 ?>
 
                  <!-- Faltan los links , hay que hacer el login para eso -->
