@@ -72,14 +72,23 @@ class PersonaNaturalController extends AppController
         if ($this->request->is('post')) {
             $personaNatural = $this->PersonaNatural->patchEntity($personaNatural, $this->request->getData());  // SE INSERTA LA PERSONA NATURAL 
             if ($this->PersonaNatural->save($personaNatural)) {
-               
+                    $this->insertarRol($this->request->getData('cuenta_usuario.cue_usu_email'));
                     return $this->redirect(['controller'=>'Inicio','action' => 'index']);
 
                 
             }
             
         }
+        
         $this->set(compact('personaNatural'));
+    }
+
+    public function insertarRol($email){
+        $connection = ConnectionManager::get('default');
+        $connection->insert('rol_cuenta_usuario', [
+            'rol_codigo'=>9, 
+            'cue_usu_email'=>$email
+        ]);
     }
 
     public function getTiendas(){

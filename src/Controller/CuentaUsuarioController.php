@@ -27,7 +27,7 @@ class CuentaUsuarioController extends AppController
                 }else{
                     $cuentaUsuario = $this->cuentaUsuario($this->request->getData('cue_usu_email')); 
                     $this->Auth->setUser($cuentaUsuario);
-                    return $this->redirect(['controller'=>'PersonaNatural','action' => 'index']);
+                    return $this->redirect(['controller'=>'Inicio','action' => 'index']);
                 }
                
             }
