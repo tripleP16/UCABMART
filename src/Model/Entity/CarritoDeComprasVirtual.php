@@ -27,6 +27,7 @@ class CarritoDeComprasVirtual extends Entity
     protected $_accessible = [
         'car_unidades_de_producto' => true,
         'car_com_precio' => true,
+        'prod_codigo' => true,
     
     ];
 }
