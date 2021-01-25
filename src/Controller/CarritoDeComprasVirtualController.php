@@ -98,6 +98,7 @@ class CarritoDeComprasVirtualController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $carritoDeComprasVirtual = $this->CarritoDeComprasVirtual->get($id);
+        die($this->CarritoDeComprasVirtual->get($id));
         if ($this->CarritoDeComprasVirtual->delete($carritoDeComprasVirtual)) {
             $this->Flash->success(__('The carrito de compras virtual has been deleted.'));
         } else {

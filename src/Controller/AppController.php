@@ -103,7 +103,6 @@ class AppController extends Controller
             $tienda = $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
             $this->set('tienda',$tienda);
             $this->set('privilegios', $privilegios);
-            
             $this->set('loggedIn', true);
         }else{
             $this->set('loggedIn', false);
