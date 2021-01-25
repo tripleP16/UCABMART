@@ -12,6 +12,7 @@
         <table id="tiendas" class="responsive-table centered highlight">
             <thead>
                 <tr>
+                    <th>Prueba</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
                     <th>Precio </th>

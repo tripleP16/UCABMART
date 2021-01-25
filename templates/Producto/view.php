@@ -38,16 +38,22 @@
                             'placeholder'=>'00',
                             'label'=> 'Cantidad', 
                             'templates'     => ['inputContainer' => '{{content}}'],
-                            'type'=>'text'
+                            'type'=>'number'
 
                     ));?>
+
+
             </div><b>Cantidad maxima actual<?= $this->Number->format($Total) ?> </b></td>
 </tr>
 
-
+<?php foreach ($query as $query) :?>
+<?php if ($query['prod_codigo']=$producto->prod_codigo):?>
 <tr>
-  <td><?= $this->Html->link(__('Agregar al carrito') ,['controller' => 'CarritoDeComprasVirtual', 'action' => 'index', $query['cantidad'],$Total], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?></td>
+<td><?= h($query['prod_codigo']) ?></td>
+  <td><?= $this->Html->link(__('Agregar al carrito') ,['controller' => 'CarritoDeComprasVirtual', 'action' => 'index',$query['prod_codigo']], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?></td>
 </tr>
+<?php endif; ?>
 
+<?php endforeach; ?>
 
 </table>
