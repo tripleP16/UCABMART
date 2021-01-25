@@ -20,10 +20,10 @@ class CarritoDeComprasVirtualController extends AppController
     {
             $connection = ConnectionManager::get('default');
             //$validacion=$this->request->getData('cantidad');
-            $precio=$connection->execute('SELECT prod_precio_bolivar FROM ucabmart.producto WHERE prod_codigo=:i',['i'=>$id]);
+            //$precio=$connection->execute('SELECT prod_precio_bolivar FROM ucabmart.producto WHERE prod_codigo=:i',['i'=>$id]);
             $sesion=$this->request->getSession()->read('Auth.User.email');
             $carritoDeComprasVirtual = $this->paginate($this->CarritoDeComprasVirtual);   
-            $query2=$connection->execute('INSERT INTO carrito_de_compras_virtual (prod_codigo,cue_usu_email,car_com_precio) VALUES (:A,:B,:C)',['A'=>$id,'B'=>$sesion,'C'=>$precio]);
+            //$query2=$connection->execute('INSERT INTO carrito_de_compras_virtual (prod_codigo,cue_usu_email,car_com_precio) VALUES (:A,:B,:C)',['A'=>$id,'B'=>$sesion,'C'=>$precio]);
             $query = $connection->execute('SELECT prod_codigo,car_unidades_de_producto,car_com_precio FROM ucabmart.carrito_de_compras_virtual WHERE cue_usu_email=:i',['i'=>$sesion]);
             $this->set(compact('query'));
 
