@@ -19,9 +19,12 @@ class CarritoDeComprasVirtualController extends AppController
     public function index()
     {
 
+            
+            $sesion=$this->request->getSession()->read('Auth.User.email');
             $connection = ConnectionManager::get('default');
             $carritoDeComprasVirtual = $this->paginate($this->CarritoDeComprasVirtual);   
-            $query = $connection->execute('SELECT prod_codigo,car_unidades_de_producto,car_com_precio FROM ucabmart.carrito_de_compras_virtual');
+            $query = $connection->execute('SELECT prod_codigo,car_unidades_de_producto,car_com_precio FROM ucabmart.carrito_de_compras_virtual WHERE cue_usu_email=:i',['i'=>$sesion]);
+            
             $this->set(compact('query'));
             $this->set(compact('carritoDeComprasVirtual'));
  
@@ -41,7 +44,7 @@ class CarritoDeComprasVirtualController extends AppController
         ]);
 
         $this->set(compact('carritoDeComprasVirtual'));
-    }
+    } 
 
     /**
      * Add method
@@ -96,14 +99,21 @@ class CarritoDeComprasVirtualController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $carritoDeComprasVirtual = $this->CarritoDeComprasVirtual->get($id);
-        if ($this->CarritoDeComprasVirtual->delete($carritoDeComprasVirtual)) {
-            $this->Flash->success(__('The carrito de compras virtual has been deleted.'));
-        } else {
-            $this->Flash->error(__('The carrito de compras virtual could not be deleted. Please, try again.'));
-        }
 
+        $connection = ConnectionManager::get('default');
+        $sesion=$this->request->getSession()->read('Auth.User.email');
+        $eliminar=$connection->execute('DELETE FROM carrito_de_compras_virtual WHERE prod_codigo=:P AND cue_usu_email=:i',['i'=>$sesion,'P'=>$id]);
         return $this->redirect(['action' => 'index']);
     }
 }
+
+
+/*$this->request->allowMethod(['post', 'delete']);
+$carritoDeComprasVirtual = $this->CarritoDeComprasVirtual->get($id);
+if ($this->CarritoDeComprasVirtual->delete($carritoDeComprasVirtual)) {
+    $this->Flash->success(__('The carrito de compras virtual has been deleted.'));
+} else {
+    $this->Flash->error(__('The carrito de compras virtual could not be deleted. Please, try again.'));
+}
+
+return $this->redirect(['action' => 'index']);*/
