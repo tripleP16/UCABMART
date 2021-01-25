@@ -18,6 +18,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Application Controller
@@ -64,9 +65,45 @@ class AppController extends Controller
         //$this->loadComponent('FormProtection');
     }
 
+    public function obtenerPrivilegios($rol){
+        $connection = ConnectionManager::get('default');
+        $query = $connection->execute('SELECT priv_nombre FROM ucabmart.privilegio JOIN ucabmart.cuenta_privilegio ON cuenta_privilegio.priv_codigo = privilegio.priv_codigo WHERE rol_codigo = :r',['r'=>$rol])->fetchAll('assoc');
+        $respuesta = array();
+        $i = 0;
+        foreach($query as $query){
+         
+            $respuesta+=[ 
+                'Privilegio'[$i] =>$query['priv_nombre']
+            ];
+            $i++;
+        }
+        return $respuesta;
+    }
+
+
+    public function obtenerTienda($persona, $rol){
+        $connection = ConnectionManager::get('default');
+        if($rol == 9){
+            $query = $connection->execute('SELECT FK_tie_codigo FROM ucabmart.persona_natural WHERE per_nat_cedula = :p',['p'=>$persona])->fetchAll('assoc');
+        }elseif($rol== 11){
+            $query = $connection->execute('SELECT FK_tie_codigo FROM ucabmart.persona_juridica WHERE per_jur_rif = :p',['p'=>$persona])->fetchAll('assoc');
+        }else{
+            $query = $connection->execute('SELECT FK_tie_codigo FROM ucabmart.empleado WHERE emp_cedula = :p',['p'=>$persona])->fetchAll('assoc');
+        }
+        return $query[0]['FK_tie_codigo'];
+    }
+
     
     public function beforeRender(EventInterface $event){
+        
+        
         if($this->request->getSession()->read('Auth.User')){
+            $rol = $this->request->getSession()->read('Auth.User')['rol'];
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            $tienda = $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+            $this->set('tienda',$tienda);
+            $this->set('privilegios', $privilegios);
+            
             $this->set('loggedIn', true);
         }else{
             $this->set('loggedIn', false);

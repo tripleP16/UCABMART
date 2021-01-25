@@ -45,30 +45,51 @@ $cakeDescription = 'UCABMART pague y lleve';
     <?= $this->fetch('css') ?>
 </head>
 <body>
+<ul id="dropdown1" class="dropdown-content">
+    <?php
+        foreach ($privilegios as $privilegio): ?>
+    <?php
+        if($privilegio == 'E nat'):
+    ?>
+        <li><?= $this->Html->link(__('Editar Usuario'), ['controller'=>'PersonaNatural','action' => 'edit', $this->request->getSession()->read('Auth.User.Persona')]) ?></li>
+        <li><?= $this->Html->link(__('Ver Carnet'), ['controller'=>'Reporte','action' => 'personanaturalreport',$this->request->getSession()->read('Auth.User.Persona'), $tienda]) ?></li>
+    <?php 
+         endif;
+                    
+    ?>
+    <?php
+        endforeach;
+    ?>
+</ul>
     <nav class="row  brown darken-2">
         <div class="nav-wrapper row">
             <a href="/UCABMART/" class="brand-logo"><img src="/UCABMART/img/logo.png" id="logo"></a>
             <a href="#" data-target="mobile-nav" class="sidenav-trigger" id="menu"><i class="material-icons">menu</i></a>
             <ul class="row hide-on-med-and-down">
                 <div class="col s2"></div>
-                <li class="col s6 l5 xl7 ">
+                <li class="col s5 l4 xl6 ">
                     <?= $this->Element('barrabusquedaform')?>
                 </li>
+               
                 <?php
                     if($loggedIn):
                 ?>
-                    <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Logout'), ['controller'=>'CuentaUsuario', 'action' =>'logout']);?></li>
+                    <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Salir'), ['controller'=>'CuentaUsuario', 'action' =>'logout']);?></li>
+                    <li class="col s2 l2 xl2 right "><a class="dropdown-trigger" data-target="dropdown1">Menu de Usuario<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li>
                 <?php 
                     else:
                 ?>
                      <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Login'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>
-                     <li class="col s1 l1 xl1 right"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li> 
+                     <li class="col s1 l1 xl1 right"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>
+                     <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li> 
                 <?php 
                     endif;
+                    
                 ?>
 
-                <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li> <!-- Faltan los links , hay que hacer el login para eso -->
-                 
+                 <!-- Faltan los links , hay que hacer el login para eso -->
+                
             </ul>
         </div>
         <ul class="sidenav brown darken-2" id="mobile-nav">
