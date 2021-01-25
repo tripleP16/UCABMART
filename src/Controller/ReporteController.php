@@ -161,6 +161,15 @@ class ReporteController extends AppController
         $this->set('dia_fin', $dia_fin);
     }
 
+    public function ingresotiendareport ($dia_inicio, $dia_fin){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+    }
+
+    public function egresotiendareport ($dia_inicio, $dia_fin){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+    }
 
 
 }
