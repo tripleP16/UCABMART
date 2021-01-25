@@ -16,14 +16,19 @@ class CarritoDeComprasVirtualController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index($id=null)
     {
-
             $connection = ConnectionManager::get('default');
+            //$validacion=$this->request->getData('cantidad');
+            $precio=$connection->execute('SELECT prod_precio_bolivar FROM ucabmart.producto WHERE prod_codigo=:i',['i'=>$id]);
+            $sesion=$this->request->getSession()->read('Auth.User.email');
             $carritoDeComprasVirtual = $this->paginate($this->CarritoDeComprasVirtual);   
-            $query = $connection->execute('SELECT prod_codigo,car_unidades_de_producto,car_com_precio FROM ucabmart.carrito_de_compras_virtual');
+            $query2=$connection->execute('INSERT INTO carrito_de_compras_virtual (prod_codigo,cue_usu_email,car_com_precio) VALUES (:A,:B,:C)',['A'=>$id,'B'=>$sesion,'C'=>$precio]);
+            $query = $connection->execute('SELECT prod_codigo,car_unidades_de_producto,car_com_precio FROM ucabmart.carrito_de_compras_virtual WHERE cue_usu_email=:i',['i'=>$sesion]);
             $this->set(compact('query'));
-            $this->set(compact('carritoDeComprasVirtual'));
+
+      
+
  
     }
 
@@ -41,7 +46,7 @@ class CarritoDeComprasVirtualController extends AppController
         ]);
 
         $this->set(compact('carritoDeComprasVirtual'));
-    }
+    } 
 
     /**
      * Add method
@@ -96,15 +101,20 @@ class CarritoDeComprasVirtualController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $carritoDeComprasVirtual = $this->CarritoDeComprasVirtual->get($id);
-        die($this->CarritoDeComprasVirtual->get($id));
-        if ($this->CarritoDeComprasVirtual->delete($carritoDeComprasVirtual)) {
-            $this->Flash->success(__('The carrito de compras virtual has been deleted.'));
-        } else {
-            $this->Flash->error(__('The carrito de compras virtual could not be deleted. Please, try again.'));
-        }
-
+        $connection = ConnectionManager::get('default');
+        $sesion=$this->request->getSession()->read('Auth.User.email');
+        $eliminar=$connection->execute('DELETE FROM carrito_de_compras_virtual WHERE prod_codigo=:P AND cue_usu_email=:i',['i'=>$sesion,'P'=>$id]);
         return $this->redirect(['action' => 'index']);
     }
 }
+
+
+/*$this->request->allowMethod(['post', 'delete']);
+$carritoDeComprasVirtual = $this->CarritoDeComprasVirtual->get($id);
+if ($this->CarritoDeComprasVirtual->delete($carritoDeComprasVirtual)) {
+    $this->Flash->success(__('The carrito de compras virtual has been deleted.'));
+} else {
+    $this->Flash->error(__('The carrito de compras virtual could not be deleted. Please, try again.'));
+}
+
+return $this->redirect(['action' => 'index']);*/

@@ -48,7 +48,10 @@ class ProductoController extends AppController
         $producto = $this->Producto->get($id, [
             'contain' => [],
         ]);
-        //die($this->request->getSession()->read('Auth.User.email')); /// ACAAAAAAA ESTA TU EMAILLLL DIEGOOOOOOOOOOOOOO
+
+        $connection = ConnectionManager::get('default');
+        $query = $connection->execute('SELECT prod_codigo FROM ucabmart.producto ');
+        $this->set(compact('query'));
         $Total = $this->cuantohay($id);
         $this->set('Total',$Total);
 
