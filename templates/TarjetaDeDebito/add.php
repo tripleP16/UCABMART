@@ -28,7 +28,7 @@
 
             <div class=" input-field col inline s12"> 
                         <?php
-                            echo $this->Form->control('tar_deb_fecha_emision')?>
+                            echo $this->Form->control('tar_deb_fecha_emision',array('label'=>'Fecha de emision'))?>
             </div>
 
             <div class=" input-field col inline s12"> 
@@ -46,7 +46,7 @@
                         <?php
                             echo $this->Form->control('tar_deb_tipo_cuenta', array(
                             'placeholder'=>'Ahorro o Corriente',
-                            'label'=> 'Cuenta', 
+                            'label'=> 'Tipo de cuenta (Ahorro o Corriente)', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
 
@@ -57,7 +57,7 @@
                         <?php
                             echo $this->Form->control('tar_deb_tipo', array(
                             'placeholder'=>'MAESTRO',
-                            'label'=> 'Tipo de tarjeta', 
+                            'label'=> 'Tipo de tarjeta (Visa o Maestro)', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
 
@@ -69,7 +69,7 @@
                         <?php
                             echo $this->Form->control('FK_emi_codigo', array(
                             'placeholder'=>'Maximo de tarjetas a registar 5',
-                            'label'=> 'Maximo de tarjetas a registar 5', 
+                            'label'=> 'Codigo', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
 

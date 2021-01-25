@@ -28,7 +28,7 @@
 
             <div class=" input-field col inline s12"> 
                         <?php
-                            echo $this->Form->control('tar_cre_fecha_emision')?>
+                            echo $this->Form->control('tar_cre_fecha_emision',array('label'=>'Fecha de emision'))?>
             </div>
 
             <div class=" input-field col inline s12"> 
@@ -46,7 +46,7 @@
                         <?php
                             echo $this->Form->control('tar_cre_tipo', array(
                             'placeholder'=>'MASTERCARD',
-                            'label'=> 'Cedula', 
+                            'label'=> 'Tipo de tarjeta (MASTERCARD)', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
 
@@ -58,7 +58,7 @@
                         <?php
                             echo $this->Form->control('FK_emi_codigo', array(
                             'placeholder'=>'Maximo de tarjetas a registar 5',
-                            'label'=> 'Cedula', 
+                            'label'=> 'Codigo', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
 
