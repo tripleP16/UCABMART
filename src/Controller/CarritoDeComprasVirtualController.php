@@ -28,6 +28,24 @@ class CarritoDeComprasVirtualController extends AppController
  
     }
 
+    
+
+    public function pagar(){
+        $id=null;
+        $connection = ConnectionManager::get('default');
+        $this->set('total', $this->cuantohayquepagar($id));
+        $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito WHERE Fk_cue_usu_email = :e ',[ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $this->set(compact('query'));
+
+
+    }
+
+    public function cuantohayquepagar($pagar){
+        $connection = ConnectionManager::get('default');
+        $totalapagar=$connection->execute('SELECT  SUM(car_com_precio) AS Prueba FROM ucabmart.carrito_de_compras_virtual WHERE cue_usu_email = :e ',[ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        return $totalapagar[0]['Prueba'];
+    }
+
     function anadirCarrito($producto, $cantidad){
 
         if($this->validar($producto)){
