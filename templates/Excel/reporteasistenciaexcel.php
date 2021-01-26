@@ -105,9 +105,10 @@ if(file_exists($SalidaReporte))
     DescargarArchivo($filename);
     if(file_exists($SalidaReporte))
     {
+        
         if(unlink($filename))
         {
-
+            
         }
     }
 }
