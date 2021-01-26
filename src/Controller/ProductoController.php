@@ -45,20 +45,18 @@ class ProductoController extends AppController
      */
     public function view($id = null)
     {
-        $producto = $this->Producto->get($id, [
-            'contain' => [],
-        ]);
-
         $connection = ConnectionManager::get('default');
-        $query = $connection->execute('SELECT prod_codigo FROM ucabmart.producto ');
-        $this->set(compact('query'));
-        $Total = $this->cuantohay($id);
-        $this->set('Total',$Total);
+        $producto = $connection->execute('SELECT prod_nombre, prod_imagen, prod_precio_bolivar, prod_codigo, prod_descripcion FROM producto WHERE prod_codigo = :i', ['i'=>$id])->fetchAll('assoc');
+        $this->set('total', $this->cuantohay($id));
+        $this->set('producto', $producto );
 
-        $Pedido=$this->request->getData('cantidad');
-        
-        //$queryvista = $connection->execute('SELECT prod_codigo, prod_nombre, prod_descripcion,prod_imagen, prod_precio_bolivar,sub_nombre FROM ucabmart.producto JOIN ucabmart.submarca ON producto.FK_submarca=sub_nombre' );
-        $this->set(compact('producto'));
+        if ($this->request->is('post')) {
+
+            return $this->redirect(['controller'=>'CarritoDeComprasVirtual','action' => 'anadirCarrito', $id, $this->request->getData('cantidad')]);
+
+        }
+
+
     }
 
     public function cuantohay($productocodigo){

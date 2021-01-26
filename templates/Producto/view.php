@@ -5,55 +5,43 @@
  */
 ?>
 
-
-<table class='offset-s2 formulario'>
-
-
-<tr>
-    <td rowspan="7"><img class="activator" src="/UCABMART/img/cebolla.jpg"></td>
-    <td><?= h($producto->prod_nombre) ?></td>
-</tr>
-
-<tr>
-<td><b>Descripcion:</b><?= h($producto->prod_descripcion) ?></td>
-</tr>
-
-
-<tr>
-<td><b>Precio en bolivares:</b><?= h($producto->prod_precio_bolivar)  ?>Bs</td>
-</tr>
-
-<tr>
-<td><b>Submarca asociada:</b><a href="http://localhost/UCABMART/"><?= h($producto->FK_submarca) ?></a></td>
-</tr>
-
-<tr>
-<td><b>Codigo del producto:</b><?= h($producto->prod_codigo) ?></td>
-</tr>
-
-<tr>
-<td>            <div class=" input-field col inline s12"> 
+<div class="row">
+  <div class="col s6 push-s3">
+    <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator imagenProducto" src="<?php echo $producto[0]['prod_imagen']?>" >
+        </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4"><?php echo $producto[0]['prod_nombre']?><i class="material-icons right">more_vert</i></span>
+          <?= $this->Form->create() ?>
+          <div class=" input-field col inline s12"> 
                 <?php
                     echo $this->Form->control('cantidad', array(
                             'placeholder'=>'00',
                             'label'=> 'Cantidad', 
                             'templates'     => ['inputContainer' => '{{content}}'],
-                            'type'=>'number'
+                            'type'=>'number',
+                            'required'=>true
 
                     ));?>
+          </div>
+          <div class=" input-field col inline s12">
+            <span>
+              <strong>Disponibles: </strong>
+              <?php
+                echo $total;
+              ?>
+            </span>
+          </div>
+          <?= $this->Form->button(__('Agregar al carrito') , array('class'=> 'waves-effect yellow accent-2 btn-large black-text')) ?>
+          <?= $this->Form->end() ?>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4"><?php echo $producto[0]['prod_nombre']?><i class="material-icons right">close</i></span>
+          <p><?php echo $producto[0]['prod_descripcion']?></p>
+        </div>
+    </div>
 
-
-            </div><b>Cantidad maxima actual<?= $this->Number->format($Total) ?> </b></td>
-</tr>
-
-<?php foreach ($query as $query) :?>
-<?php if ($query['prod_codigo']=$producto->prod_codigo):?>
-<tr>
-<td><?= h($query['prod_codigo']) ?></td>
-  <td><?= $this->Html->link(__('Agregar al carrito') ,['controller' => 'CarritoDeComprasVirtual', 'action' => 'index',$query['prod_codigo']], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?></td>
-</tr>
-<?php endif; ?>
-
-<?php endforeach; ?>
-
-</table>
+  </div>
+  
+</div>
