@@ -71,14 +71,20 @@ class PersonaJuridicaController extends AppController
         if ($this->request->is('post')) {
             $personaJuridica = $this->PersonaJuridica->patchEntity($personaJuridica, $this->request->getData());
             if ($this->PersonaJuridica->save($personaJuridica)) {
-               
+                $this->insertarRol($this->request->getData('cuenta_usuario.cue_usu_email'));
                 return $this->redirect(['controller'=>'inicio','action' => 'index']);
             }
             
         }
         $this->set(compact('personaJuridica'));
     }
-
+    public function insertarRol($email){
+        $connection = ConnectionManager::get('default');
+        $connection->insert('rol_cuenta_usuario', [
+            'rol_codigo'=>11, 
+            'cue_usu_email'=>$email
+        ]);
+    }
     public function getTiendas(){
         $tiendasSQL = $this->Tienda->tiendas(); 
         $tiendas = $this->Tienda->tiendaSelect($tiendasSQL);

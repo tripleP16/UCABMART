@@ -54,12 +54,108 @@ $cakeDescription = 'UCABMART pague y lleve';
         <li><?= $this->Html->link(__('Editar Usuario'), ['controller'=>'PersonaNatural','action' => 'edit', $this->request->getSession()->read('Auth.User.Persona')]) ?></li>
         <li><?= $this->Html->link(__('Ver Carnet'), ['controller'=>'Reporte','action' => 'personanaturalreport',$this->request->getSession()->read('Auth.User.Persona'), $tienda]) ?></li>
     <?php 
-         endif;
-                    
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'E jur'):
+    ?>
+        <li><?= $this->Html->link(__('Ver Carnet'), ['controller'=>'Reporte', 'action' => 'personajuridicareport', $this->request->getSession()->read('Auth.User.Persona'), $tienda]) ?></li>
+        <li><?= $this->Html->link(__('Editar Usuario'), ['controller'=>'PersonaJuridica','action' => 'edit', $this->request->getSession()->read('Auth.User.Persona')]) ?></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Cajero'):
+    ?>
+        <li><a href="">Ir al cajero</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'E empleado'):
+    ?>
+        <li><?= $this->Html->link(__('Editar Mi Perfil'), ['controller'=>'Empleado','action' => 'Edit',$this->request->getSession()->read('Auth.User.Persona')]) ?></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Comprar'):
+    ?>
+        <li ><a href="">Carro de Compras<i class="material-icons">shopping_cart</i> <span class="new badge">4</span></a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Despedir'):
+    ?>
+        <li><a href="">Despedir Empleado</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Contratar'):
+    ?>
+        <li><a href="">Contratar Empleado</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Notimart'):
+    ?>
+        <li><a href="">Gestion de Empleado</a></li>
+    <?php 
+         endif;              
+    ?>
+
+    <?php
+        if($privilegio == 'Orden de Compra'):
+    ?>
+        <li><a href="">Gestion de Orden de Compra</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Asistencia'):
+    ?>
+        <li><a href="">Asistencia de Empleados</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Rendimiento'):
+    ?>
+        <li><a href="">Rendimiento de tiendas</a></li>
+        <li><a href="">Gestion de Tiendas</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Despacho'):
+    ?>
+        <li><a href="">Departamento de despacho</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Entrega'):
+    ?>
+        <li><a href="">Departamento de Entregas</a></li>
+    <?php 
+         endif;              
+    ?>
+
+    <?php
+        if($privilegio == 'Productos'):
+    ?>
+        <li><a href="">Gestion de Proveedores</a></li>
+        <li><a href="">Gestion de Productos</a></li>
+    <?php 
+         endif;              
     ?>
     <?php
         endforeach;
     ?>
+    
 </ul>
     <nav class="row  brown darken-2">
         <div class="nav-wrapper row">
@@ -67,7 +163,7 @@ $cakeDescription = 'UCABMART pague y lleve';
             <a href="#" data-target="mobile-nav" class="sidenav-trigger" id="menu"><i class="material-icons">menu</i></a>
             <ul class="row hide-on-med-and-down">
                 <div class="col s2"></div>
-                <li class="col s5 l4 xl6 ">
+                <li class="col s4 l3 xl5 ">
                     <?= $this->Element('barrabusquedaform')?>
                 </li>
                
@@ -77,12 +173,14 @@ $cakeDescription = 'UCABMART pague y lleve';
                     <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Salir'), ['controller'=>'CuentaUsuario', 'action' =>'logout']);?></li>
                     <li class="col s2 l2 xl2 right "><a class="dropdown-trigger" data-target="dropdown1">Menu de Usuario<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li>
+                    
                 <?php 
                     else:
                 ?>
                      <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Login'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>
                      <li class="col s1 l1 xl1 right"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>
                      <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li> 
+                     
                 <?php 
                     endif;
                     
