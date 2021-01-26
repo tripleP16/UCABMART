@@ -71,13 +71,13 @@ for ($indiceFila = 2; $indiceFila <= $numeroMayorDeFila; $indiceFila++) {
       $compa = $result->fetch_assoc();
       echo "<p class='white-text'>".$hora_entradaExcel." ".$compa['hor_hora_salida']."</p>";
             if (strtotime($hora_entradaExcel) > strtotime($compa['hor_hora_entrada'])){
-                $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'incumplio' WHERE FK_hor_codigo =  ".intval($codigohorarioExcel)." AND FK_emp_cedula = '".$cedulaExcel."' ;";
+                $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'incumplio', hor_emp_hora_inicio = '".$hora_entradaExcel."', hor_emp_hora_fin = '".$hora_salidaExcel."'  WHERE FK_hor_codigo =  ".intval($codigohorarioExcel)." AND FK_emp_cedula = '".$cedulaExcel."' ;";
                 $result = mysqli_query($conn, $query);
             }elseif(strtotime($hora_entradaExcel) == strtotime($compa['hor_hora_entrada']) &&  strtotime($hora_salidaExcel) == strtotime($compa['hor_hora_salida'])){
-                $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'cumplio' WHERE FK_hor_codigo =  ".intval($codigohorarioExcel)." AND FK_emp_cedula = '".$cedulaExcel."' ;";
+                $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'cumplio', hor_emp_hora_inicio = '".$hora_entradaExcel."', hor_emp_hora_fin = '".$hora_salidaExcel."'   WHERE FK_hor_codigo =  ".intval($codigohorarioExcel)." AND FK_emp_cedula = '".$cedulaExcel."' ;";
                 $result = mysqli_query($conn, $query);
             }elseif(strtotime($hora_entradaExcel) == strtotime($compa['hor_hora_entrada']) &&  strtotime($hora_salidaExcel) > strtotime($compa['hor_hora_salida'])){
-                $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'hora extras' WHERE FK_hor_codigo =  ".intval($codigohorarioExcel)." AND FK_emp_cedula = '".$cedulaExcel."' ;";
+                $query = " UPDATE ucabmart.horario_empleado SET hor_validacion = 'hora extras', hor_emp_hora_inicio = '".$hora_entradaExcel."', hor_emp_hora_fin = '".$hora_salidaExcel."'   WHERE FK_hor_codigo =  ".intval($codigohorarioExcel)." AND FK_emp_cedula = '".$cedulaExcel."' ;";
                 $result = mysqli_query($conn, $query);
             }
     

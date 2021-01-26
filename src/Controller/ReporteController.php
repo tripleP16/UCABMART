@@ -147,6 +147,29 @@ class ReporteController extends AppController
         }else{
             $this->set('identificador',$identificador[0]['per_jur_identificador_tienda'] );
         }
-        $this->set('persona', $persona);
+        $this->set('persona', $persona); 
     }
+
+
+    public function asistenciahorarioinforeport ($dia_inicio, $dia_fin){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+    }
+
+    public function empleadoshorasreport ($dia_inicio, $dia_fin){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+    }
+
+    public function ingresotiendareport ($dia_inicio, $dia_fin){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+    }
+
+    public function egresotiendareport ($dia_inicio, $dia_fin){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+    }
+
+
 }
