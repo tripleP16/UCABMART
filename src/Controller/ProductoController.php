@@ -51,8 +51,15 @@ class ProductoController extends AppController
         $this->set('producto', $producto );
 
         if ($this->request->is('post')) {
+            if($this->request->getData('cantidad') > $this->cuantohay($id)){
+                $this->Flash->error(__("Actualmente no poseemos esa cantidad en el stock"));
+            }elseif( $this->request->getData('cantidad')< 0){
+                $this->Flash->error(__("No puede comprar una cantidad negativa de productos "));
+            }else{
+                return $this->redirect(['controller'=>'CarritoDeComprasVirtual','action' => 'anadirCarrito', $id, $this->request->getData('cantidad')]);
+            }
 
-            return $this->redirect(['controller'=>'CarritoDeComprasVirtual','action' => 'anadirCarrito', $id, $this->request->getData('cantidad')]);
+           
 
         }
 
