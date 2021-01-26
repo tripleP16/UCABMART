@@ -19,7 +19,7 @@ class CarritoDeComprasVirtualController extends AppController
     public function index()
     {
         $connection = ConnectionManager::get('default');
-        $query= $connection->execute('SELECT * FROM ucabmart.carrito_de_compras_virtual WHERE cue_usu_email = :e ', [ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $query= $connection->execute('SELECT producto.prod_codigo, car_unidades_de_producto , car_com_precio, prod_imagen, prod_nombre FROM ucabmart.carrito_de_compras_virtual JOIN producto ON carrito_de_compras_virtual.prod_codigo = producto.prod_codigo WHERE cue_usu_email = :e ', [ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $this->set('query',$query);
 
 

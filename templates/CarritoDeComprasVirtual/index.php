@@ -12,6 +12,7 @@
         <table id="tiendas" class="responsive-table centered highlight">
             <thead>
                 <tr>
+                    <th>Imagen</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
                     <th>Precio </th>
@@ -23,7 +24,8 @@
             <tbody>
                 <?php foreach ($query as $query): ?>
                 <tr>
-                    <td><?= h($query['prod_codigo']) ?></td>
+                    <td><img src="<?= h($query['prod_imagen']) ?>" style="width:200px;" alt=""></td>
+                    <td><?= h($query['prod_nombre']) ?></td>
                     <td><?= h($query['car_unidades_de_producto']) ?></td>
                     <td><?= h($query['car_com_precio']) ?></td>
                     <td class="actions">
@@ -36,3 +38,14 @@
         </table>
     </div>
 </div>
+<script>
+$(document).ready( function () {
+    $('#tiendas').DataTable({
+        
+    });
+    $('select').formSelect();
+    $('input').css('border-top','0px')
+    $('input').css('border-left','0px')
+    $('input').css('border-right','0px')
+} );
+</script>
