@@ -86,6 +86,73 @@ $cakeDescription = 'UCABMART pague y lleve';
          endif;              
     ?>
     <?php
+        if($privilegio == 'Despedir'):
+    ?>
+        <li><a href="">Despedir Empleado</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Contratar'):
+    ?>
+        <li><a href="">Contratar Empleado</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Notimart'):
+    ?>
+        <li><a href="">Gestion de Empleado</a></li>
+    <?php 
+         endif;              
+    ?>
+
+    <?php
+        if($privilegio == 'Orden de Compra'):
+    ?>
+        <li><a href="">Gestion de Orden de Compra</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Asistencia'):
+    ?>
+        <li><a href="">Asistencia de Empleados</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Rendimiento'):
+    ?>
+        <li><a href="">Rendimiento de tiendas</a></li>
+        <li><a href="">Gestion de Tiendas</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Despacho'):
+    ?>
+        <li><a href="">Departamento de despacho</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Entrega'):
+    ?>
+        <li><a href="">Departamento de Entregas</a></li>
+    <?php 
+         endif;              
+    ?>
+
+    <?php
+        if($privilegio == 'Productos'):
+    ?>
+        <li><a href="">Gestion de Proveedores</a></li>
+        <li><a href="">Gestion de Productos</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
         endforeach;
     ?>
     
