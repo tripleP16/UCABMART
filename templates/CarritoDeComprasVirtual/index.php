@@ -6,7 +6,11 @@
 ?>
 
 <div class="row">
-<?= $this->Html->link(__('Realizar compra'), ['action' => 'carrito'], ['class' => ' waves-effect yellow accent-2 btn-large black-text']) ?>
+
+<?= $this->Html->link(__('Realizar compra'), ['action' => 'Pagar'], ['class' => ' waves-effect yellow accent-2 btn-large black-text']) ?>
+
+
+
     <h3 class="white-text"><?= __('Carrito de compras') ?></h3>
     <div class="col s12 white" id="inventarioCont">
         <table id="tiendas" class="responsive-table centered highlight">

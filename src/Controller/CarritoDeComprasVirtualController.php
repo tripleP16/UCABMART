@@ -18,9 +18,11 @@ class CarritoDeComprasVirtualController extends AppController
      */
     public function index()
     {
+
         $connection = ConnectionManager::get('default');
         $query= $connection->execute('SELECT producto.prod_codigo, car_unidades_de_producto , car_com_precio, prod_imagen, prod_nombre FROM ucabmart.carrito_de_compras_virtual JOIN producto ON carrito_de_compras_virtual.prod_codigo = producto.prod_codigo WHERE cue_usu_email = :e ', [ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $this->set('query',$query);
+
 
 
  
@@ -32,7 +34,7 @@ class CarritoDeComprasVirtualController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'Comprar'){
-                    if(in_array($this->request->getParam('action'), array('index', 'anadirCarrito', 'validar','insertar', 'actualizar', 'cantidad', 'precio','delete'))){
+                    if(in_array($this->request->getParam('action'), array('index', 'anadirCarrito', 'validar','insertar', 'actualizar', 'cantidad', 'precio','delete','pagar','cuantohayquepagar'))){
                         return true;
                     }else{
                         return false;
@@ -47,6 +49,23 @@ class CarritoDeComprasVirtualController extends AppController
         }
 
         return false;
+    }
+    
+
+    public function pagar(){
+        $id=null;
+        $connection = ConnectionManager::get('default');
+        $this->set('total', $this->cuantohayquepagar($id));
+        $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito WHERE Fk_cue_usu_email = :e ',[ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $this->set(compact('query'));
+
+
+    }
+
+    public function cuantohayquepagar($pagar){
+        $connection = ConnectionManager::get('default');
+        $totalapagar=$connection->execute('SELECT  SUM(car_com_precio) AS Prueba FROM ucabmart.carrito_de_compras_virtual WHERE cue_usu_email = :e ',[ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        return $totalapagar[0]['Prueba'];
     }
 
     function anadirCarrito($producto, $cantidad){
