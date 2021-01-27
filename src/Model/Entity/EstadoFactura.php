@@ -25,5 +25,7 @@ class EstadoFactura extends Entity
      */
     protected $_accessible = [
         'fac_fecha_hora' => true,
+        'est_codigo'=> true, 
+        'fac_numero'=> true
     ];
 }

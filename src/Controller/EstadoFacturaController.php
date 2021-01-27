@@ -65,6 +65,28 @@ class EstadoFacturaController extends AppController
         $this->set(compact('estadoFactura'));
     }
 
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'Despacho' || $privilegio == 'Entrega'){
+                    if(in_array($this->request->getParam('action'), array('index', 'edit'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                        
+                }
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+
+        return false;
+    }
     /**
      * Edit method
      *
@@ -74,23 +96,45 @@ class EstadoFacturaController extends AppController
      */
     public function edit($codigo,$facNumero)
     {
+       
         $connection = ConnectionManager::get('default');
         $query = $connection->execute('SELECT * FROM ucabmart.estado_factura WHERE fac_numero=:i AND est_codigo=:e',['i'=>$facNumero,'e'=>$codigo])->fetchAll('assoc');
-
-       // $estadoFactura = $this->EstadoFactura->get($id, [
-       //     'contain' => [],
-       // ]);
-
+        $this->set('query',$query );
+        $estados = $this->obtenerEstados();
+        $this->set('estados',$estados );
         if ($this->request->is(['patch', 'post', 'put'])) {
-
-          
+            $this->actualizar($this->request->getData('Estado'), $facNumero, $codigo); 
 
             return $this->redirect(['action' => 'index']);
 
             $this->Flash->error(__('The estado factura could not be saved. Please, try again.'));
         }
-        $this->set(compact('estadoFactura'));
     }
+
+    public function actualizar($estado_codigo, $facNumero, $codigoPrevio){
+        $connection = ConnectionManager::get('default');
+        $connection->update('estado_factura', ['est_codigo' => $estado_codigo], ['est_codigo'=>$codigoPrevio, 'fac_numero'=>$facNumero]);
+
+    }
+
+    public function obtenerEstados(){ 
+        $connection = ConnectionManager::get('default');
+        $query = $connection->execute('SELECT * FROM ucabmart.estado')->fetchAll('assoc');
+        return $this->devolverSelect($query);
+    }
+
+    public function devolverSelect($estadoSQL){
+        $estados = array() ; 
+        $i = 0;
+        foreach($estadoSQL as $estado){
+            $estados += [
+                $estadoSQL[$i]['est_codigo']=>$estadoSQL[$i]['est_nombre']
+            ];
+            $i ++;
+        };
+        return $estados;
+    }
+
 
     /**
      * Delete method
