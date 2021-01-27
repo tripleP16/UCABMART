@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Datasource\ConnectionManager;
+use Cake\Event\EventInterface;
 
 /**
  * CuentaUsuario Controller
@@ -17,7 +18,11 @@ class CuentaUsuarioController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      */
 
-
+    public function beforeFilter(EventInterface $event){
+        parent::beforeFilter($event);
+        $this->Auth->allow(['login','logout']);
+        
+    }
     public function login(){
         if($this->request->is('post')){
             $cuentaUsuario = $this->autenticacion($this->request->getData('cue_usu_email'),$this->request->getData('cue_usu_contrasena'));

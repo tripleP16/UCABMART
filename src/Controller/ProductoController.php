@@ -18,6 +18,12 @@ class ProductoController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+
+    public function beforeFilter(EventInterface $event){
+        parent::beforeFilter($event);
+        $this->Auth->allow(['index','view']);
+        
+    }
     public function index()
     {   
         $connection = ConnectionManager::get('default');
@@ -35,6 +41,28 @@ class ProductoController extends AppController
         $this->set(compact('producto'));
     }
 
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'Comprar'){
+                    if(in_array($this->request->getParam('action'), array('carrito'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                        
+                }
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+
+        return false;
+    }
 
     /**
      * View method

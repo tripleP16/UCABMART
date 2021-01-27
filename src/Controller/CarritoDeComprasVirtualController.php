@@ -26,6 +26,29 @@ class CarritoDeComprasVirtualController extends AppController
  
     }
 
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'Comprar'){
+                    if(in_array($this->request->getParam('action'), array('index', 'anadirCarrito', 'validar','insertar', 'actualizar', 'cantidad', 'precio','delete'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                        
+                }
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+
+        return false;
+    }
+
     function anadirCarrito($producto, $cantidad){
 
         if($this->validar($producto)){

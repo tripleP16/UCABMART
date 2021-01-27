@@ -51,11 +51,11 @@ class AppController extends Controller
             'loginAction' => [
                 'controller' => 'CuentaUsuario',
                 'action' => 'login',
-                //'plugin' => 'Users'
             ], 
             'Form' => [
                 'fields' => ['username' => 'cue_usu_email', 'password' => 'cue_usu_contrasena']
-            ]
+            ], 
+            'authorize'=> array('Controller'),
         ]);
 
         /*
@@ -108,6 +108,11 @@ class AppController extends Controller
             $this->set('loggedIn', false);
         }
     }
+
+    
+ 
+
+
 
 
 }

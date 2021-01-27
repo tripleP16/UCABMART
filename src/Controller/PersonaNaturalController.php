@@ -25,6 +25,30 @@ class PersonaNaturalController extends AppController
         $this->Auth->allow(['add','getEstados', 'getTiendas', 'municipios', 'parroquias']);
         
     }
+
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'E nat'){
+                    if(in_array($this->request->getParam('action'), array('edit'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                        
+                }
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+
+        return false;
+    }
+
    
     public function initialize():void{
         parent::initialize();

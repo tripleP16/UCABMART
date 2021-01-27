@@ -68,6 +68,39 @@ class EmpleadoController extends AppController
         $this->set(compact('empleado'));
     }
 
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'E empleado'){
+                    if(in_array($this->request->getParam('action'), array('edit', 'getBeneficios', 'getTiendas','getEstados','municipios', 'parroquias'))){
+                        return true;
+                    }else{
+                        return false;
+                    }            
+                }elseif($privilegio == 'Despedir'){
+                    if(in_array($this->request->getParam('action'), array('delete'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }elseif($privilegio == 'Contratar'){
+                    if(in_array($this->request->getParam('action'), array('add'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+
+        return false;
+    }
 
     public function getBeneficios(){
         $this->loadComponent('Beneficio');
