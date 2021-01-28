@@ -19,7 +19,7 @@
                     <td><?= h($query['met_pag_numero']) ?></td>
                     <td><?= h($query['tar_cre_cvv']) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Pagar'), ['action' => 'View'], ['class'=>'waves-effect waves-light btn-large black-text ']) ?>
+                        <?= $this->Html->link(__('Pagar'), ['action' => 'procesar'], ['class'=>'waves-effect waves-light btn-large black-text ']) ?>
                        
                     </td>
                 </tr>

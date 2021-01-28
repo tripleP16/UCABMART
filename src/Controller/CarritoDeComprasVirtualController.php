@@ -34,7 +34,7 @@ class CarritoDeComprasVirtualController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'Comprar'){
-                    if(in_array($this->request->getParam('action'), array('index', 'anadirCarrito', 'validar','insertar', 'actualizar', 'cantidad', 'precio','delete','pagar','cuantohayquepagar'))){
+                    if(in_array($this->request->getParam('action'), array('index', 'anadirCarrito', 'validar','insertar', 'actualizar', 'cantidad', 'precio','delete','pagar','cuantohayquepagar','procesar'))){
                         return true;
                     }else{
                         return false;
@@ -121,6 +121,90 @@ class CarritoDeComprasVirtualController extends AppController
         $query = $connection->execute('SELECT prod_precio_bolivar FROM ucabmart.producto WHERE prod_codigo= :p', ['p'=>$producto])->fetchAll('assoc');
         return $query[0]['prod_precio_bolivar'];
     }
+
+    function procesar (){
+
+        $validacion=NULL;
+        if($this->validarcompra($validacion)){
+            $this->insertarpersonanatural();
+
+        }else{
+            $this->insertarpersonajuridica();
+        }
+
+        $ultimo= $connection->execute('SELECT MAX(fac_numero) FROM factura WHERE FK_cuenta_usuario=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $this->insertarestadofactura($ultimo);
+        return $this->redirect(['action' => 'index']);
+
+    }
+
+    function validarcompra($validacion){
+        $connection = ConnectionManager::get('default');
+        $query= $connection->execute('SELECT FK_persona_natural,FK_persona_juridica FROM cuenta_usuario WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        
+        if($query[0]['FK_persona_natural'] == null){
+            return false; 
+        }else{
+            return true;
+        }
+    }
+
+    function insertarestadofactura($ultimo){
+
+        $connection = ConnectionManager::get('default');
+        $fecha=$connection->execute('SELECT NOW()');
+        $connection->insert('estado_factura',[
+            'est_codigo'=>3,
+            'fac_numero'=>$ultimo,
+            'fac_fecha_hora'=>$fecha
+            ]);
+
+    }
+
+    function insertarpersonanatural(){
+
+        $connection = ConnectionManager::get('default');
+        $id=null;
+        $fecha=$connection->execute('SELECT CURDATE()');
+        $cedula=$connection->execute('SELECT FK_persona_natural FROM cuenta_usuario WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $pagar=$this->cuantohayquepagar($id);
+        $connection->insert('factura',[
+            //'fac_numero'=>NULL, 
+            'fac_fecha_hora'=>$fecha,
+            'FK_mon_codigo'=>1,
+            'FK_dir_en_codigo'=>4,
+            'FK_persona_natural'=>$cedula,
+            'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
+            'fac_puntos_generado'=>$pagar/100000,
+            'fac_total'=>$pagar,
+            'FK_tie_codigo'=>1
+        ]);
+        
+
+    }
+
+    function insertarpersonajuridica(){
+
+        $connection = ConnectionManager::get('default');
+        $id=null;
+        $fecha=$connection->execute('SELECT CURDATE()');
+        $cedula=$connection->execute('SELECT FK_persona_juridica FROM cuenta_usuario WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $pagar=$this->cuantohayquepagar($id);
+        $connection->insert('factura',[
+            //'fac_numero'=>NULL, 
+            'fac_fecha_hora'=>$fecha,
+            'FK_mon_codigo'=>1,
+            'FK_dir_en_codigo'=>4,
+            'FK_persona_juridica'=>$cedula,
+            'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
+            'fac_puntos_generado'=>$pagar/100000,
+            'fac_total'=>$pagar,
+            'FK_tie_codigo'=>1
+        ]);
+
+    }
+
+
     /**
      * View method
      *
