@@ -65,26 +65,26 @@ class CuentaUsuarioController extends AppController
 
     public function cuentaUsuario($email){
         $connection = ConnectionManager::get('default');
-        $query = $connection->execute('SELECT cue_usu_puntos, FK_persona_natural, FK_persona_juridica, FK_empleado , rol_codigo FROM cuenta_usuario JOIN rol_cuenta_usuario ON cuenta_usuario.cue_usu_email = rol_cuenta_usuario.cue_usu_email WHERE rol_cuenta_usuario.cue_usu_email = :e',['e'=>$email])->fetchAll('assoc');
+        $query = $connection->execute('SELECT cue_usu_puntos, FK_persona_natural, FK_persona_juridica, FK_empleado  FROM cuenta_usuario WHERE cue_usu_email = :e',['e'=>$email])->fetchAll('assoc');
         $respuesta = array();
         foreach($query as $query){
            if($query['FK_persona_natural']!=null){
                $respuesta+=[
                    'Persona'=>$query['FK_persona_natural'],
-                   'rol' => $query['rol_codigo'], 
+                   'rol' => $this->obtenerRoles($email), 
                    'email'=> $email
                ];
            }elseif($query['FK_persona_juridica']!=null){
             $respuesta+=[
                 'Persona'=>$query['FK_persona_juridica'],
-                'rol' => $query['rol_codigo'], 
+                'rol' => $this->obtenerRoles($email), 
                 'email'=> $email
 
             ];
            }else{
             $respuesta+=[
                 'Persona'=>$query['FK_empleado'], 
-                'rol' => $query['rol_codigo'], 
+                'rol' => $this->obtenerRoles($email), 
                 'email'=> $email
             ];
            }
@@ -95,5 +95,12 @@ class CuentaUsuarioController extends AppController
 
         return $respuesta ; 
 
+    }
+
+
+    public function obtenerRoles($email){
+        $connection = ConnectionManager::get('default');
+        $query = $connection->execute('SELECT rol_codigo FROM rol_cuenta_usuario WHERE cue_usu_email = :e',['e'=>$email])->fetchAll('assoc');
+        return $query;
     }
 }
