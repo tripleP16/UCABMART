@@ -46,6 +46,16 @@ class EmpleadoController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
+
+    public function salvarRoles($roles, $usuario){
+        $connection = ConnectionManager::get('default');
+        foreach($roles as $rol){    
+            $connection->insert('rol_cuenta_usuario', [
+            'rol_codigo' => $rol,
+            'cue_usu_email' => $usuario
+            ]);
+        }
+    }
     public function add()
     {
         $this->loadComponent('Lugar');   
@@ -54,11 +64,13 @@ class EmpleadoController extends AppController
         $this->getEstados();
         $this->getTiendas();
         $this->getBeneficios();
+        $this->getRoles();
         $empleado = $this->Empleado->newEmptyEntity();
         if ($this->request->is('post')) {
+            
             $empleado = $this->Empleado->patchEntity($empleado, $this->request->getData());  // SE INSERTA LA PERSONA NATURAL 
             if ($this->Empleado->save($empleado)) {
-               
+                $this->salvarRoles($this->request->getData('roles'), $this->request->getData('cuenta_usuario.cue_usu_email'));
                     return $this->redirect(['controller'=>'inicio','action' => 'index']);
 
                 
@@ -76,22 +88,17 @@ class EmpleadoController extends AppController
                 if($privilegio == 'E empleado'){
                     if(in_array($this->request->getParam('action'), array('edit', 'getBeneficios', 'getTiendas','getEstados','municipios', 'parroquias'))){
                         return true;
-                    }else{
-                        return false;
-                    }            
+                    }           
                 }elseif($privilegio == 'Despedir'){
                     if(in_array($this->request->getParam('action'), array('delete'))){
                         return true;
-                    }else{
-                        return false;
                     }
                 }elseif($privilegio == 'Contratar'){
-                    if(in_array($this->request->getParam('action'), array('add'))){
+                    if(in_array($this->request->getParam('action'), array('add', 'getBeneficios', 'getTiendas','getEstados','municipios', 'parroquias', 'getRoles'))){
                         return true;
-                    }else{
-                        return false;
                     }
                 }
+                
             }
             
             return false;
@@ -102,6 +109,12 @@ class EmpleadoController extends AppController
         return false;
     }
 
+    public function getRoles(){
+        $this->loadComponent('Rol');
+        $rolSQL= $this->Rol->roles(); 
+        $roles = $this->Rol->rolSelect($rolSQL); 
+        $this->set('roles',$roles);
+    }
     public function getBeneficios(){
         $this->loadComponent('Beneficio');
         $beneficioSQL= $this->Beneficio->beneficios(); 

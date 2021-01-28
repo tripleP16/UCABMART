@@ -65,16 +65,14 @@ class AppController extends Controller
         //$this->loadComponent('FormProtection');
     }
 
-    public function obtenerPrivilegios($rol){
+    public function obtenerPrivilegios(){
         $connection = ConnectionManager::get('default');
-        $query = $connection->execute('SELECT priv_nombre FROM ucabmart.privilegio JOIN ucabmart.cuenta_privilegio ON cuenta_privilegio.priv_codigo = privilegio.priv_codigo WHERE rol_codigo = :r',['r'=>$rol])->fetchAll('assoc');
+        $email = $this->request->getSession()->read('Auth.User')['email'];
+        $query = $connection->execute('SELECT DISTINCT priv_nombre FROM privilegio JOIN cuenta_privilegio ON privilegio.priv_codigo = cuenta_privilegio.priv_codigo JOIN rol_cuenta_usuario ON cuenta_privilegio.rol_codigo = rol_cuenta_usuario.rol_codigo WHERE rol_cuenta_usuario.cue_usu_email = :e', ['e'=>$email])->fetchAll('assoc');
         $respuesta = array();
         $i = 0;
         foreach($query as $query){
-         
-            $respuesta+=[ 
-                'Privilegio'[$i] =>$query['priv_nombre']
-            ];
+            $respuesta[$i]= $query['priv_nombre'];
             $i++;
         }
         return $respuesta;
@@ -93,13 +91,13 @@ class AppController extends Controller
         return $query[0]['FK_tie_codigo'];
     }
 
-    
+
     public function beforeRender(EventInterface $event){
         
         
         if($this->request->getSession()->read('Auth.User')){
-            $rol = $this->request->getSession()->read('Auth.User')['rol'];
-            $privilegios = $this->obtenerPrivilegios($rol); 
+            
+            $privilegios = $this->obtenerPrivilegios(); 
             $tienda = $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
             $this->set('tienda',$tienda);
             $this->set('privilegios', $privilegios);
