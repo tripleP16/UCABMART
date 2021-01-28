@@ -54,11 +54,16 @@ class CarritoDeComprasVirtualController extends AppController
 
     public function pagar(){
         $id=null;
-        $connection = ConnectionManager::get('default');
-        $this->set('total', $this->cuantohayquepagar($id));
-        $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito WHERE Fk_cue_usu_email = :e ',[ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
-        $this->set(compact('query'));
-
+        if($this->Validarsihay()==true){
+            $connection = ConnectionManager::get('default');
+            $this->set('total', $this->cuantohayquepagar($id));
+            $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito WHERE Fk_cue_usu_email = :e ',[ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+            $this->set(compact('query'));
+        }else{
+            
+            $this->redirect(['action' => 'index']);
+            $this->Flash->error(__('No tienes nada'));
+        }
 
     }
 
@@ -122,29 +127,47 @@ class CarritoDeComprasVirtualController extends AppController
         return $query[0]['prod_precio_bolivar'];
     }
 
-    function procesar (){
+    function procesar(){
 
         $validacion=NULL;
+        
+    
         if($this->validarcompra($validacion)){
             $this->insertarpersonanatural();
-
         }else{
             $this->insertarpersonajuridica();
-        }
-
-        $ultimo= $connection->execute('SELECT MAX(fac_numero) FROM factura WHERE FK_cuenta_usuario=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
-        $this->insertarestadofactura($ultimo);
+        }   
+        $connection = ConnectionManager::get('default');
+        $ultimo= $connection->execute('SELECT MAX(fac_numero) AS Ultimo FROM factura WHERE FK_cuenta_usuario=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $this->insertarestadofactura($ultimo[0]['Ultimo']);
+        $connection->delete('carrito_de_compras_virtual', ['cue_usu_email' =>$this->request->getSession()->read('Auth.User.email') ]);
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    
+
+    function Validarsihay(){
+
+        $connection = ConnectionManager::get('default');
+        $validacion= $connection->execute('SELECT cue_usu_email FROM carrito_de_compras_virtual WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        if ($validacion==null){
+            return false;
+        }
+        else{
+            return true;
+        }
 
     }
 
     function validarcompra($validacion){
+        
         $connection = ConnectionManager::get('default');
         $query= $connection->execute('SELECT FK_persona_natural,FK_persona_juridica FROM cuenta_usuario WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
-        
         if($query[0]['FK_persona_natural'] == null){
             return false; 
         }else{
+            
             return true;
         }
     }
@@ -152,11 +175,11 @@ class CarritoDeComprasVirtualController extends AppController
     function insertarestadofactura($ultimo){
 
         $connection = ConnectionManager::get('default');
-        $fecha=$connection->execute('SELECT NOW()');
+        $fechaActual = date('Y-m-d H:i:s');
         $connection->insert('estado_factura',[
             'est_codigo'=>3,
             'fac_numero'=>$ultimo,
-            'fac_fecha_hora'=>$fecha
+            'fac_fecha_hora'=>$fechaActual
             ]);
 
     }
@@ -165,15 +188,15 @@ class CarritoDeComprasVirtualController extends AppController
 
         $connection = ConnectionManager::get('default');
         $id=null;
-        $fecha=$connection->execute('SELECT CURDATE()');
+        $fechaActual = date('Y-m-d');
         $cedula=$connection->execute('SELECT FK_persona_natural FROM cuenta_usuario WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $pagar=$this->cuantohayquepagar($id);
+     
         $connection->insert('factura',[
-            //'fac_numero'=>NULL, 
-            'fac_fecha_hora'=>$fecha,
+            'fac_fecha_hora'=>$fechaActual,
             'FK_mon_codigo'=>1,
             'FK_dir_en_codigo'=>4,
-            'FK_persona_natural'=>$cedula,
+            'FK_persona_natural'=>$cedula[0]['FK_persona_natural'],
             'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
             'fac_puntos_generado'=>$pagar/100000,
             'fac_total'=>$pagar,
@@ -187,15 +210,14 @@ class CarritoDeComprasVirtualController extends AppController
 
         $connection = ConnectionManager::get('default');
         $id=null;
-        $fecha=$connection->execute('SELECT CURDATE()');
+        $fechaActual = date('Y-m-d');
         $cedula=$connection->execute('SELECT FK_persona_juridica FROM cuenta_usuario WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $pagar=$this->cuantohayquepagar($id);
         $connection->insert('factura',[
-            //'fac_numero'=>NULL, 
-            'fac_fecha_hora'=>$fecha,
+            'fac_fecha_hora'=>$fechaActual,
             'FK_mon_codigo'=>1,
             'FK_dir_en_codigo'=>4,
-            'FK_persona_juridica'=>$cedula,
+            'FK_persona_juridica'=>$cedula[0]['FK_persona_juridica'],
             'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
             'fac_puntos_generado'=>$pagar/100000,
             'fac_total'=>$pagar,
