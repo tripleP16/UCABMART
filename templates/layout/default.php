@@ -154,6 +154,13 @@ $cakeDescription = 'UCABMART pague y lleve';
          endif;              
     ?>
     <?php
+        if($privilegio == 'Crear Rol'):
+    ?>
+        <li><?= $this->Html->link(__('Crear Rol'), ['controller'=>'rol','action' => 'add']) ?></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
         endforeach;
     ?>
     

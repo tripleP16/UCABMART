@@ -81,13 +81,18 @@ class AppController extends Controller
 
     public function obtenerTienda($persona, $rol){
         $connection = ConnectionManager::get('default');
-        if($rol == 9){
-            $query = $connection->execute('SELECT FK_tie_codigo FROM ucabmart.persona_natural WHERE per_nat_cedula = :p',['p'=>$persona])->fetchAll('assoc');
-        }elseif($rol== 11){
-            $query = $connection->execute('SELECT FK_tie_codigo FROM ucabmart.persona_juridica WHERE per_jur_rif = :p',['p'=>$persona])->fetchAll('assoc');
-        }else{
-            $query = $connection->execute('SELECT FK_tie_codigo FROM ucabmart.empleado WHERE emp_cedula = :p',['p'=>$persona])->fetchAll('assoc');
+        
+        foreach ($rol as $rol){
+            if($rol['rol_codigo'] == 9){
+                $query = $connection->execute('SELECT FK_tie_codigo FROM ucabmart.persona_natural WHERE per_nat_cedula = :p',['p'=>$persona])->fetchAll('assoc');
+            }elseif($rol['rol_codigo']== 11){
+                $query = $connection->execute('SELECT FK_tie_codigo FROM ucabmart.persona_juridica WHERE per_jur_rif = :p',['p'=>$persona])->fetchAll('assoc');
+            }else{
+                $query = $connection->execute('SELECT FK_tie_codigo FROM ucabmart.empleado WHERE emp_cedula = :p',['p'=>$persona])->fetchAll('assoc');
+            }
         }
+        
+
         return $query[0]['FK_tie_codigo'];
     }
 

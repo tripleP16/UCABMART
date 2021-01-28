@@ -101,7 +101,30 @@ class ReporteController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'E nat'){
+                    if(in_array($this->request->getParam('action'), array('personanaturalreport'))){
+                        return true;
+                    }           
+                }elseif($privilegio == 'E jur'){
+                    if(in_array($this->request->getParam('action'), array('personajuridicareport'))){
+                        return true;
+                    }
+                }
+                
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
 
+        return false;
+    }
     public function archivo (){
         
     }
