@@ -171,5 +171,27 @@ class ReporteController extends AppController
         $this->set('dia_fin', $dia_fin);
     }
 
+    public function diezmejoresclientesreport ($dia_inicio, $dia_fin, $codigo_tienda){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+        $this->set('codigo_tienda', $codigo_tienda);
+    }
+
+    public function cincomejoresclientesmontoreport ($dia_inicio, $dia_fin, $codigo_tienda){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+        $this->set('codigo_tienda', $codigo_tienda);
+    }
+
+    public function mesesproductivosdelyearreport ($year){
+        $this->set('year', $year);
+    }
+
+    public function productosvendidospormesreport ($year,$month){
+        $this->set('year', $year);
+        $this->set('month', $month);
+    }
+  
+
 
 }
