@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Datasource\ConnectionManager;
+
 
 /**
  * Rol Controller
@@ -16,6 +18,31 @@ class RolController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'Crear Rol'){
+                    if(in_array($this->request->getParam('action'), array('add'))){
+                        return true;
+                    }           
+                }elseif($privilegio == 'Editar Rol'){
+                    if(in_array($this->request->getParam('action'), array('edit'))){
+                        return true;
+                    }
+                }
+                
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+
+        return false;
+    }
     public function index()
     {
         $rol = $this->paginate($this->Rol);
@@ -44,20 +71,49 @@ class RolController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
+
+    public function salvarRol($nombre){
+        $connection = ConnectionManager::get('default');
+        $connection->insert('rol', [
+            'rol_nombre' => $nombre,
+        ]);
+    }
+
+    public function salvarPrivilegios($rol_codigo, $privilegios){
+        $connection = ConnectionManager::get('default');
+        foreach ($privilegios as $privilegio){
+            $connection->insert('cuenta_privilegio', [
+                'rol_codigo' => $rol_codigo,
+                'priv_codigo'=>$privilegio
+            ]);
+        }
+    }
+
+    public function obtenerCodigo(){
+        $connection = ConnectionManager::get('default');
+        $query = $connection->execute('SELECT MAX(rol_codigo) as maximo FROM rol WHERE rol_codigo <> 9 AND rol_codigo <> 11')->fetchAll('assoc');
+        return $query[0]['maximo'];
+    }
     public function add()
     {
-        $rol = $this->Rol->newEmptyEntity();
+        $this->getPriv();
         if ($this->request->is('post')) {
-            $rol = $this->Rol->patchEntity($rol, $this->request->getData());
-            if ($this->Rol->save($rol)) {
-                $this->Flash->success(__('The rol has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            if($this->request->getData('rol_nombre') == null ||$this->request->getData('privilegios') == null ){
+                $this->Flash->error(__('Datos en blanco'));
+            }else{
+                $this->salvarRol($this->request->getData('rol_nombre') );
+                $this->salvarPrivilegios($this->obtenerCodigo(), $this->request->getData('privilegios'));
+                return $this->redirect(['controller'=>'inicio','action' => 'index']);
             }
-            $this->Flash->error(__('The rol could not be saved. Please, try again.'));
         }
-        $cuentaUsuario = $this->Rol->CuentaUsuario->find('list', ['limit' => 200]);
-        $this->set(compact('rol', 'cuentaUsuario'));
+       
+    }
+
+    public function getPriv(){
+        $this->loadComponent('Privilegio');
+        $privilegioSQL= $this->Privilegio->privilegioes(); 
+        $privilegio = $this->Privilegio->privilegioSelect($privilegioSQL); 
+        $this->set('privilegios',$privilegio);
     }
 
     /**
