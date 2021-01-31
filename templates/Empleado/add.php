@@ -139,6 +139,16 @@
                 ));?>
                 <label for="cue_usu_contrasena">Contraseña</label>
             </div>
+            <div class=" input-field col s12">
+                <?= $this->Form->control('roles', array( 
+                    'label'=> 'Roles a cumplir', 
+                    'templates'     => ['inputContainer' => '{{content}}'],
+                    'type'=>'select',
+                    'multiple'=>true,
+                    'required'=>true,
+                    'options'=>$roles
+                ));?>
+            </div>
             </div>
             
                 <br>

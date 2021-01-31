@@ -47,7 +47,8 @@ $cakeDescription = 'UCABMART pague y lleve';
 <body>
 <ul id="dropdown1" class="dropdown-content">
     <?php
-        foreach ($privilegios as $privilegio): ?>
+        foreach ($privilegios as $privilegio): 
+        ?>
     <?php
         if($privilegio == 'E nat'):
     ?>
@@ -95,7 +96,7 @@ $cakeDescription = 'UCABMART pague y lleve';
     <?php
         if($privilegio == 'Contratar'):
     ?>
-        <li><a href="">Contratar Empleado</a></li>
+        <li><?= $this->Html->link(__('Contratar Empleado'), ['controller'=>'empleado','action' => 'add']) ?></li>
     <?php 
          endif;              
     ?>
@@ -149,6 +150,13 @@ $cakeDescription = 'UCABMART pague y lleve';
     ?>
         <li><a href="">Gestion de Proveedores</a></li>
         <li><a href="">Gestion de Productos</a></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
+        if($privilegio == 'Crear Rol'):
+    ?>
+        <li><?= $this->Html->link(__('Crear Rol'), ['controller'=>'rol','action' => 'add']) ?></li>
     <?php 
          endif;              
     ?>
