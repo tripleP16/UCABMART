@@ -191,6 +191,10 @@ class ReporteController extends AppController
         $this->set('year', $year);
         $this->set('month', $month);
     }
+
+    public function ordenesdecomprareport ($codigo_orden_de_compra){
+        $this->set('codigo_orden_de_compra', $codigo_orden_de_compra);
+    }
   
 
 
