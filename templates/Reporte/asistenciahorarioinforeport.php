@@ -31,7 +31,7 @@ $SalidaReporte=  $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//salidareportes//'.$fil
 //Parametro en caso de que el reporte no este parametrizado
 $Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-$sql = "SELECT e.emp_cedula, e.emp_primer_nombre, SUM(TIMESTAMPDIFF(HOUR , hor_emp_hora_inicio, hor_emp_hora_fin )) AS HorasTrabajadas, SEC_TO_TIME(AVG(TIME_TO_SEC(hor_emp_hora_inicio))) AS PromedioHoraEntrada, SEC_TO_TIME(AVG(TIME_TO_SEC(hor_emp_hora_fin))) AS PromedioHoraSalida, di.DiasQueFalto, dr.DiasDeRetraso FROM horario_empleado he JOIN ucabmart.empleado e ON he.Fk_emp_cedula = e.emp_cedula JOIN ucabmart.horario ho ON he.FK_hor_codigo = ho.hor_codigo LEFT JOIN (SELECT FK_emp_cedula, count(hor_validacion) AS DiasQueFalto FROM horario_empleado WHERE hor_validacion ='falto' GROUP BY FK_emp_cedula) di ON he.FK_emp_cedula = di.FK_emp_cedula LEFT JOIN (SELECT FK_emp_cedula, count(hor_validacion) AS DiasDeRetraso FROM horario_empleado WHERE hor_validacion ='incumplio' AND TIMESTAMPDIFF(HOUR , hor_emp_hora_inicio, hor_emp_hora_fin ) <= 7 GROUP BY FK_emp_cedula) dr ON he.FK_emp_cedula = dr.FK_emp_cedula   WHERE hor_dia BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' GROUP BY e.emp_cedula ORDER BY hor_dia";
+$sql = "SELECT *  FROM ucabmart.horario_empleado JOIN ucabmart.empleado ON FK_emp_cedula = emp_cedula JOIN ucabmart.horario ON FK_hor_codigo = hor_codigo JOIN ucabmart.departamento ON FK_dep_codigo = dep_codigo  WHERE hor_dia BETWEEN  '".$dia_inicio."' AND '".$dia_fin."'  ORDER BY hor_dia";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte
