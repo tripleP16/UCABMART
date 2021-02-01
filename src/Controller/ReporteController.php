@@ -242,6 +242,17 @@ class ReporteController extends AppController
         $this->set('year', $year);
     }
 
+    public function productosvendidospormesaddreport (){
+        if ($this->request->is('post')) {
+            if($this->request->getData('month')>12 || $this->request->getData('month')<0){ 
+                $this->Flash->error(__('Número de mes inválido. Por favor intente de nuevo con meses de 1-12.'));
+                return $this->redirect(['action' => 'productosvendidospormesaddreport']);
+            }else{
+                return $this->redirect(['action' => 'productosvendidospormesreport', $this->request->getData('year'), $this->request->getData('month')]);    
+            }
+        }
+    }
+
     public function productosvendidospormesreport ($year,$month){
         $this->set('year', $year);
         $this->set('month', $month);

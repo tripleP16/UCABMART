@@ -1,17 +1,17 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Form\DateForm $DateForm 
+ * @var \App\Form\YearForm $YearForm 
  * 
  */
 
-use App\Form\DateForm; 
+use App\Form\YearForm; 
 
 ?>
 <div class="row">
-<?= $this->Form->create($DateForm = new DateForm() , array('class' =>'col s8 offset-s2 formulario')) ?>
+<?= $this->Form->create($DateForm = new YearForm() , array('class' =>'col s8 offset-s2 formulario')) ?>
         <div class="row formularioCont">
-            <h3>Reporte de Empleados</h3>
+            <h3>Reporte de los meses mas productivos del año</h3>
             <div class=" input-field col inline s9"> 
                 <?php
                     echo $this->Form->control('year', array( 
