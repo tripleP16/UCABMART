@@ -200,7 +200,7 @@ class CarritoDeComprasVirtualController extends AppController
             'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
             'fac_puntos_generado'=>$pagar/100000,
             'fac_total'=>$pagar,
-            'FK_tie_codigo'=>1
+            'FK_tie_codigo'=>$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']),
         ]);
         
 
@@ -221,7 +221,7 @@ class CarritoDeComprasVirtualController extends AppController
             'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
             'fac_puntos_generado'=>$pagar/100000,
             'fac_total'=>$pagar,
-            'FK_tie_codigo'=>1
+            'FK_tie_codigo'=>$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']),
         ]);
 
     }
