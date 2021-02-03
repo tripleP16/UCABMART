@@ -42,7 +42,26 @@ class ZonaProductoController extends AppController
 
         $this->set(compact('zonaProducto'));
     }
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'Gestion Tienda'){
+                    if(in_array($this->request->getParam('action'), array('index','add','edit','delete', 'getBeneficios', 'getTiendas','getEstados','municipios', 'parroquias'))){
+                        return true;
+                    }           
+                }
+                
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
 
+        return false;
+    }
     /**
      * Add method
      *
