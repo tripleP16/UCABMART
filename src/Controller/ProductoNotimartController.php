@@ -43,7 +43,7 @@ class ProductoNotimartController extends AppController
     public function view()
     {
         $connection = ConnectionManager::get('default');
-        $query = $connection->execute('SELECT SUM(zon_pro_cantidad_de_producto) as Total FROM zona_producto JOIN zona ON zona.zon_codigo = zona_producto.zon_codigo JOIN almacen on zona.fk_alm_codigo = almacen.alm_codigo JOIN tienda ON tienda.fk_alm_codigo = almacen.alm_codigo  where prod_codigo=:i  AND tie_codigo =:j',['i'=>$productocodigo,'j'=> $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol'])]);
+        $query = $connection->execute('SELECT prod_not_fecha_inicio,count(prod_not_codigo) Cantidad FROM ucabmart.producto_notimart GROUP BY producto_notimart.prod_not_fecha_inicio ');
         $this->set(compact('query'));   
 
         

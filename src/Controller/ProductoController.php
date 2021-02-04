@@ -47,7 +47,7 @@ class ProductoController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'Comprar'){
-                    if(in_array($this->request->getParam('action'), array('carrito'))){
+                    if(in_array($this->request->getParam('action'), array('carrito','index'))){
                         return true;
                     }else{
                         return false;
