@@ -134,16 +134,35 @@ class CarritoDeComprasVirtualController extends AppController
     
         if($this->validarcompra($validacion)){
             $this->insertarpersonanatural();
+            
         }else{
             $this->insertarpersonajuridica();
-        }   
+        }  
+        
         $connection = ConnectionManager::get('default');
         $ultimo= $connection->execute('SELECT MAX(fac_numero) AS Ultimo FROM factura WHERE FK_cuenta_usuario=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $this->insertarestadofactura($ultimo[0]['Ultimo']);
+        $this->actualizarcantidad(); 
         $connection->delete('carrito_de_compras_virtual', ['cue_usu_email' =>$this->request->getSession()->read('Auth.User.email') ]);
+        
         return $this->redirect(['action' => 'index']);
     }
 
+    
+    function actualizarcantidad(){
+        $connection = ConnectionManager::get('default');
+        $Productos=$connection->execute('SELECT prod_codigo,car_unidades_de_producto FROM carrito_de_compras_virtual WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        foreach ($Productos as $query1){
+            $J=$query1['prod_codigo'];
+            $I=$query1['car_unidades_de_producto'];
+            
+            $Cambiar=$connection->execute('UPDATE zona_producto JOIN zona ON zona.zon_codigo = zona_producto.zon_codigo JOIN almacen on zona.fk_alm_codigo = almacen.alm_codigo JOIN tienda ON tienda.fk_alm_codigo = almacen.alm_codigo SET zon_pro_cantidad_de_producto=zon_pro_cantidad_de_producto-:i where prod_codigo=:j AND tie_codigo =:k;',['i'->$I,'j'->$J,'k'->$tienda]);
+            die($I);
+        }
+
+
+    }
 
     
 
@@ -200,8 +219,10 @@ class CarritoDeComprasVirtualController extends AppController
             'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
             'fac_puntos_generado'=>$pagar/100000,
             'fac_total'=>$pagar,
-            'FK_tie_codigo'=>1
+            'FK_tie_codigo'=>$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']),
         ]);
+
+
         
 
     }
@@ -221,8 +242,10 @@ class CarritoDeComprasVirtualController extends AppController
             'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
             'fac_puntos_generado'=>$pagar/100000,
             'fac_total'=>$pagar,
-            'FK_tie_codigo'=>1
-        ]);
+            'FK_tie_codigo'=>$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']),
+         
+        
+            ]);
 
     }
 
