@@ -153,18 +153,25 @@ class CarritoDeComprasVirtualController extends AppController
         $connection = ConnectionManager::get('default');
         $Productos=$connection->execute('SELECT prod_codigo,car_unidades_de_producto FROM carrito_de_compras_virtual WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        
         foreach ($Productos as $query1){
             $J=$query1['prod_codigo'];
             $I=$query1['car_unidades_de_producto'];
-            
-            $Cambiar=$connection->execute('UPDATE zona_producto JOIN zona ON zona.zon_codigo = zona_producto.zon_codigo JOIN almacen on zona.fk_alm_codigo = almacen.alm_codigo JOIN tienda ON tienda.fk_alm_codigo = almacen.alm_codigo SET zon_pro_cantidad_de_producto=zon_pro_cantidad_de_producto-:i where prod_codigo=:j AND tie_codigo =:k;',['i'->$I,'j'->$J,'k'->$tienda]);
-            die($I);
-        }
+
+            $cantidad = $this->cuantohay($J); 
+            $connection->update('zona_producto', ['zon_pro_cantidad_de_producto' => $cantidad-$I], ['prod_codigo' => $J]);
+    
+        } 
 
 
     }
 
-    
+    public function cuantohay($productocodigo){
+        $connection = ConnectionManager::get('default');
+        $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        $cantidad = $connection->execute('SELECT SUM(zon_pro_cantidad_de_producto) as Total FROM zona_producto JOIN zona ON zona.zon_codigo = zona_producto.zon_codigo JOIN almacen on zona.fk_alm_codigo = almacen.alm_codigo JOIN tienda ON tienda.fk_alm_codigo = almacen.alm_codigo  where prod_codigo=:i  AND tie_codigo =:j',['i'=>$productocodigo,'j'=>$tienda])->fetchAll('assoc');
+        return $cantidad[0]['Total'];
+    }
 
     function Validarsihay(){
 

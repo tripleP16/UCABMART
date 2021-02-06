@@ -55,7 +55,7 @@ class ProductoNotimartController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'Notimart'){
-                    if(in_array($this->request->getParam('action'), array('index','editar'))){
+                    if(in_array($this->request->getParam('action'), array('index','add','view'))){
                         return true;
                     }else{
                         return false;
@@ -77,11 +77,14 @@ class ProductoNotimartController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id)
     {
+        $this->loadModel('ProductoNotimart');
         $productoNotimart = $this->ProductoNotimart->newEmptyEntity();
         if ($this->request->is('post')) {
             $productoNotimart = $this->ProductoNotimart->patchEntity($productoNotimart, $this->request->getData());
+            $productoNotimart->FK_prod_codigo=$id;
+            
             if ($this->ProductoNotimart->save($productoNotimart)) {
                 $this->Flash->success(__('The producto notimart has been saved.'));
 

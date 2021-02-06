@@ -20,7 +20,6 @@
                     echo $this->Form->control('prod_not_descuento');
                     echo $this->Form->control('prod_not_fecha_inicio');
                     echo $this->Form->control('prod_not_fecha_FIN');
-                    echo $this->Form->control('FK_prod_codigo');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
@@ -28,3 +27,17 @@
         </div>
     </div>
 </div>
+<script>
+
+$(document).ready( function () {
+    $('#tiendas').DataTable({
+        
+    });
+    $('select').formSelect();
+    $('input').css('border-top','0px')
+    $('input').css('border-left','0px')
+    $('input').css('border-right','0px')
+} );
+</script>
+
+
