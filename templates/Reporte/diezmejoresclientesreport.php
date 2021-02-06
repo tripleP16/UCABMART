@@ -15,7 +15,7 @@ $fecha_partir1=date ( "h" , $fecha ) ;
 $fecha_partir2=date ( "i" , $fecha ) ;
 $fecha_partir4=date ( "s" , $fecha ) ;
 $fecha_partir3=$fecha_partir1-1;
-$reporte="Reporte_Asistencia_Horario_Información";
+$reporte="Reporte_10_Mejores_Clientes";
 $filename = $reporte. date("Y-m-d")."_". $fecha_partir3.'_'. $fecha_partir2.'_'. $fecha_partir4.'.pdf';
 
 //Llamando las librerias
@@ -25,13 +25,13 @@ require ('../php-jru/php-jru.php');
 //Llamando la funcion JRU de la libreria php-jru
 $jru=new PJRU();
 //Ruta del reporte compilado Jasper generado por IReports
-$Reporte = $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//reportes//ReporteAsistenciaHorarioInformacion.jrxml';
+$Reporte = $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//reportes//Reporte_10_Mejores_Clientes.jrxml';
 //Ruta a donde deseo guardar mi archivo de salida pdf 
 $SalidaReporte=  $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//salidareportes//'.$filename;
 //Parametro en caso de que el reporte no este parametrizado
 $Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-$sql = "SELECT e.emp_cedula, e.emp_primer_nombre, SUM(TIMESTAMPDIFF(HOUR , hor_emp_hora_inicio, hor_emp_hora_fin )) AS HorasTrabajadas, SEC_TO_TIME(AVG(TIME_TO_SEC(hor_emp_hora_inicio))) AS PromedioHoraEntrada, SEC_TO_TIME(AVG(TIME_TO_SEC(hor_emp_hora_fin))) AS PromedioHoraSalida, di.DiasQueFalto, dr.DiasDeRetraso FROM horario_empleado he JOIN ucabmart.empleado e ON he.Fk_emp_cedula = e.emp_cedula JOIN ucabmart.horario ho ON he.FK_hor_codigo = ho.hor_codigo LEFT JOIN (SELECT FK_emp_cedula, count(hor_validacion) AS DiasQueFalto FROM horario_empleado WHERE hor_validacion ='falto' GROUP BY FK_emp_cedula) di ON he.FK_emp_cedula = di.FK_emp_cedula LEFT JOIN (SELECT FK_emp_cedula, count(hor_validacion) AS DiasDeRetraso FROM horario_empleado WHERE hor_validacion ='incumplio' AND TIMESTAMPDIFF(HOUR , hor_emp_hora_inicio, hor_emp_hora_fin ) <= 7 GROUP BY FK_emp_cedula) dr ON he.FK_emp_cedula = dr.FK_emp_cedula   WHERE hor_dia BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' GROUP BY e.emp_cedula ORDER BY hor_dia";
+$sql = "SELECT f.fac_numero, f.FK_persona_natural, pn.per_nat_primer_nombre, pn.per_nat_primer_apellido, pj.per_jur_denominacion_comercial, f.FK_persona_juridica, count(f.fac_total) AS MayoresClientes FROM factura f  LEFT JOIN persona_natural pn ON f.FK_persona_natural = pn.per_nat_cedula LEFT JOIN persona_juridica pj ON f.FK_persona_juridica = pj.per_jur_rif WHERE f.fac_fecha_hora BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' AND f.FK_tie_codigo = '".$codigo_tienda."' GROUP BY f.FK_persona_natural, f.FK_persona_juridica ORDER BY MayoresClientes DESC LIMIT 10";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte

@@ -10,6 +10,8 @@ use Cake\Datasource\ConnectionManager;
  */
 class ReporteController extends AppController
 {
+   
+
     /**
      * Index method
      *
@@ -107,7 +109,7 @@ class ReporteController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'E nat'){
-                    if(in_array($this->request->getParam('action'), array('personanaturalreport'))){
+                    if(in_array($this->request->getParam('action'), array('personanaturalreport','asistenciahorarioinfoADDreport'))){
                         return true;
                     }           
                 }elseif($privilegio == 'E jur'){
@@ -174,14 +176,32 @@ class ReporteController extends AppController
     }
 
 
+    public function asistenciahorarioinfoaddreport (){
+        if ($this->request->is('post')) {
+        return $this->redirect(['action' => 'asistenciahorarioinforeport', $this->request->getData('dia_inicio'),$this->request->getData('dia_fin')]);
+        }
+    }
+
     public function asistenciahorarioinforeport ($dia_inicio, $dia_fin){
         $this->set('dia_inicio', $dia_inicio);
         $this->set('dia_fin', $dia_fin);
     }
 
+    public function empleadoshorasaddreport (){
+        if ($this->request->is('post')) {
+        return $this->redirect(['action' => 'empleadoshorasreport', $this->request->getData('dia_inicio'),$this->request->getData('dia_fin')]);
+        }
+    }
+    
     public function empleadoshorasreport ($dia_inicio, $dia_fin){
         $this->set('dia_inicio', $dia_inicio);
         $this->set('dia_fin', $dia_fin);
+    }
+
+    public function ingresotiendaaddreport (){
+        if ($this->request->is('post')) {
+        return $this->redirect(['action' => 'ingresotiendareport', $this->request->getData('dia_inicio'),$this->request->getData('dia_fin')]);
+        }
     }
 
     public function ingresotiendareport ($dia_inicio, $dia_fin){
@@ -189,10 +209,59 @@ class ReporteController extends AppController
         $this->set('dia_fin', $dia_fin);
     }
 
+    public function egresotiendaaddreport (){
+        if ($this->request->is('post')) {
+        return $this->redirect(['action' => 'egresotiendareport', $this->request->getData('dia_inicio'),$this->request->getData('dia_fin')]);
+        }
+    }
+
     public function egresotiendareport ($dia_inicio, $dia_fin){
         $this->set('dia_inicio', $dia_inicio);
         $this->set('dia_fin', $dia_fin);
     }
+
+    public function diezmejoresclientesreport ($dia_inicio, $dia_fin, $codigo_tienda){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+        $this->set('codigo_tienda', $codigo_tienda);
+    }
+
+    public function cincomejoresclientesmontoreport ($dia_inicio, $dia_fin, $codigo_tienda){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+        $this->set('codigo_tienda', $codigo_tienda);
+    }
+
+    public function mesesproductivosdelyearaddreport (){
+        if ($this->request->is('post')) {
+            return $this->redirect(['action' => 'mesesproductivosdelyearreport', $this->request->getData('year')]);
+        }
+    }
+
+    public function mesesproductivosdelyearreport ($year){
+        $this->set('year', $year);
+    }
+
+    public function productosvendidospormesaddreport (){
+        if ($this->request->is('post')) {
+            if($this->request->getData('month')>12 || $this->request->getData('month')<0){ 
+                $this->Flash->error(__('Número de mes inválido. Por favor intente de nuevo con meses de 1-12.'));
+                return $this->redirect(['action' => 'productosvendidospormesaddreport']);
+            }else{
+                return $this->redirect(['action' => 'productosvendidospormesreport', $this->request->getData('year'), $this->request->getData('month')]);    
+            }
+        }
+    }
+
+    public function productosvendidospormesreport ($year,$month){
+        $this->set('year', $year);
+        $this->set('month', $month);
+    }
+
+    public function ordenesdecomprareport ($codigo_orden_de_compra){
+        $this->set('codigo_orden_de_compra', $codigo_orden_de_compra);
+    }
+  
 
 
 }

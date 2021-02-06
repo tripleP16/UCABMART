@@ -27,9 +27,6 @@
         
     </div>
 </div>
-        <div>
-             <?= $this->html->link(__('IMPORTAR UN EXCEL'), ['controller'=>'Reporte', 'action' =>'archivo']) ?>
-        </div>
 <div class="row">
 <div class="col s1 "></div>
     <div class="col s4" id="tiendas">

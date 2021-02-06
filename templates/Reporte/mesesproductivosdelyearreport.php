@@ -15,7 +15,7 @@ $fecha_partir1=date ( "h" , $fecha ) ;
 $fecha_partir2=date ( "i" , $fecha ) ;
 $fecha_partir4=date ( "s" , $fecha ) ;
 $fecha_partir3=$fecha_partir1-1;
-$reporte="Reporte_Ingresos_Tienda";
+$reporte="Reporte_Meses_Mas_Productivos_Del_".$year."";
 $filename = $reporte. date("Y-m-d")."_". $fecha_partir3.'_'. $fecha_partir2.'_'. $fecha_partir4.'.pdf';
 
 //Llamando las librerias
@@ -25,13 +25,13 @@ require ('../php-jru/php-jru.php');
 //Llamando la funcion JRU de la libreria php-jru
 $jru=new PJRU();
 //Ruta del reporte compilado Jasper generado por IReports
-$Reporte = $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//reportes//ReporteTiendaIngresos.jrxml';
+$Reporte = $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//reportes//Reporte_Meses_Productivos_Year.jrxml';
 //Ruta a donde deseo guardar mi archivo de salida pdf 
 $SalidaReporte=  $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//salidareportes//'.$filename;
 //Parametro en caso de que el reporte no este parametrizado
 $Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-$sql = "SELECT oc.ord_com_numero, oc.FK_tie_codigo, l.lug_nombre , oc.ord_com_fecha_despacho AS FechaI, SUM(poc.prod_ord_cantidad) AS Ingresos FROM orden_de_compra oc JOIN producto_orden_compra poc ON oc.ord_com_numero = poc.ord_com_numero JOIN tienda t ON t.tie_codigo = oc.FK_tie_codigo JOIN lugar l ON l.lug_codigo = t.FK_lug_codigo WHERE oc.ord_com_fecha_despacho BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' GROUP BY oc.FK_tie_codigo, ord_com_fecha_despacho ORDER BY oc.FK_tie_codigo, ord_com_fecha_despacho"; //ord_com_fecha_despacho
+$sql = "SELECT MONTH(f.fac_fecha_hora) Mes, count(f.fac_total) AS MayoresMontoYear, sum(f.fac_puntos_generado) AS PuntosGenerados  FROM factura f  WHERE YEAR(f.fac_fecha_hora) = '".$year."' GROUP BY Mes ORDER BY MayoresMontoYear DESC";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte

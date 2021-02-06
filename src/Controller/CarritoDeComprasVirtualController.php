@@ -34,7 +34,7 @@ class CarritoDeComprasVirtualController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'Comprar'){
-                    if(in_array($this->request->getParam('action'), array('index', 'anadirCarrito', 'validar','insertar', 'actualizar', 'cantidad', 'precio','delete','pagar','cuantohayquepagar'))){
+                    if(in_array($this->request->getParam('action'), array('index', 'anadirCarrito', 'validar','insertar', 'actualizar', 'cantidad', 'precio','delete','pagar','cuantohayquepagar','procesar'))){
                         return true;
                     }else{
                         return false;
@@ -54,11 +54,16 @@ class CarritoDeComprasVirtualController extends AppController
 
     public function pagar(){
         $id=null;
-        $connection = ConnectionManager::get('default');
-        $this->set('total', $this->cuantohayquepagar($id));
-        $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito WHERE Fk_cue_usu_email = :e ',[ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
-        $this->set(compact('query'));
-
+        if($this->Validarsihay()==true){
+            $connection = ConnectionManager::get('default');
+            $this->set('total', $this->cuantohayquepagar($id));
+            $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito WHERE Fk_cue_usu_email = :e ',[ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+            $this->set(compact('query'));
+        }else{
+            
+            $this->redirect(['action' => 'index']);
+            $this->Flash->error(__('No tienes nada'));
+        }
 
     }
 
@@ -121,6 +126,130 @@ class CarritoDeComprasVirtualController extends AppController
         $query = $connection->execute('SELECT prod_precio_bolivar FROM ucabmart.producto WHERE prod_codigo= :p', ['p'=>$producto])->fetchAll('assoc');
         return $query[0]['prod_precio_bolivar'];
     }
+
+    function procesar(){
+
+        $validacion=NULL;
+        
+    
+        if($this->validarcompra($validacion)){
+            $this->insertarpersonanatural();
+            
+        }else{
+            $this->insertarpersonajuridica();
+        }  
+        
+        $connection = ConnectionManager::get('default');
+        $ultimo= $connection->execute('SELECT MAX(fac_numero) AS Ultimo FROM factura WHERE FK_cuenta_usuario=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $this->insertarestadofactura($ultimo[0]['Ultimo']);
+        $this->actualizarcantidad(); 
+        $connection->delete('carrito_de_compras_virtual', ['cue_usu_email' =>$this->request->getSession()->read('Auth.User.email') ]);
+        
+        return $this->redirect(['action' => 'index']);
+    }
+
+    
+    function actualizarcantidad(){
+        $connection = ConnectionManager::get('default');
+        $Productos=$connection->execute('SELECT prod_codigo,car_unidades_de_producto FROM carrito_de_compras_virtual WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        foreach ($Productos as $query1){
+            $J=$query1['prod_codigo'];
+            $I=$query1['car_unidades_de_producto'];
+            
+            $Cambiar=$connection->execute('UPDATE zona_producto JOIN zona ON zona.zon_codigo = zona_producto.zon_codigo JOIN almacen on zona.fk_alm_codigo = almacen.alm_codigo JOIN tienda ON tienda.fk_alm_codigo = almacen.alm_codigo SET zon_pro_cantidad_de_producto=zon_pro_cantidad_de_producto-:i where prod_codigo=:j AND tie_codigo =:k;',['i'->$I,'j'->$J,'k'->$tienda]);
+            die($I);
+        }
+
+
+    }
+
+    
+
+    function Validarsihay(){
+
+        $connection = ConnectionManager::get('default');
+        $validacion= $connection->execute('SELECT cue_usu_email FROM carrito_de_compras_virtual WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        if ($validacion==null){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+    function validarcompra($validacion){
+        
+        $connection = ConnectionManager::get('default');
+        $query= $connection->execute('SELECT FK_persona_natural,FK_persona_juridica FROM cuenta_usuario WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        if($query[0]['FK_persona_natural'] == null){
+            return false; 
+        }else{
+            
+            return true;
+        }
+    }
+
+    function insertarestadofactura($ultimo){
+
+        $connection = ConnectionManager::get('default');
+        $fechaActual = date('Y-m-d H:i:s');
+        $connection->insert('estado_factura',[
+            'est_codigo'=>3,
+            'fac_numero'=>$ultimo,
+            'fac_fecha_hora'=>$fechaActual
+            ]);
+
+    }
+
+    function insertarpersonanatural(){
+
+        $connection = ConnectionManager::get('default');
+        $id=null;
+        $fechaActual = date('Y-m-d');
+        $cedula=$connection->execute('SELECT FK_persona_natural FROM cuenta_usuario WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $pagar=$this->cuantohayquepagar($id);
+     
+        $connection->insert('factura',[
+            'fac_fecha_hora'=>$fechaActual,
+            'FK_mon_codigo'=>1,
+            'FK_dir_en_codigo'=>4,
+            'FK_persona_natural'=>$cedula[0]['FK_persona_natural'],
+            'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
+            'fac_puntos_generado'=>$pagar/100000,
+            'fac_total'=>$pagar,
+            'FK_tie_codigo'=>$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']),
+        ]);
+
+
+        
+
+    }
+
+    function insertarpersonajuridica(){
+
+        $connection = ConnectionManager::get('default');
+        $id=null;
+        $fechaActual = date('Y-m-d');
+        $cedula=$connection->execute('SELECT FK_persona_juridica FROM cuenta_usuario WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
+        $pagar=$this->cuantohayquepagar($id);
+        $connection->insert('factura',[
+            'fac_fecha_hora'=>$fechaActual,
+            'FK_mon_codigo'=>1,
+            'FK_dir_en_codigo'=>4,
+            'FK_persona_juridica'=>$cedula[0]['FK_persona_juridica'],
+            'FK_cuenta_usuario'=>$this->request->getSession()->read('Auth.User.email'),
+            'fac_puntos_generado'=>$pagar/100000,
+            'fac_total'=>$pagar,
+            'FK_tie_codigo'=>$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']),
+         
+        
+            ]);
+
+    }
+
+
     /**
      * View method
      *
