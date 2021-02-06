@@ -31,7 +31,7 @@ $SalidaReporte=  $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//salidareportes//'.$fil
 //Parametro en caso de que el reporte no este parametrizado
 $Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-$sql = "SELECT oc.FK_tie_codigo, l.lug_nombre , oc.ord_com_fecha_despacho AS FechaI, poc.prod_ord_cantidad AS Ingresos FROM orden_de_compra oc JOIN producto_orden_compra poc ON oc.ord_com_numero = poc.ord_com_numero JOIN tienda t ON t.tie_codigo = oc.FK_tie_codigo JOIN lugar l ON l.lug_codigo = t.FK_lug_codigo WHERE oc.ord_com_fecha_despacho BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' GROUP BY oc.ord_com_numero ORDER BY oc.ord_com_fecha_despacho";
+$sql = "SELECT oc.ord_com_numero, oc.FK_tie_codigo, l.lug_nombre , oc.ord_com_fecha_despacho AS FechaI, SUM(poc.prod_ord_cantidad) AS Ingresos FROM orden_de_compra oc JOIN producto_orden_compra poc ON oc.ord_com_numero = poc.ord_com_numero JOIN tienda t ON t.tie_codigo = oc.FK_tie_codigo JOIN lugar l ON l.lug_codigo = t.FK_lug_codigo WHERE oc.ord_com_fecha_despacho BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' GROUP BY oc.FK_tie_codigo, ord_com_fecha_despacho ORDER BY oc.FK_tie_codigo, ord_com_fecha_despacho"; //ord_com_fecha_despacho
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte

@@ -31,7 +31,7 @@ $SalidaReporte=  $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//salidareportes//'.$fil
 //Parametro en caso de que el reporte no este parametrizado
 $Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-$sql = " SELECT f.FK_tie_codigo, l.lug_nombre , f.fac_fecha_hora AS FechaE, fp.fac_prod_cantidad AS Egresos FROM factura f JOIN factura_producto fp ON f.fac_numero = fp.fac_numero JOIN tienda t ON t.tie_codigo = f.FK_tie_codigo JOIN lugar l ON l.lug_codigo = t.FK_lug_codigo WHERE f.fac_fecha_hora BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' GROUP BY f.fac_numero ORDER BY f.fac_fecha_hora";
+$sql = " SELECT f.fac_numero, f.FK_tie_codigo, l.lug_nombre , f.fac_fecha_hora AS FechaE, SUM(fp.fac_prod_cantidad) AS Egresos FROM factura f JOIN factura_producto fp ON f.fac_numero = fp.fac_numero JOIN tienda t ON t.tie_codigo = f.FK_tie_codigo JOIN lugar l ON l.lug_codigo = t.FK_lug_codigo WHERE f.fac_fecha_hora BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' GROUP BY f.FK_tie_codigo,f.fac_fecha_hora ORDER BY  f.FK_tie_codigo, f.fac_fecha_hora";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte
