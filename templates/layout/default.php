@@ -161,6 +161,13 @@ $cakeDescription = 'UCABMART pague y lleve';
          endif;              
     ?>
     <?php
+        if($privilegio == 'Gestion Tienda'):
+    ?>
+    <li><?= $this->Html->link(__('Gestion de Tiendas'), ['controller'=>'tienda','action' => 'index']) ?></li>
+    <?php 
+         endif;              
+    ?>
+    <?php
         endforeach;
     ?>
     
