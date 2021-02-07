@@ -15,7 +15,7 @@ class CajeroController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-
+ 
     public function isAuthorized(){
         $rol = $this->request->getSession()->read('Auth.User')['rol'];
         if($rol !=null){
@@ -42,7 +42,7 @@ class CajeroController extends AppController
     }
     public function index()
     {
-        
+        $this->viewBuilder()->setLayout('cajero');
     }
 
    
