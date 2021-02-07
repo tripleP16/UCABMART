@@ -5,7 +5,7 @@
  */
 ?>
 <div class="row">
-    <h3 class="white-text"><?= __('Productos a elegir') ?></h3>
+    <h3 class="white-text"><?= __('Productos para agregar descuento') ?></h3>
     <div class="col s12 white" id="inventarioCont">
         <table id="tiendas" class="responsive-table centered highlight">
             <thead>
@@ -28,7 +28,7 @@
                     <td><?= h($query['prod_imagen']) ?></td>
                     <td><?= h($query['sub_nombre']) ?></td>
                     <td class="actions">
-                    <?= $this->Html->link(__('Agregar al notimart'), ['action' => 'editar', $query['prod_codigo']], ['class'=>'waves-effect waves-light btn-small black-text ']) ?>
+                    <?= $this->Html->link(__('Agregar al notimart'), ['action' => 'add',$query['prod_codigo']], ['class'=>'waves-effect waves-light btn-small black-text ']) ?>
                        
                     </td>
                 </tr>
@@ -37,3 +37,19 @@
         </table>
     </div>
 </div>
+
+                    
+
+
+
+<script>
+$(document).ready( function () {
+    $('#tiendas').DataTable({
+        
+    });
+    $('select').formSelect();
+    $('input').css('border-top','0px')
+    $('input').css('border-left','0px')
+    $('input').css('border-right','0px')
+} );
+</script>
