@@ -21,7 +21,7 @@ class YearComponent extends Component
     public function yearSelect(){
         $year = date("Y");
         $respuesta = array(); 
-        for ($i=1950; $i < $year ; $i++) { 
+        for ($i=1950; $i < $year +1; $i++) { 
             $respuesta+=[
                 $i=>$i
             ];
