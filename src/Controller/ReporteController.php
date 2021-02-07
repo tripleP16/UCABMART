@@ -109,7 +109,7 @@ class ReporteController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'E nat'){
-                    if(in_array($this->request->getParam('action'), array('personanaturalreport','asistenciahorarioinfoADDreport'))){
+                    if(in_array($this->request->getParam('action'), array('personanaturalreport'))){
                         return true;
                     }           
                 }elseif($privilegio == 'E jur'){
