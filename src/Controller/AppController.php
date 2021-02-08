@@ -39,6 +39,8 @@ class AppController extends Controller
      *
      * @return void
      */
+
+     public $tienda;
     public function initialize(): void
     {
         parent::initialize();
@@ -56,8 +58,9 @@ class AppController extends Controller
                 'fields' => ['username' => 'cue_usu_email', 'password' => 'cue_usu_contrasena']
             ], 
             'authorize'=> array('Controller'),
+            'authError' => 'No tienes permiso para entrar a esta parte del sistema',
         ]);
-
+        
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html

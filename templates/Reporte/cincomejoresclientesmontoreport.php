@@ -31,7 +31,7 @@ $SalidaReporte=  $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//salidareportes//'.$fil
 //Parametro en caso de que el reporte no este parametrizado
 $Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-$sql = "SELECT f.fac_numero, f.FK_persona_natural, pn.per_nat_primer_nombre, pn.per_nat_primer_apellido, pj.per_jur_denominacion_comercial, f.FK_persona_juridica, sum(f.fac_total) AS MayoresClientesMonto FROM factura f  LEFT JOIN persona_natural pn ON f.FK_persona_natural = pn.per_nat_cedula LEFT JOIN persona_juridica pj ON f.FK_persona_juridica = pj.per_jur_rif WHERE f.fac_fecha_hora BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' AND f.FK_tie_codigo = '".$codigo_tienda."'  GROUP BY f.FK_persona_natural, f.FK_persona_juridica ORDER BY MayoresClientesMonto DESC LIMIT 5";
+$sql = "SELECT f.fac_numero, f.FK_persona_natural, pn.per_nat_primer_nombre, pn.per_nat_primer_apellido, pj.per_jur_denominacion_comercial, f.FK_persona_juridica, sum(f.fac_total) AS MayoresClientesMonto FROM factura f  LEFT JOIN persona_natural pn ON f.FK_persona_natural = pn.per_nat_cedula LEFT JOIN persona_juridica pj ON f.FK_persona_juridica = pj.per_jur_rif WHERE f.fac_fecha_hora BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' AND f.FK_tie_codigo = '".$tiendas."'  GROUP BY f.FK_persona_natural, f.FK_persona_juridica ORDER BY MayoresClientesMonto DESC LIMIT 5";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte

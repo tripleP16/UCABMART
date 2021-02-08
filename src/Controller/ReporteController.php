@@ -109,13 +109,22 @@ class ReporteController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'E nat'){
-                    if(in_array($this->request->getParam('action'), array('personanaturalreport','asistenciahorarioinfoADDreport'))){
+                    if(in_array($this->request->getParam('action'), array('personanaturalreport'))){
                         return true;
                     }           
                 }elseif($privilegio == 'E jur'){
                     if(in_array($this->request->getParam('action'), array('personajuridicareport'))){
                         return true;
                     }
+                }elseif($privilegio == 'Asistencia'){
+                    if(in_array($this->request->getParam('action'), array( 'asistenciahorarioinfoaddreport',' asistenciahorarioinforeport', 'empleadoshorasaddreport','empleadoshorasreport' ))){
+                        return true;
+                    }
+                }elseif($privilegio == 'Rendimiento'){
+                    if(in_array($this->request->getParam('action'), array('ingresotiendaaddreport', 'ingresotiendareport', 'egresotiendaaddreport', 'egresotiendareport', 'diezmejoresclientesreport','cincomejoresclientesmontoreport', 'mesesproductivosdelyearaddreport', 'mesesproductivosdelyearreport','productosvendidospormesaddreport', 'productosvendidospormesreport','ordenesdecomprareport', 'ordenesdecompraaddreport','diezmejoresclientesaddreport','diezmejoresclientesreport','cincomejoresclientesmontoaddreport','cincomejoresclientesmontoreport'))){
+                        return true;
+                    }
+
                 }
                 
             }
@@ -220,29 +229,53 @@ class ReporteController extends AppController
         $this->set('dia_fin', $dia_fin);
     }
 
-    public function diezmejoresclientesreport ($dia_inicio, $dia_fin, $codigo_tienda){
-        $this->set('dia_inicio', $dia_inicio);
-        $this->set('dia_fin', $dia_fin);
-        $this->set('codigo_tienda', $codigo_tienda);
+
+    public function diezmejoresclientesaddreport (){
+        $this->loadComponent('Tienda');
+        $this->getTiendas();
+        if ($this->request->is('post')) {
+        return $this->redirect(['action' => 'diezmejoresclientesreport', $this->request->getData('dia_inicio'),$this->request->getData('dia_fin'),$this->request->getData('FK_tie_codigo')]);
+        }
     }
 
-    public function cincomejoresclientesmontoreport ($dia_inicio, $dia_fin, $codigo_tienda){
+
+    public function diezmejoresclientesreport ($dia_inicio, $dia_fin, $tiendas){
         $this->set('dia_inicio', $dia_inicio);
         $this->set('dia_fin', $dia_fin);
-        $this->set('codigo_tienda', $codigo_tienda);
+        $this->set('tiendas', $tiendas);
     }
 
-    public function mesesproductivosdelyearaddreport (){
+    public function cincomejoresclientesmontoaddreport(){
+        $this->loadComponent('Tienda');
+        $this->getTiendas();
+        if ($this->request->is('post')) {
+        return $this->redirect(['action' => 'cincomejoresclientesmontoreport', $this->request->getData('dia_inicio'),$this->request->getData('dia_fin'),$this->request->getData('FK_tie_codigo')]);
+        }
+    }
+
+    public function cincomejoresclientesmontoreport($dia_inicio, $dia_fin, $tiendas){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+        $this->set('tiendas', $tiendas);
+    }
+
+    public function mesesproductivosdelyearaddreport(){
         if ($this->request->is('post')) {
             return $this->redirect(['action' => 'mesesproductivosdelyearreport', $this->request->getData('year')]);
         }
     }
 
-    public function mesesproductivosdelyearreport ($year){
+    public function mesesproductivosdelyearreport($year){
         $this->set('year', $year);
     }
 
     public function productosvendidospormesaddreport (){
+        $this->loadComponent('Year');
+        $years = $this->Year->yearSelect(); 
+        $mes = $this->Year->mesSelect(); 
+        $this->set('mes', $mes);
+        $this->set('year', $years);
+        
         if ($this->request->is('post')) {
             if($this->request->getData('month')>12 || $this->request->getData('month')<0){ 
                 $this->Flash->error(__('Número de mes inválido. Por favor intente de nuevo con meses de 1-12.'));
@@ -253,15 +286,26 @@ class ReporteController extends AppController
         }
     }
 
-    public function productosvendidospormesreport ($year,$month){
+    public function productosvendidospormesreport($year,$month){
         $this->set('year', $year);
         $this->set('month', $month);
     }
 
-    public function ordenesdecomprareport ($codigo_orden_de_compra){
+    public function ordenesdecompraaddreport(){
+        if ($this->request->is('post')) {
+            return $this->redirect(['action' => 'mesesproductivosdelyearreport', $this->request->getData('codigo_orden_de_compra')]);
+        }
+    }
+
+    public function ordenesdecomprareport($codigo_orden_de_compra){
         $this->set('codigo_orden_de_compra', $codigo_orden_de_compra);
     }
   
+    public function getTiendas(){
+        $tiendasSQL = $this->Tienda->tiendas(); 
+        $tiendas = $this->Tienda->tiendaSelect($tiendasSQL);
+        $this->set('tiendas', $tiendas);
+    }
 
 
 }
