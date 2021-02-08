@@ -1,11 +1,27 @@
 <div class="row">
     <div class="col s4 offset-s1" id="panelMadera">
-        <div class="botonera">
-            <?= $this->Html->link(__('Cliente Nuevo' ), ['action' => 'anadirCliente'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>
-            <br>
-            <br>
-            <br>
-            <?= $this->Html->link(__('Cliente Existente'), ['action' => 'buscarClienteNatural'], ['class' => 'waves-effect waves-light btn-large black-text ']) ?>
+        
+        <div class="botonera white" style="padding: 5%;">
+        
+            <?= $this->Form->create(null, array('class' =>'col s8 offset-s2 formulario')) ?>
+            <h5 class=" center">Buscar Cliente Existente</h5>
+            <div class="row">
+                <div class=" input-field col inline s12"> 
+            
+                    <?php
+                    echo $this->Form->control('per_nat_cedula', array(
+                            'placeholder'=>'27784169',
+                            'label'=> 'Cedula', 
+                            'templates'     => ['inputContainer' => '{{content}}'],
+                            'type'=>'text'
+
+                    ));?>
+                </div>
+                <div class="col inline s12 ">
+                    <?= $this->Form->button(__('Buscar Cliente') , array('class'=> 'waves-effect waves-light btn-large black-text ')) ?>
+                </div>
+            </div>
+            <?= $this->Form->end() ?>       
         </div>
         
     </div>

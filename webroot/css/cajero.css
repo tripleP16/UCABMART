@@ -1,0 +1,45 @@
+#logo{
+    height:35px ;
+}
+
+body{
+    background-image: url('/UCABMART/img/main-fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+#panelMadera{
+    background-image: url('/UCABMART/img/login-fondo.jpg');
+    min-height: 700px;
+    max-height: 700px;
+    padding: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#panelMadera2{
+    background-image: url('/UCABMART/img/login-fondo.jpg');
+    min-height: 700px;
+    max-height: 700px;
+    padding: 0.5%;
+    overflow: scroll;
+}
+#panelBuscar{
+
+    background-color:white;
+    min-height: 700px;
+    max-height: 700px;
+    padding: 2.5%;
+    overflow: scroll;
+}
+
+.imagen{
+    width: 45px;
+}
+.formulario{
+    background-color: white !important;
+}
+.formularioCont{
+    padding: 1.5%;
+}

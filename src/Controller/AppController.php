@@ -39,6 +39,8 @@ class AppController extends Controller
      *
      * @return void
      */
+
+     public $tienda;
     public function initialize(): void
     {
         parent::initialize();
