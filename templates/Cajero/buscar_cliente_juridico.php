@@ -9,9 +9,9 @@
                 <div class=" input-field col inline s12"> 
             
                     <?php
-                    echo $this->Form->control('per_nat_cedula', array(
+                    echo $this->Form->control('per_jur_rif', array(
                             'placeholder'=>'27784169',
-                            'label'=> 'Cedula', 
+                            'label'=> 'RIF', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
 
@@ -21,7 +21,7 @@
                     <?= $this->Form->button(__('Buscar Cliente') , array('class'=> 'waves-effect waves-light btn-large black-text ')) ?>
                     <br>
                     <br>
-                    <?= $this->Html->link(__('Es Juridico?'), [ 'action' =>'buscarClienteJuridico']);?>
+                    <?= $this->Html->link(__('Es Natural?'), [ 'action' =>'buscarClienteNatural']);?>
                 </div>
             </div>
             <?= $this->Form->end() ?>       
