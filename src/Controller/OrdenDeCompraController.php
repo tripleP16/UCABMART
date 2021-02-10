@@ -92,12 +92,21 @@ class OrdenDeCompraController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+
+    public function obtenerEstados(){
+        $estados = array(
+        "Por pagar"=>"Por pagar", 
+        "Pagado"=>"Pagado"
+        ) ; 
+        
+        return $estados;
+    }
     public function edit($id,$estado)
     {
         $connection = ConnectionManager::get('default');
         $query = $connection->execute('SELECT * FROM ucabmart.orden_de_compra WHERE ord_com_numero=:i AND ord_com_pagada=:e',['i'=>$id,'e'=>$estado])->fetchAll('assoc');
         $this->set('query',$query );
-
+        $this->set('estados', $this->obtenerEstados());
 
         if($estado=='Pagado'){
         //$this->hacercambios($id);
@@ -105,7 +114,7 @@ class OrdenDeCompraController extends AppController
         }
         
 
-        return $this->redirect(['action' => 'index']);
+        
     }
 
     public function hacercambios($id){
