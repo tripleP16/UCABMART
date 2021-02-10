@@ -74,6 +74,7 @@ class TarjetaDeCreditoController extends AppController
         $tarjetaDeCredito = $this->TarjetaDeCredito->newEmptyEntity();
         if ($this->request->is('post')) {
             $tarjetaDeCredito = $this->TarjetaDeCredito->patchEntity($tarjetaDeCredito, $this->request->getData());
+            $tarjetaDeCredito->Fk_cue_usu_email=$this->request->getSession()->read('Auth.User.email');
             if ($this->TarjetaDeCredito->save($tarjetaDeCredito)) {
                 $this->Flash->success(__('The tarjeta de credito has been saved.'));
 

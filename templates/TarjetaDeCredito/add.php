@@ -11,7 +11,12 @@
 
         <div class=" input-field col inline s12"> 
                         <?php
-                            echo $this->Form->control('met_pag_numero')?>
+                            echo $this->Form->control('met_pag_numero', array(
+                                'placeholder'=>'8085895',
+                                'label'=> 'Numero de Tarjeta', 
+                                'templates'     => ['inputContainer' => '{{content}}'],
+                                'type'=>'number'
+                        ))?>
             </div>
 
 
@@ -47,18 +52,6 @@
                             echo $this->Form->control('tar_cre_tipo', array(
                             'placeholder'=>'MASTERCARD',
                             'label'=> 'Tipo de tarjeta (MASTERCARD)', 
-                            'templates'     => ['inputContainer' => '{{content}}'],
-                            'type'=>'text'
-
-                    ));?>
-            </div>
-
-            
-            <div class=" input-field col inline s12"> 
-                        <?php
-                            echo $this->Form->control('FK_emi_codigo', array(
-                            'placeholder'=>'Maximo de tarjetas a registar 5',
-                            'label'=> 'Codigo', 
                             'templates'     => ['inputContainer' => '{{content}}'],
                             'type'=>'text'
 

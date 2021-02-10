@@ -30,10 +30,6 @@
                                         <label for="chequeCant">Cantidad</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <input name="chequePagar" type="text"  class="validate">
-                                        <label for="chequePagar">Pagar A</label>
-                                    </div>
-                                    <div class="input-field col s12">
                                         <input name="chequeNumero" type="number" min="0" class="validate">
                                         <label for="chequeNumero">Numero de Cheque</label>
                                     </div>
@@ -58,7 +54,11 @@
                                         <label for="debitoC">Cantidad</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <input type="text" class="datepicker">
+                                        <input name="numeroTar" type="number" min="0" class="validate">
+                                        <label for="numeroTar">Numero de Tarjeta</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input type="text" class="datepicker" name="emision">
                                     </div>
                                     <div class="input-field col s12">
                                         <input name="cvv" type="number" max="999" class="validate">

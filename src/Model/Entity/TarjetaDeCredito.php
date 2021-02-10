@@ -32,5 +32,6 @@ class TarjetaDeCredito extends Entity
         'tar_cre_cvv' => true,
         'tar_cre_tipo' => true,
         'FK_emi_codigo' => true,
+        'met_pag_numero'=> true
     ];
 }
