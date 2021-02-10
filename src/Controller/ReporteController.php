@@ -120,6 +120,14 @@ class ReporteController extends AppController
                     if(in_array($this->request->getParam('action'), array( 'asistenciahorarioinfoaddreport',' asistenciahorarioinforeport', 'empleadoshorasaddreport','empleadoshorasreport' ))){
                         return true;
                     }
+                }elseif($privilegio == 'Notimart'){
+                    if(in_array($this->request->getParam('action'), array( 'notimartreport' ))){
+                        return true;
+                    }
+                }elseif($privilegio == 'E empleado'){
+                    if(in_array($this->request->getParam('action'), array( 'notimartreport'))){
+                        return true;
+                    }
                 }elseif($privilegio == 'Rendimiento'){
                     if(in_array($this->request->getParam('action'), array('ingresotiendaaddreport', 'ingresotiendareport', 'egresotiendaaddreport', 'egresotiendareport', 'diezmejoresclientesreport','cincomejoresclientesmontoreport', 'mesesproductivosdelyearaddreport', 'mesesproductivosdelyearreport','productosvendidospormesaddreport', 'productosvendidospormesreport','ordenesdecomprareport', 'ordenesdecompraaddreport','diezmejoresclientesaddreport','diezmejoresclientesreport','cincomejoresclientesmontoaddreport','cincomejoresclientesmontoreport'))){
                         return true;
@@ -305,6 +313,10 @@ class ReporteController extends AppController
         $tiendasSQL = $this->Tienda->tiendas(); 
         $tiendas = $this->Tienda->tiendaSelect($tiendasSQL);
         $this->set('tiendas', $tiendas);
+    }
+
+    public function notimartreport($dia_inicio){
+        $this->set('dia_inicio', $dia_inicio);
     }
 
 
