@@ -6,7 +6,7 @@
 ?>
 
 <div class="row">
-    <?= $this->Form->create($ordenDeCompra, array('class' =>'col s8 offset-s2 formulario')) ?>
+    <?= $this->Form->create(null, array('class' =>'col s8 offset-s2 formulario')) ?>
     <h5 class="center">Editar Estado</h5>
     <div class="row formularioCont">
 

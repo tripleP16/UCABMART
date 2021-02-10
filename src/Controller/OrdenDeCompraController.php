@@ -107,11 +107,16 @@ class OrdenDeCompraController extends AppController
         $query = $connection->execute('SELECT * FROM ucabmart.orden_de_compra WHERE ord_com_numero=:i AND ord_com_pagada=:e',['i'=>$id,'e'=>$estado])->fetchAll('assoc');
         $this->set('query',$query );
         $this->set('estados', $this->obtenerEstados());
-
-        if($estado=='Pagado'){
-        //$this->hacercambios($id);
-        return $this->redirect(['action' => 'index']);
+        if ($this->request->is('post')) {
+            if($this->request->getData("Estado") == 'Pagado'){
+                
+                $this->hacercambios($id);
+            }
+            return $this->redirect(['action' => 'index']);
         }
+        
+        
+        
         
 
         
@@ -120,20 +125,22 @@ class OrdenDeCompraController extends AppController
     public function hacercambios($id){
         $connection = ConnectionManager::get('default');
         $fechaActual = date('Y-m-d');
-        $connection->update('orden_de_compra',['ord_com_fecha_despacho'=>$fechaActual],['ord_com_numero'=>$id]);
+        $connection->update('orden_de_compra',['ord_com_fecha_despacho'=>$fechaActual, 'ord_com_pagada'=>'Pagado'],['ord_com_numero'=>$id]);
+        $tienda = $connection->execute('SELECT fk_tie_codigo FROM orden_de_compra WHERE ord_com_numero = :i', ['i'=>$id])->fetchAll('assoc');
+        $productocodigo = $connection->execute('SELECT prod_codigo FROM producto_orden_compra WHERE ord_com_numero = :i', ['i'=>$id])->fetchAll('assoc');
+        $cantidad = $this->cuantohay($productocodigo[0]['prod_codigo'], $tienda[0]['fk_tie_codigo']); 
+        $connection->update('zona_producto', [
+            'zon_pro_cantidad_de_producto' =>$cantidad[0]['Total'] +100,
+            
+        ], ['zon_codigo'=>$cantidad[0]['zon_codigo'], 'prod_codigo'=>$productocodigo[0]['prod_codigo']]);
 
-        $Tienda=$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
-        $k=$connection->execute('SELECT zona.zon_codigo as zon_codigo FROM zona JOIN zona_producto ON zona.zon_codigo = zona_producto.zon_codigo WHERE FK_alm_codigo = :Q AND prod_codigo = :Y',['Q'=>$Tienda,'Y'=>$id])->fetchAll('assoc');
-        $cantidad = $this->cuantohay($id); 
 
-        $connection->update('zona_producto', ['zon_pro_cantidad_de_producto' => $cantidad+100], ['prod_codigo' => $J,'zon_codigo'=>$k[0]['zon_codigo']]);
     }
 
-    public function cuantohay($productocodigo){
+    public function cuantohay($productocodigo, $tienda){
         $connection = ConnectionManager::get('default');
-        $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
-        $cantidad = $connection->execute('SELECT SUM(zon_pro_cantidad_de_producto) as Total FROM zona_producto JOIN zona ON zona.zon_codigo = zona_producto.zon_codigo JOIN almacen on zona.fk_alm_codigo = almacen.alm_codigo JOIN tienda ON tienda.fk_alm_codigo = almacen.alm_codigo  where prod_codigo=:i  AND tie_codigo =:j',['i'=>$productocodigo,'j'=>$tienda])->fetchAll('assoc');
-        return $cantidad[0]['Total'];
+        $cantidad = $connection->execute('SELECT SUM(zon_pro_cantidad_de_producto) as Total, zona_producto.zon_codigo FROM zona_producto JOIN zona ON zona.zon_codigo = zona_producto.zon_codigo JOIN almacen on zona.fk_alm_codigo = almacen.alm_codigo JOIN tienda ON tienda.fk_alm_codigo = almacen.alm_codigo  where prod_codigo=:i  AND tie_codigo =:j',['i'=>$productocodigo,'j'=>$tienda])->fetchAll('assoc');
+        return $cantidad;
     }
 
     /*    $ordenDeCompra = $this->OrdenDeCompra->get($id, [
