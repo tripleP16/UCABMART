@@ -3,19 +3,11 @@
     function DescargarArchivo($fichero)
     {
         $basefichero = basename($fichero);
+        header( "Content-Type: application/pdf");
         //header( "Content-Type: application/octet-stream");
-        header( "Content-Type: application/force-download");
-        header("Cache-Control: public");
-        header("Content-Description: File Transfer");
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header("Content-Type: application/pdf");
         header( "Content-Length:".filesize($fichero));
         header( "Content-Disposition:attachment;filename=" .$basefichero."");
-        header("Content-Transfer-Encoding: binary");
-        header("Content-type: MIME");
-        readfile($fichero);
+        readfile($basefichero);
     }
 
 //Obtener fecha de hoy
@@ -53,13 +45,14 @@ $jru->runPdfFromSql($Reporte,$SalidaReporte,$Parametro,$sql,$Conexion->getConnec
 
 if(file_exists($SalidaReporte))
 {
-    DescargarArchivo($filename);
-    if(file_exists($SalidaReporte))
-    {
-        if(unlink($filename))
-        {
+    //DescargarArchivo($filename);
+   // if(file_exists($SalidaReporte))
+    //{
+      //  if(unlink($filename))
+        //{
 
-        }
-    }
+        //}
+    //}
+    readfile($basefichero);
 }
 ?>
