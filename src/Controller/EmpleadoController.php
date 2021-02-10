@@ -86,11 +86,11 @@ class EmpleadoController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'E empleado'){
-                    if(in_array($this->request->getParam('action'), array('edit', 'getBeneficios', 'getTiendas','getEstados','municipios', 'parroquias'))){
+                    if(in_array($this->request->getParam('action'), array('index','edit', 'getBeneficios', 'getTiendas','getEstados','municipios', 'parroquias'))){
                         return true;
                     }           
                 }elseif($privilegio == 'Despedir'){
-                    if(in_array($this->request->getParam('action'), array('delete'))){
+                    if(in_array($this->request->getParam('action'), array('index','delete'))){
                         return true;
                     }
                 }elseif($privilegio == 'Contratar'){
