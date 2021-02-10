@@ -3,9 +3,18 @@
     function DescargarArchivo($fichero)
     {
         $basefichero = basename($fichero);
-        header( "Content-Type: application/octet-stream");
+        //header( "Content-Type: application/octet-stream");
+        header( "Content-Type: application/force-download");
+        header("Cache-Control: public");
+        header("Content-Description: File Transfer");
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header("Content-Type: application/pdf");
         header( "Content-Length:".filesize($fichero));
         header( "Content-Disposition:attachment;filename=" .$basefichero."");
+        header("Content-Transfer-Encoding: binary");
+        header("Content-type: MIME");
         readfile($fichero);
     }
 
