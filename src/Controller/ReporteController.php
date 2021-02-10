@@ -129,7 +129,7 @@ class ReporteController extends AppController
                         return true;
                     }
                 }elseif($privilegio == 'Rendimiento'){
-                    if(in_array($this->request->getParam('action'), array('ingresotiendaaddreport', 'ingresotiendareport', 'egresotiendaaddreport', 'egresotiendareport', 'diezmejoresclientesreport','cincomejoresclientesmontoreport', 'mesesproductivosdelyearaddreport', 'mesesproductivosdelyearreport','productosvendidospormesaddreport', 'productosvendidospormesreport','ordenesdecomprareport', 'ordenesdecompraaddreport','diezmejoresclientesaddreport','diezmejoresclientesreport','cincomejoresclientesmontoaddreport','cincomejoresclientesmontoreport'))){
+                    if(in_array($this->request->getParam('action'), array('ingresotiendaaddreport', 'ingresotiendareport', 'egresotiendaaddreport', 'egresotiendareport', 'diezmejoresclientesreport','cincomejoresclientesmontoreport', 'mesesproductivosdelyearaddreport', 'mesesproductivosdelyearreport','productosvendidospormesaddreport', 'productosvendidospormesreport','ordenesdecomprareport','diezmejoresclientesaddreport','diezmejoresclientesreport','cincomejoresclientesmontoaddreport','cincomejoresclientesmontoreport'))){
                         return true;
                     }
 
@@ -299,9 +299,6 @@ class ReporteController extends AppController
         $this->set('month', $month);
     }
 
-    public function ordenesdecompraaddreport(){
-        
-    }
 
     public function ordenesdecomprareport($codigo_orden_de_compra){
         $this->set('codigo_orden_de_compra', $codigo_orden_de_compra);

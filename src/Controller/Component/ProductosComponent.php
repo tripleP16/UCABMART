@@ -26,7 +26,7 @@ class ProductosComponent extends Component
 
     public function producto($tienda, $prod_codigo){
         $connection = ConnectionManager::get('default');
-        return $connection->execute('SELECT pas_prod_cantidad FROM producto JOIN pasillo_producto ON pasillo_producto.prod_codigo = producto.prod_codigo JOIN zona_pasillo ON zona_pasillo.zon_pas_codigo = pasillo_producto.zon_pas_codigo WHERE fk_tie_codigo = :i AND producto.prod_codigo = :j', ['i'=>$tienda, 'j'=>$prod_codigo])->fetchAll('assoc');
+        return $connection->execute('SELECT pas_prod_cantidad , pasillo_producto.zon_pas_codigo AS zon_pas_codigo FROM producto JOIN pasillo_producto ON pasillo_producto.prod_codigo = producto.prod_codigo JOIN zona_pasillo ON zona_pasillo.zon_pas_codigo = pasillo_producto.zon_pas_codigo WHERE fk_tie_codigo = :i AND producto.prod_codigo = :j', ['i'=>$tienda, 'j'=>$prod_codigo])->fetchAll('assoc');
     }
 
     public function precio($codigoProducto){
