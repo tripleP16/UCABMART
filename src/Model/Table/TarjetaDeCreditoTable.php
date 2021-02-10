@@ -79,9 +79,7 @@ class TarjetaDeCreditoTable extends Table
             ->notEmptyString('tar_cre_tipo');
 
         $validator
-            ->integer('FK_emi_codigo')
-            ->requirePresence('FK_emi_codigo', 'create')
-            ->notEmptyString('FK_emi_codigo');
+            ->integer('FK_emi_codigo');
 
         return $validator;
     }
