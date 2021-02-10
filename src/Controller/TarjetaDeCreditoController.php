@@ -20,7 +20,7 @@ class TarjetaDeCreditoController extends AppController
     {
         $connection = ConnectionManager::get('default');
         $tarjetaDeCredito = $this->paginate($this->TarjetaDeCredito);
-        $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito');
+        $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito WHERE Fk_cue_usu_email=:i',['i'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $this->set(compact('tarjetaDeCredito'));
         $this->set(compact('query'));
     }
