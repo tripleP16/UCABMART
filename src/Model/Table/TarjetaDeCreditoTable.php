@@ -52,7 +52,9 @@ class TarjetaDeCreditoTable extends Table
     {
         $validator
             ->integer('met_pag_numero')
-            ->allowEmptyString('met_pag_numero', null, 'create');
+            ->requirePresence('met_pag_numero', 'create')
+            ->notEmptyString('met_pag_numero');
+            
 
         $validator
             ->scalar('tar_cre_nombre')
