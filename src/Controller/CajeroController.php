@@ -264,6 +264,17 @@ class CajeroController extends AppController
             $total = $connection->execute('SELECT SUM(car_com_precio) as car_com_precio FROM ucabmart.carrito_de_compras_fisico GROUP BY FK_per_nat HAVING  FK_per_nat = :i' , ['i'=>$id])->fetchAll('assoc');
         }
         $this->set('total',$total[0]['car_com_precio']);
+
+        if($this->request->is('post')){
+            $totalAPagar =intval($this->request->getData("efectivoC"));
+            
+            if($totalAPagar < $total[0]['car_com_precio']){
+                echo $totalAPagar;
+                $this->Flash->error(__('Monto incorrecto'));
+            }else{
+                die("Hello");
+            }
+        }
     }
 
     
