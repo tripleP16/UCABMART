@@ -23,7 +23,7 @@
                     <td><?= h($query['prod_not_fecha_inicio']) ?></td>
                     <td><?= h($query['Cantidad']) ?></td>
                     <td class="actions">
-                    <?= $this->Html->link(__('Ver Notimart'), ['action' => 'editar'], ['class'=>'waves-effect waves-light btn-small black-text ']) ?>
+                    <?= $this->Html->link(__('Ver Notimart'), ['controller' => 'reporte','action' => 'notimartreport', $query['prod_not_fecha_inicio']], ['class'=>'waves-effect waves-light btn-small black-text ']) ?>
                        
                     </td>
                 </tr>

@@ -14,7 +14,6 @@
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Descripcion </th>
-                    <th>Imagen</th>
                     <th>Submarca</th>
 
                     <th class="actions"><?= __('Opciones') ?></th>
@@ -26,7 +25,6 @@
                     <td><?= h($query['prod_nombre']) ?></td>
                     <td><?= h($query['prod_precio_bolivar']) ?></td>
                     <td><?= h($query['prod_descripcion']) ?></td>
-                    <td><?= h($query['prod_imagen']) ?></td>
                     <td><?= h($query['sub_nombre']) ?></td>
                     <td class="actions">
                     <?= $this->Html->link(__('Ver'), ['action' => 'view', $query['prod_codigo']], ['class'=>'waves-effect waves-light btn-small black-text ']) ?>

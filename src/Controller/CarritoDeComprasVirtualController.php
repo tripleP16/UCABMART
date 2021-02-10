@@ -72,7 +72,6 @@ class CarritoDeComprasVirtualController extends AppController
         $totalapagar=$connection->execute('SELECT  SUM(car_com_precio) AS Prueba FROM ucabmart.carrito_de_compras_virtual WHERE cue_usu_email = :e ',[ 'e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         return $totalapagar[0]['Prueba'];
     }
-
     function anadirCarrito($producto, $cantidad){
 
         if($this->validar($producto)){
@@ -153,17 +152,20 @@ class CarritoDeComprasVirtualController extends AppController
         $connection = ConnectionManager::get('default');
         $Productos=$connection->execute('SELECT prod_codigo,car_unidades_de_producto FROM carrito_de_compras_virtual WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
-        
+
         foreach ($Productos as $query1){
             $J=$query1['prod_codigo'];
             $I=$query1['car_unidades_de_producto'];
             $Tienda=$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
             $k=$connection->execute('SELECT zona.zon_codigo as zon_codigo FROM zona JOIN zona_producto ON zona.zon_codigo = zona_producto.zon_codigo WHERE FK_alm_codigo = :Q AND prod_codigo = :Y',['Q'=>$Tienda,'Y'=>$J])->fetchAll('assoc');
-    
-            $cantidad = $this->cuantohay($J); 
-            $connection->update('zona_producto', ['zon_pro_cantidad_de_producto' => $cantidad-$I], ['prod_codigo' => $J,'zon_codigo'=>$k[0]['zon_codigo']]);
             
-            if (11>$cantidad){
+    
+        
+            
+            $cantidad1 = $this->cuantohay($J); 
+            $connection->update('zona_producto', ['zon_pro_cantidad_de_producto' => $cantidad1-$I], ['prod_codigo' => $J,'zon_codigo'=>$k[0]['zon_codigo']]);
+            $cantidad2 = $this->cuantohay($J); 
+            if (11>$cantidad2){
 
                 $fechaActual = date('Y-m-d');
                 
@@ -172,6 +174,15 @@ class CarritoDeComprasVirtualController extends AppController
                     'ord_com_pagada'=>'Por pagar',
                     'FK_pro_rif'=>'020582M0315822387796',
                     'FK_tie_codigo'=>$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']),
+                ]);
+
+                $ultimo=$connection->execute('SELECT ord_com_numero FROM orden_de_compra ORDER BY ord_com_numero DESC LIMIT 1')->fetchAll('assoc');
+                $precio=$connection->execute('SELECT prod_precio_bolivar FROM producto where prod_codigo=:i',['i'=>$J])->fetchAll('assoc');
+                $connection->insert('producto_orden_compra',[
+                    'prod_codigo'=>$J,
+                    'ord_com_numero'=>$ultimo[0]['ord_com_numero'],
+                    'prod_ord_cantidad'=>100*$precio[0]['prod_precio_bolivar'],
+                    'prod_ord_precio'=>100,
                 ]);
                 
             }

@@ -120,8 +120,16 @@ class ReporteController extends AppController
                     if(in_array($this->request->getParam('action'), array( 'asistenciahorarioinfoaddreport',' asistenciahorarioinforeport', 'empleadoshorasaddreport','empleadoshorasreport' ))){
                         return true;
                     }
+                }elseif($privilegio == 'Notimart'){
+                    if(in_array($this->request->getParam('action'), array( 'notimartreport' ))){
+                        return true;
+                    }
+                }elseif($privilegio == 'E empleado'){
+                    if(in_array($this->request->getParam('action'), array( 'notimartreport'))){
+                        return true;
+                    }
                 }elseif($privilegio == 'Rendimiento'){
-                    if(in_array($this->request->getParam('action'), array('ingresotiendaaddreport', 'ingresotiendareport', 'egresotiendaaddreport', 'egresotiendareport', 'diezmejoresclientesreport','cincomejoresclientesmontoreport', 'mesesproductivosdelyearaddreport', 'mesesproductivosdelyearreport','productosvendidospormesaddreport', 'productosvendidospormesreport','ordenesdecomprareport', 'ordenesdecompraaddreport','diezmejoresclientesaddreport','diezmejoresclientesreport','cincomejoresclientesmontoaddreport','cincomejoresclientesmontoreport'))){
+                    if(in_array($this->request->getParam('action'), array('ingresotiendaaddreport', 'ingresotiendareport', 'egresotiendaaddreport', 'egresotiendareport', 'diezmejoresclientesreport','cincomejoresclientesmontoreport', 'mesesproductivosdelyearaddreport', 'mesesproductivosdelyearreport','productosvendidospormesaddreport', 'productosvendidospormesreport','ordenesdecomprareport','diezmejoresclientesaddreport','diezmejoresclientesreport','cincomejoresclientesmontoaddreport','cincomejoresclientesmontoreport'))){
                         return true;
                     }
 
@@ -291,11 +299,6 @@ class ReporteController extends AppController
         $this->set('month', $month);
     }
 
-    public function ordenesdecompraaddreport(){
-        if ($this->request->is('post')) {
-            return $this->redirect(['action' => 'mesesproductivosdelyearreport', $this->request->getData('codigo_orden_de_compra')]);
-        }
-    }
 
     public function ordenesdecomprareport($codigo_orden_de_compra){
         $this->set('codigo_orden_de_compra', $codigo_orden_de_compra);
@@ -305,6 +308,10 @@ class ReporteController extends AppController
         $tiendasSQL = $this->Tienda->tiendas(); 
         $tiendas = $this->Tienda->tiendaSelect($tiendasSQL);
         $this->set('tiendas', $tiendas);
+    }
+
+    public function notimartreport($dia_inicio){
+        $this->set('dia_inicio', $dia_inicio);
     }
 
 

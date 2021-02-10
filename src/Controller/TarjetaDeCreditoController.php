@@ -20,7 +20,7 @@ class TarjetaDeCreditoController extends AppController
     {
         $connection = ConnectionManager::get('default');
         $tarjetaDeCredito = $this->paginate($this->TarjetaDeCredito);
-        $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito');
+        $query = $connection->execute('SELECT * FROM ucabmart.tarjeta_de_credito WHERE Fk_cue_usu_email=:i',['i'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $this->set(compact('tarjetaDeCredito'));
         $this->set(compact('query'));
     }
@@ -41,6 +41,29 @@ class TarjetaDeCreditoController extends AppController
         $this->set(compact('tarjetaDeCredito'));
     }
 
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'Comprar'){
+                    if(in_array($this->request->getParam('action'), array('add','index','edit','view','delete'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                        
+                }
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+
+        return false;
+    }
+
     /**
      * Add method
      *
@@ -58,6 +81,8 @@ class TarjetaDeCreditoController extends AppController
             }
             $this->Flash->error(__('The tarjeta de credito could not be saved. Please, try again.'));
         }
+
+        
         $this->set(compact('tarjetaDeCredito'));
     }
 
