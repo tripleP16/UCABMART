@@ -126,6 +126,29 @@ class ProveedorController extends AppController
         $this->set(compact('proveedor'));
     }
 
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'Contratar'){
+                    if(in_array($this->request->getParam('action'), array('add','index','edit','view'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                        
+                }
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+
+        return false;
+    }
+
     /**
      * Delete method
      *
