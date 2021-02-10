@@ -300,9 +300,7 @@ class ReporteController extends AppController
     }
 
     public function ordenesdecompraaddreport(){
-        if ($this->request->is('post')) {
-            return $this->redirect(['action' => 'mesesproductivosdelyearreport', $this->request->getData('codigo_orden_de_compra')]);
-        }
+        
     }
 
     public function ordenesdecomprareport($codigo_orden_de_compra){
