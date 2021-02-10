@@ -22,7 +22,7 @@ class EstadoFacturaController extends AppController
         
         $connection = ConnectionManager::get('default');
         //$estadoFactura = $this->paginate($this->EstadoFactura);
-        $query= $connection->execute('SELECT fac_numero,fac_fecha_hora,est_nombre,estado_factura.est_codigo FROM ucabmart.estado_factura JOIN ucabmart.estado ON estado_factura.est_codigo=estado.est_codigo WHERE estado_factura.est_codigo=3');
+        $query= $connection->execute('SELECT fac_numero,fac_fecha_hora,est_nombre,estado_factura.est_codigo FROM ucabmart.estado_factura JOIN ucabmart.estado ON estado_factura.est_codigo=estado.est_codigo');
 
         $this->set('query',$query);
 

@@ -43,3 +43,7 @@ body{
 .formularioCont{
     padding: 1.5%;
 }
+
+#factura{
+    max-height: 700px;
+}

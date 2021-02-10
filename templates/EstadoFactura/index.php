@@ -8,7 +8,7 @@
 <div class="row ">
     <h3 class="white-text"><?= __('Facturas') ?></h3>
     <div class="col s12 white" id="inventarioCont">
-        <table id="Estados" class="responsive-table centered highlight" >
+        <table id="Estado" class="responsive-table centered highlight" >
             <thead>
                 <tr>
                     <th>Numero de factura</th>

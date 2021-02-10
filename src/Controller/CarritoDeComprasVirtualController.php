@@ -157,10 +157,26 @@ class CarritoDeComprasVirtualController extends AppController
         foreach ($Productos as $query1){
             $J=$query1['prod_codigo'];
             $I=$query1['car_unidades_de_producto'];
-
-            $cantidad = $this->cuantohay($J); 
-            $connection->update('zona_producto', ['zon_pro_cantidad_de_producto' => $cantidad-$I], ['prod_codigo' => $J]);
+            $Tienda=$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+            $k=$connection->execute('SELECT zona.zon_codigo as zon_codigo FROM zona JOIN zona_producto ON zona.zon_codigo = zona_producto.zon_codigo WHERE FK_alm_codigo = :Q AND prod_codigo = :Y',['Q'=>$Tienda,'Y'=>$J])->fetchAll('assoc');
     
+            $cantidad = $this->cuantohay($J); 
+            $connection->update('zona_producto', ['zon_pro_cantidad_de_producto' => $cantidad-$I], ['prod_codigo' => $J,'zon_codigo'=>$k[0]['zon_codigo']]);
+            
+            if (11>$cantidad){
+
+                $fechaActual = date('Y-m-d');
+                
+                $connection->insert('orden_de_compra',[
+                    'ord_com_fecha_creada'=>$fechaActual,
+                    'ord_com_pagada'=>'Por pagar',
+                    'FK_pro_rif'=>'020582M0315822387796',
+                    'FK_tie_codigo'=>$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']),
+                ]);
+                
+            }
+
+
         } 
 
 
