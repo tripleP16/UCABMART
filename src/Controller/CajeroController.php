@@ -64,7 +64,7 @@ class CajeroController extends AppController
             $personaNatural->FK_tie_codigo = $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']); // SE INSERTA LA PERSONA NATURAL 
             if ($this->PersonaNatural->save($personaNatural)) {
                     $this->insertarRol($this->request->getData('cuenta_usuario.cue_usu_email'));
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'registradora', $this->request->getData("per_nat_cedula"), 0 ]);
 
                 
             }
@@ -254,6 +254,15 @@ class CajeroController extends AppController
       
         return $this->redirect(['action' => 'carrito', $id, $check]);
     }
+    public function delete2($id, $check , $prod_codigo)
+    {
+        $connection = ConnectionManager::get('default');
+        if($check == 1){ 
+            $connection->execute('DELETE FROM carrito_de_compras_fisico WHERE prod_codigo=:P AND FK_per_jur=:i',['i'=>$id,'P'=>$prod_codigo]);
+        }else{
+            $connection->execute('DELETE FROM carrito_de_compras_fisico WHERE prod_codigo=:P AND FK_per_nat=:i',['i'=>$id,'P'=>$prod_codigo]);
+        }
+    }
 
     public function pagar($id, $check){
         $this->cargar();
@@ -266,16 +275,158 @@ class CajeroController extends AppController
         $this->set('total',$total[0]['car_com_precio']);
 
         if($this->request->is('post')){
-            $totalAPagar =intval($this->request->getData("efectivoC"));
-            
-            if($totalAPagar < $total[0]['car_com_precio']){
-                echo $totalAPagar;
-                $this->Flash->error(__('Monto incorrecto'));
+            $totalAPagar = 0; 
+            $check1 = false; 
+            $check2 = false; 
+            $check3 = false; 
+            if($this->request->getData("efectivo")=="on" || $this->request->getData("cheque")=="on" || $this->request->getData("debito")=="on"  ){
+                if($this->request->getData("efectivo")=="on"){
+                    $totalAPagar += intval($this->request->getData("efectivoC"));
+                    $check1 = true; 
+                }
+                if($this->request->getData("cheque")=="on"){
+                    $totalAPagar += intval($this->request->getData("chequeCant"));
+                    $check2 = true;
+                }
+                if($this->request->getData("debito")=="on" ){
+                    $totalAPagar += intval($this->request->getData("debitoC"));
+                    $check3 = true;
+                }
+                if($totalAPagar< $total[0]['car_com_precio']){
+                    $this->Flash->error(__('Monto Incorrecto'));
+                }else{
+                    $this->crearFactura($id,$total[0]['car_com_precio'], $check );
+                    if($check1 == true){
+                        $this->salvarEfectivo(intval($this->request->getData("efectivoC"))); 
+                        $connection = ConnectionManager::get('default');
+                        $metodo = $connection->execute('SELECT MAX(met_pag_numero)  AS num FROM efectivo')->fetchAll('assoc');
+                        //$this->salvarMetodoPago(1, $metodo[0]['num']);
+                    }
+                    if($check2 == true){
+                        $this->salvarCheque(intval($this->request->getData("chequeNumero")), intval($this->request->getData("chequeCant"))); 
+                       // $this->salvarMetodoPago(2, intval($this->request->getData("chequeNumero")));
+                    }
+
+                    if($check3 ==true){
+                    
+                        $this->salvarTarjeta(intval($this->request->getData("numeroTar")),$this->request->getData("cuenta"),$this->request->getData("emision"), intval($this->request->getData("cvv")) );
+                        //$this->salvarMetodoPago(3,intval($this->request->getData("numeroTar")));
+                    }
+
+                    $this->mudarCarrito($id, $check);
+                    return $this->redirect(['action' => 'index']);
+                }
             }else{
-                die("Hello");
+                $this->Flash->error(__('Debe marcar una de las opciones de pago'));
             }
         }
     }
 
-    
+    public function salvarEfectivo($cantidad){
+        $connection = ConnectionManager::get('default');
+        $connection->insert('efectivo', [
+            'efe_cantidad' => $cantidad, 
+            ]);
+        
+    }
+
+    public function salvarMetodoPago($check, $metodo){
+        $connection = ConnectionManager::get('default');
+        $factura = $connection->execute('SELECT MAX(fac_numero) AS fac_numero FROM factura')->fetchAll('assoc');
+        if($check ==1){
+            $connection->insert('factura_metodo', [
+                'fac_numero' => $factura[0]['fac_numero'],
+                'efe_met_pag_numero'=> $metodo,      
+                ]);
+
+        }elseif($check ==2){
+            $connection->insert('factura_metodo', [
+                'fac_numero' => $factura[0]['fac_numero'],
+                'che_met_pag_numero'=> $metodo,      
+                ]);
+
+
+        }elseif($check ==3){
+            $connection->insert('factura_metodo', [
+                'fac_numero' => $factura[0]['fac_numero'],
+                'deb_met_pag_numero'=> $metodo,      
+                ]);
+
+        }
+        
+    }
+
+    public function salvarCheque($numero, $cantidad){
+        $connection = ConnectionManager::get('default');
+        $connection->insert('cheque', [
+            'met_pag_numero' => $numero,
+            'che_cantidad'=> $cantidad, 
+            'che_pagar_a'=>'UCABMART',
+            ]);
+    }
+    public function salvarTarjeta($numero, $cuenta, $fechaEmision, $cvv){
+        $connection = ConnectionManager::get('default');
+        $connection->insert('tarjeta_de_debito', [
+            'met_pag_numero'=>$numero,
+            'tar_deb_tipo_cuenta' => $cuenta,
+            'tar_deb_tipo'=> 'maestro', 
+            'tar_deb_fecha_emision'=>$fechaEmision, 
+            'tar_deb_cvv'=>$cvv, 
+            
+            ]);
+    }
+    public function mudarCarrito($id, $check){
+        $connection = ConnectionManager::get('default');
+        if($check == 1){
+            $query = $connection->execute('SELECT car_unidades_producto, prod_codigo, car_com_precio FROM carrito_de_compras_fisico WHERE FK_per_jur = :i', ['i'=>$id])->fetchAll('assoc');
+        }else{
+            $query = $connection->execute('SELECT car_unidades_producto, prod_codigo, car_com_precio FROM carrito_de_compras_fisico WHERE FK_per_nat = :i', ['i'=>$id])->fetchAll('assoc');
+        }
+        $factura = $connection->execute('SELECT MAX(fac_numero) AS fac_numero FROM factura')->fetchAll('assoc');
+        foreach($query as $query){
+            $connection->insert('factura_producto', [
+                'fac_numero' => $factura[0]['fac_numero'],
+                'prod_codigo'=> $query['prod_codigo'], 
+                'fac_prod_cantidad'=>$query['car_unidades_producto'], 
+                'fac_prod_precio'=>$query['car_com_precio'], 
+                
+                ]);
+
+            $this->delete2($id, $check,$query['prod_codigo']);
+            $this->descontar($query['car_unidades_producto'], $query['prod_codigo']);
+        }
+            
+    }
+    public function descontar($cantidad, $producto){
+        $connection = ConnectionManager::get('default');
+        $tienda = $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        $this->loadComponent('Productos'); 
+        $actual = $this->Productos->producto($tienda, $producto); 
+        $connection->update('pasillo_producto', ['pas_prod_cantidad' => $actual[0]['pas_prod_cantidad'] - $cantidad], ['zon_pas_codigo'=>$actual[0]['zon_pas_codigo']]);
+        
+    }
+    public function crearFactura($id, $total, $check){
+        $connection = ConnectionManager::get('default');
+        $fecha = date('Y-m-d');
+        $tienda = $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        if($check == 1){
+            $connection->insert('factura', [
+                    'fac_fecha_hora' => $fecha,
+                    'fk_mon_codigo'=> 1, 
+                    'FK_persona_juridica'=>$id, 
+                    'fac_puntos_generado'=>10, 
+                    'fac_total'=>$total, 
+                    'FK_tie_codigo'=>$tienda
+                    ]);
+        }else{
+            $connection->insert('factura', [
+                'fac_fecha_hora' => $fecha,
+                'fk_mon_codigo'=> 1, 
+                'FK_persona_natural'=>$id, 
+                'fac_puntos_generado'=>10, 
+                'fac_total'=>$total, 
+                'FK_tie_codigo'=>$tienda
+                ]);
+        }
+    }
 }
