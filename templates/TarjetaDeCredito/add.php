@@ -58,18 +58,6 @@
                     ));?>
             </div>
 
-            
-            <div class=" input-field col inline s12"> 
-                        <?php
-                            echo $this->Form->control('FK_emi_codigo', array(
-                            'placeholder'=>'Maximo de tarjetas a registar 5',
-                            'label'=> 'Codigo', 
-                            'templates'     => ['inputContainer' => '{{content}}'],
-                            'type'=>'text'
-
-                    ));?>
-            </div>
-
             <div class=" input-field col s12">
             <?= $this->Form->button(__('Agregar Tarjeta') , array('class'=> 'waves-effect waves-light btn-large black-text ')) ?>
         </div>
