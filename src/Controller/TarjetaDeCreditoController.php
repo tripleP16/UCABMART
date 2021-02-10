@@ -81,6 +81,8 @@ class TarjetaDeCreditoController extends AppController
             }
             $this->Flash->error(__('The tarjeta de credito could not be saved. Please, try again.'));
         }
+
+        
         $this->set(compact('tarjetaDeCredito'));
     }
 
