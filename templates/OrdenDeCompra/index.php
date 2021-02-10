@@ -29,6 +29,7 @@
                     <td><?= h($query['FK_pro_rif']) ?></td>
                     <td class="actions">
                     <?= $this->Html->link(__('Ver'), ['action' => 'view'], ['class'=>'waves-effect waves-light btn-small black-text ']) ?>
+                    <?= $this->Html->link(__('Cambiar estado'), ['action' => 'view'], ['class'=>'waves-effect yellow accent-2 btn-small black-text']) ?>
                        
                     </td>
                 </tr>
