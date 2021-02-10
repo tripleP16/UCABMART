@@ -46,8 +46,8 @@ class TarjetaDeCreditoController extends AppController
         if($rol !=null){
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
-                if($privilegio == 'Comprar'){
-                    if(in_array($this->request->getParam('action'), array('carrito','index'))){
+                if($privilegio == 'Comprar'||){
+                    if(in_array($this->request->getParam('action'), array('add','index','edit','view','delete'))){
                         return true;
                     }else{
                         return false;
