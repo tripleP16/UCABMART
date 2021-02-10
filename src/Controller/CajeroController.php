@@ -28,7 +28,7 @@ class CajeroController extends AppController
                         return true;
                     }           
                 }elseif($privilegio == 'Rellenar Pasillo'){
-                    if(in_array($this->request->getParam('action'), array('index','anadirCliente','anadirClienteJuridico','registradora', 'buscarClienteNatural', 'buscarClienteJuridico', 'productos','anadirCarrito','carrito', 'delete', 'pagar'))){
+                    if(in_array($this->request->getParam('action'), array('index','anadirCliente','anadirClienteJuridico','registradora', 'buscarClienteNatural', 'buscarClienteJuridico', 'productos','anadirCarrito','carrito', 'delete', 'pagar','pasillos'))){
                         return true;
                     }
                 }
@@ -428,5 +428,11 @@ class CajeroController extends AppController
                 'FK_tie_codigo'=>$tienda
                 ]);
         }
+    }
+
+
+    public function pasillos(){
+        $this->cargar();
+        
     }
 }

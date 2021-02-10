@@ -11,7 +11,12 @@
 
         <div class=" input-field col inline s12"> 
                         <?php
-                            echo $this->Form->control('met_pag_numero')?>
+                            echo $this->Form->control('met_pag_numero', array(
+                                'placeholder'=>'8085895',
+                                'label'=> 'Numero de Tarjeta', 
+                                'templates'     => ['inputContainer' => '{{content}}'],
+                                'type'=>'number'
+                        ))?>
             </div>
 
 
