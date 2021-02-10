@@ -165,10 +165,10 @@ class CarritoDeComprasVirtualController extends AppController
             $cantidad1 = $this->cuantohay($J); 
             $connection->update('zona_producto', ['zon_pro_cantidad_de_producto' => $cantidad1-$I], ['prod_codigo' => $J,'zon_codigo'=>$k[0]['zon_codigo']]);
             $cantidad2 = $this->cuantohay($J); 
-            $estado=$connection->execute('SELECT prod_codigo FROM producto_orden_compra JOIN orden_de_compra ON producto_orden_compra.ord_com_numero=orden_de_compra.ord_com_numero WHERE ord_com_pagada=:J AND prod_codigo=:i',['i'=>$J,'J'=>'Por pagar'])->fetchAll('assoc');
+            //$estado=$connection->execute('SELECT prod_codigo FROM producto_orden_compra JOIN orden_de_compra ON producto_orden_compra.ord_com_numero=orden_de_compra.ord_com_numero WHERE ord_com_pagada=:J AND prod_codigo=:i',['i'=>$J,'J'=>'Por pagar'])->fetchAll('assoc');
             
 
-            if (11>$cantidad2 && $estado[0]['prod_codigo']==null ){
+            if (11>$cantidad2){
 
                 $fechaActual = date('Y-m-d');
                 
