@@ -32,7 +32,7 @@ class OrdenDeCompraController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'Orden de Compra'){
-                    if(in_array($this->request->getParam('action'), array('index','add','view'))){
+                    if(in_array($this->request->getParam('action'), array('index','add','view','edit'))){
                         return true;
                     }else{
                         return false;
@@ -92,9 +92,42 @@ class OrdenDeCompraController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id,$estado)
     {
-        $ordenDeCompra = $this->OrdenDeCompra->get($id, [
+        $connection = ConnectionManager::get('default');
+        $query = $connection->execute('SELECT * FROM ucabmart.orden_de_compra WHERE ord_com_numero=:i AND ord_com_pagada=:e',['i'=>$id,'e'=>$estado])->fetchAll('assoc');
+        $this->set('query',$query );
+
+
+        if($estado=='Pagado'){
+        //$this->hacercambios($id);
+        return $this->redirect(['action' => 'index']);
+        }
+        
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function hacercambios($id){
+        $connection = ConnectionManager::get('default');
+        $fechaActual = date('Y-m-d');
+        $connection->update('orden_de_compra',['ord_com_fecha_despacho'=>$fechaActual],['ord_com_numero'=>$id]);
+
+        $Tienda=$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        $k=$connection->execute('SELECT zona.zon_codigo as zon_codigo FROM zona JOIN zona_producto ON zona.zon_codigo = zona_producto.zon_codigo WHERE FK_alm_codigo = :Q AND prod_codigo = :Y',['Q'=>$Tienda,'Y'=>$id])->fetchAll('assoc');
+        $cantidad = $this->cuantohay($id); 
+
+        $connection->update('zona_producto', ['zon_pro_cantidad_de_producto' => $cantidad+100], ['prod_codigo' => $J,'zon_codigo'=>$k[0]['zon_codigo']]);
+    }
+
+    public function cuantohay($productocodigo){
+        $connection = ConnectionManager::get('default');
+        $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        $cantidad = $connection->execute('SELECT SUM(zon_pro_cantidad_de_producto) as Total FROM zona_producto JOIN zona ON zona.zon_codigo = zona_producto.zon_codigo JOIN almacen on zona.fk_alm_codigo = almacen.alm_codigo JOIN tienda ON tienda.fk_alm_codigo = almacen.alm_codigo  where prod_codigo=:i  AND tie_codigo =:j',['i'=>$productocodigo,'j'=>$tienda])->fetchAll('assoc');
+        return $cantidad[0]['Total'];
+    }
+
+    /*    $ordenDeCompra = $this->OrdenDeCompra->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -107,9 +140,7 @@ class OrdenDeCompraController extends AppController
             $this->Flash->error(__('The orden de compra could not be saved. Please, try again.'));
         }
         $this->set(compact('ordenDeCompra'));
-    }
-
-    
+    */
 
     /**
      * Delete method
