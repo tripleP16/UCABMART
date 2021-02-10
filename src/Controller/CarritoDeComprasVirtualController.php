@@ -181,8 +181,8 @@ class CarritoDeComprasVirtualController extends AppController
                 $connection->insert('producto_orden_compra',[
                     'prod_codigo'=>$J,
                     'ord_com_numero'=>$ultimo[0]['ord_com_numero'],
-                    'prod_ord_cantidad'=>100*$precio[0]['prod_precio_bolivar'],
-                    'prod_ord_precio'=>100,
+                    'prod_ord_cantidad'=>100,
+                    'prod_ord_precio'=>100*$precio[0]['prod_precio_bolivar'],
                 ]);
                 
             }
