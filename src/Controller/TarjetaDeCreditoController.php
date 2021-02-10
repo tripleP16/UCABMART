@@ -41,6 +41,29 @@ class TarjetaDeCreditoController extends AppController
         $this->set(compact('tarjetaDeCredito'));
     }
 
+    public function isAuthorized(){
+        $rol = $this->request->getSession()->read('Auth.User')['rol'];
+        if($rol !=null){
+            $privilegios = $this->obtenerPrivilegios($rol); 
+            foreach ($privilegios as $privilegio){
+                if($privilegio == 'Comprar'){
+                    if(in_array($this->request->getParam('action'), array('carrito','index'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                        
+                }
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+
+        return false;
+    }
+
     /**
      * Add method
      *
