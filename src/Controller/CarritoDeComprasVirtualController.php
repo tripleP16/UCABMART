@@ -152,27 +152,24 @@ class CarritoDeComprasVirtualController extends AppController
         $connection = ConnectionManager::get('default');
         $Productos=$connection->execute('SELECT prod_codigo,car_unidades_de_producto FROM carrito_de_compras_virtual WHERE cue_usu_email=:e',['e'=>$this->request->getSession()->read('Auth.User.email')])->fetchAll('assoc');
         $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
-
+        $numeroOrd= $connection->execute('SELECT MAX(ord_com_numero) AS ord_com_numero FROM orden_de_compra')->fetchAll('assoc');
         foreach ($Productos as $query1){
             $J=$query1['prod_codigo'];
             $I=$query1['car_unidades_de_producto'];
             $Tienda=$this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
             $k=$connection->execute('SELECT zona.zon_codigo as zon_codigo FROM zona JOIN zona_producto ON zona.zon_codigo = zona_producto.zon_codigo WHERE FK_alm_codigo = :Q AND prod_codigo = :Y',['Q'=>$Tienda,'Y'=>$J])->fetchAll('assoc');
             
-    
-        
-            
             $cantidad1 = $this->cuantohay($J); 
             $connection->update('zona_producto', ['zon_pro_cantidad_de_producto' => $cantidad1-$I], ['prod_codigo' => $J,'zon_codigo'=>$k[0]['zon_codigo']]);
             $cantidad2 = $this->cuantohay($J); 
-            $estado=$connection->execute('SELECT prod_codigo FROM producto_orden_compra JOIN orden_de_compra ON producto_orden_compra.ord_com_numero=orden_de_compra.ord_com_numero WHERE ord_com_pagada=:J AND prod_codigo=:i',['i'=>$J,'J'=>'Por pagar'])->fetchAll('assoc');
-            
+           
 
-            if (11>$cantidad2 && $estado[0]['prod_codigo']==null ){
+            if (11>$cantidad2 ){
 
                 $fechaActual = date('Y-m-d');
                 
                 $connection->insert('orden_de_compra',[
+                    'ord_com_numero'=>$numeroOrd[0]['ord_com_numero'] +1,
                     'ord_com_fecha_creada'=>$fechaActual,
                     'ord_com_pagada'=>'Por pagar',
                     'FK_pro_rif'=>'020582M0315822387796',
@@ -188,6 +185,8 @@ class CarritoDeComprasVirtualController extends AppController
                     'prod_ord_cantidad'=>100,
                     'prod_ord_precio'=>100*$precio[0]['prod_precio_bolivar'],
                 ]);
+
+                
                 
             }
 
