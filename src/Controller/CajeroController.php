@@ -159,7 +159,7 @@ class CajeroController extends AppController
             $personaJuridica->FK_tie_codigo = $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
             if ($this->PersonaJuridica->save($personaJuridica)) {
                 $this->insertarRol2($this->request->getData('cuenta_usuario.cue_usu_email'));
-                return $this->redirect(['action' => 'registradora',$this->request->getSession()->read('Auth.User')['Persona'], 1]);
+                return $this->redirect(['action' => 'registradora',$personaJuridica->per_jur_rif, 1]);
             }else{
                 $this->Flash->error(__("No se pudo salvar el cliente"));
             }
