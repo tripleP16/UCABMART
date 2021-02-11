@@ -103,7 +103,7 @@ $cakeDescription = 'UCABMART pague y lleve';
     <?php
         if($privilegio == 'Notimart'):
     ?>
-        <li><a href="">Notimart</a></li>
+        <li><?= $this->Html->link(__('Gestion de Notimart'), ['controller'=>'ProductoNotimart','action' => 'index']) ?></li>
     <?php 
          endif;              
     ?>
