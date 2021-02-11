@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Datasource\ConnectionManager;
+use Cake\Event\EventInterface;
 /**
  * Reporte Controller
  *
@@ -17,6 +18,11 @@ class ReporteController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function beforeFilter(EventInterface $event){
+        parent::beforeFilter($event);
+        $this->Auth->allow(['notimartreport']);
+        
+    }
     public function index()
     {
         $reporte = $this->paginate($this->Reporte);
