@@ -117,7 +117,7 @@ class ReporteController extends AppController
                         return true;
                     }
                 }elseif($privilegio == 'Asistencia'){
-                    if(in_array($this->request->getParam('action'), array( 'asistenciahorarioinfoaddreport',' asistenciahorarioinforeport', 'empleadoshorasaddreport','empleadoshorasreport' ))){
+                    if(in_array($this->request->getParam('action'), array( 'asistenciahorarioinfoaddreport','asistenciahorarioinforeport', 'empleadoshorasaddreport','empleadoshorasreport' ))){
                         return true;
                     }
                 }elseif($privilegio == 'Notimart'){
