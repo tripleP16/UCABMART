@@ -169,7 +169,7 @@ class CarritoDeComprasVirtualController extends AppController
                 $fechaActual = date('Y-m-d');
                 
                 $connection->insert('orden_de_compra',[
-                    'ord_com_numero'=>$numeroOrd[0]['ord_com_numero'] +1,
+                    
                     'ord_com_fecha_creada'=>$fechaActual,
                     'ord_com_pagada'=>'Por pagar',
                     'FK_pro_rif'=>'020582M0315822387796',

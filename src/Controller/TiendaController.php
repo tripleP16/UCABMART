@@ -36,6 +36,7 @@ class TiendaController extends AppController
 
         return false;
     }
+    
     public function index()
     {
         $connection = ConnectionManager::get('default');
