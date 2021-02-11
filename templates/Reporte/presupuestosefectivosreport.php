@@ -31,7 +31,10 @@ $SalidaReporte=  $_SERVER['DOCUMENT_ROOT'] . '//UCABMART//salidareportes//'.$fil
 //Parametro en caso de que el reporte no este parametrizado
 $Parametro=new java("java.util.HashMap");
 //Indicamos la sentencia mysql
-$sql = "";
+$sql = "SELECT f.fac_numero, pj.per_jur_rif, pj.per_jur_denominacion_comercial FROM factura f
+        JOIN persona_juridica pj ON pj.per_jur_rif = f.FK_persona_juridica 
+        WHERE f.fac_fecha_hora BETWEEN  '".$dia_inicio."' AND '".$dia_fin."' AND f.FK_tie_codigo = '".$tiendas."' 
+        ORDER BY f.fac_numero";
 //Funcion de conexion a mi base de datos tipo MySql
 $Conexion= new JdbcConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/UCABMART","admin","123");
 //Generamos la exportacion del reporte
