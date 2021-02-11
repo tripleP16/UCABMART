@@ -24,7 +24,7 @@ class CajeroController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'Cajero'){
-                    if(in_array($this->request->getParam('action'), array('index', 'anadirCliente','anadirClienteJuridico','registradora', 'buscarClienteNatural', 'buscarClienteJuridico', 'productos','anadirCarrito','carrito', 'delete', 'pagar','pasillos', 'reponer'))){
+                    if(in_array($this->request->getParam('action'), array('index', 'anadirCliente','anadirClienteJuridico','registradora', 'buscarClienteNatural', 'buscarClienteJuridico', 'productos','anadirCarrito','carrito', 'delete', 'pagar'))){
                         return true;
                     }           
                 }elseif($privilegio == 'Rellenar Pasillo'){
