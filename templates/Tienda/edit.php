@@ -1,11 +1,11 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Tienda $tienda
+ * @var \App\Model\Entity\Telefono $ti
  */
 ?>
 <div class="row">
-    <?= $this->Form->create($tienda, array('class' =>'col s8 offset-s2 formulario')) ?>
+    <?= $this->Form->create($tiend, array('class' =>'col s8 offset-s2 formulario')) ?>
     <h5 class="center">Editar Tienda</h5>
     <div class="row formularioCont">
     <?php
