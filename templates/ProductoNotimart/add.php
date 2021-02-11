@@ -15,7 +15,7 @@
                     echo $this->Form->control('prod_not_fecha_FIN',array('label'=>'Fecha final'));
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Registrar Proveedor'), array('class'=> 'waves-effect waves-light btn-large black-text ')) ?>
+            <?= $this->Form->button(__('Añadir Notimart'), array('class'=> 'waves-effect waves-light btn-large black-text ')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

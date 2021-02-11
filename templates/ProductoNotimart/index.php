@@ -5,7 +5,8 @@
  */
 ?>
 <div class="row">
-    <h3 class="white-text"><?= __('Productos para agregar descuento') ?></h3>
+    <h3 class="white-text"><?= __('Productos') ?></h3>
+    <?= $this->Html->link(__('Ver notimarts'), ['action' => 'view'], ['class'=>'waves-effect yellow accent-2 btn-large black-text']) ?>
     <div class="col s12 white" id="inventarioCont">
         <table id="tiendas" class="responsive-table centered highlight">
             <thead>
