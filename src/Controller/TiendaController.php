@@ -5,7 +5,7 @@ namespace App\Controller;
 use Cake\Datasource\ConnectionManager;
 /**
  * Tienda Controller
- *
+ *@property \App\Model\Table\TiendaTable $Tienda
  * @property \App\Model\Table\TiendaTable $Tienda
  * @method \App\Model\Entity\Tienda[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
@@ -85,14 +85,13 @@ class TiendaController extends AppController
             }
             $this->Flash->error(__('The tienda could not be saved. Please, try again.'));
         }
-        $this->set(compact('tienda'));
+        $this->set('tiend', $tienda);
     }
 
     public function crearAlmacen( $direccion){
         $connection = ConnectionManager::get('default');
         $connection->insert('almacen',[
             'alm_dirección'=>$direccion,
-            'alm_codigo'=>null
         ]);
 
         $codigo = $connection->execute('SELECT MAX(alm_codigo ) alm_codigo FROM almacen ')->fetchAll('assoc');
@@ -139,9 +138,11 @@ class TiendaController extends AppController
      */
     public function edit($id = null)
     {
+        
         $tienda = $this->Tienda->get($id, [
             'contain' => [],
         ]);
+        
         $this->loadComponent('Lugar'); 
         $this->getEstados(); 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -153,7 +154,7 @@ class TiendaController extends AppController
             }
             $this->Flash->error(__('The tienda could not be saved. Please, try again.'));
         }
-        $this->set(compact('tienda'));
+        $this->set('tiend', $tienda);
     }
 
     /**

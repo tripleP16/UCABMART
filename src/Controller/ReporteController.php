@@ -314,5 +314,19 @@ class ReporteController extends AppController
         $this->set('dia_inicio', $dia_inicio);
     }
 
+    public function presupuestosefectivosaddreport(){
+        $this->loadComponent('Tienda');
+        $this->getTiendas();
+        if ($this->request->is('post')) {
+        return $this->redirect(['action' => 'presupuestosefectivosreport', $this->request->getData('dia_inicio'),$this->request->getData('dia_fin'),$this->request->getData('FK_tie_codigo')]);
+        }
+    }
+
+    public function presupuestosefectivosreport($dia_inicio, $dia_fin, $tiendas){
+        $this->set('dia_inicio', $dia_inicio);
+        $this->set('dia_fin', $dia_fin);
+        $this->set('tiendas', $tiendas);
+    }
+
 
 }

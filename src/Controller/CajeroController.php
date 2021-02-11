@@ -24,11 +24,11 @@ class CajeroController extends AppController
             $privilegios = $this->obtenerPrivilegios($rol); 
             foreach ($privilegios as $privilegio){
                 if($privilegio == 'Cajero'){
-                    if(in_array($this->request->getParam('action'), array('index', 'anadirCliente','anadirClienteJuridico','registradora', 'buscarClienteNatural', 'buscarClienteJuridico', 'productos','anadirCarrito','carrito', 'delete', 'pagar'))){
+                    if(in_array($this->request->getParam('action'), array('index', 'anadirCliente','anadirClienteJuridico','registradora', 'buscarClienteNatural', 'buscarClienteJuridico', 'productos','anadirCarrito','carrito', 'delete', 'pagar','pasillos', 'reponer'))){
                         return true;
                     }           
                 }elseif($privilegio == 'Rellenar Pasillo'){
-                    if(in_array($this->request->getParam('action'), array('index','anadirCliente','anadirClienteJuridico','registradora', 'buscarClienteNatural', 'buscarClienteJuridico', 'productos','anadirCarrito','carrito', 'delete', 'pagar','pasillos'))){
+                    if(in_array($this->request->getParam('action'), array('index','anadirCliente','anadirClienteJuridico','registradora', 'buscarClienteNatural', 'buscarClienteJuridico', 'productos','anadirCarrito','carrito', 'delete', 'pagar','pasillos', 'reponer'))){
                         return true;
                     }
                 }
@@ -240,6 +240,13 @@ class CajeroController extends AppController
         $productos = $this->Productos->producto($tienda, $productocodigo); 
         return $productos[0]['pas_prod_cantidad'];
     }
+    public function obtenerzon($productocodigo){
+        $connection = ConnectionManager::get('default');
+        $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        $this->loadComponent('Productos'); 
+        $productos = $this->Productos->producto($tienda, $productocodigo); 
+        return $productos[0]['zon_pas_codigo'];
+    }
 
     public function delete($id, $check , $prod_codigo)
     {
@@ -435,4 +442,50 @@ class CajeroController extends AppController
         $this->cargar();
         
     }
+
+    public function reponer($producto){
+        $this->cargar();
+        $id = $producto;
+        $connection = ConnectionManager::get('default');
+        $almacen = $this->cuantohayalmacen($producto); 
+        $producto = $connection->execute('SELECT prod_nombre, prod_imagen, prod_precio_bolivar, prod_codigo, prod_descripcion FROM producto WHERE prod_codigo = :i', ['i'=>$producto])->fetchAll('assoc');
+        $this->set('total', $this->cuantohay($producto[0]['prod_codigo']));    
+        $this->set('almacen', $almacen[0]['Total']);
+        $this->set('producto', $producto );
+        if ($this->request->is('post')) {
+            if($this->request->getData("cantidad")< 0){
+                $this->Flash->error(__("Cantidad en negativo"));
+            }elseif($this->request->getData("cantidad")>$almacen){
+                $this->Flash->error(__("Cantidad mayor que la existente"));
+            }
+            
+            $this->llenarPasillo($this->request->getData("cantidad"),$this->cuantohay($producto[0]['prod_codigo']),$this->obtenerzon($producto[0]['prod_codigo']), $id); 
+            $this->restarAlmacen($this->request->getData("cantidad"), $almacen[0]['Total'], $almacen[0]['zon_codigo'], $id);
+
+            return $this->redirect(['action' => 'index']);
+        }
+
+
+    }
+
+    public function llenarPasillo($cantidad, $total,$zon_pas_codigo, $prod_codigo){
+        $connection = ConnectionManager::get('default');
+        $connection->update("pasillo_producto", [
+            'pas_prod_cantidad'=>$total+$cantidad
+        ], ['zon_pas_codigo'=>$zon_pas_codigo, 'prod_codigo'=>$prod_codigo]);
+    }
+    public function restarAlmacen($cantidad, $total, $zon_codigo, $prod_codigo){
+        $connection = ConnectionManager::get('default');
+        $connection->update("zona_producto", [
+            'zon_pro_cantidad_de_producto'=>$total-$cantidad
+        ], ['zon_codigo'=>$zon_codigo, 'prod_codigo'=>$prod_codigo]);
+
+    }
+    public function cuantohayalmacen($productocodigo){
+        $connection = ConnectionManager::get('default');
+        $tienda= $this->obtenerTienda($this->request->getSession()->read('Auth.User')['Persona'], $this->request->getSession()->read('Auth.User')['rol']);
+        $cantidad = $connection->execute('SELECT SUM(zon_pro_cantidad_de_producto) as Total, zona.zon_codigo  FROM zona_producto JOIN zona ON zona.zon_codigo = zona_producto.zon_codigo JOIN almacen on zona.fk_alm_codigo = almacen.alm_codigo JOIN tienda ON tienda.fk_alm_codigo = almacen.alm_codigo  where prod_codigo=:i  AND tie_codigo =:j',['i'=>$productocodigo,'j'=>$tienda])->fetchAll('assoc');
+        return $cantidad;
+    }
+
 }
