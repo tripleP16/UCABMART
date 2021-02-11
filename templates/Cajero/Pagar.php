@@ -59,6 +59,7 @@
                                     </div>
                                     <div class="input-field col s12">
                                         <input type="text" class="datepicker" name="emision">
+                                        <label for="emision">Fecha Emision</label>
                                     </div>
                                     <div class="input-field col s12">
                                         <input name="cvv" type="number" max="999" class="validate">
