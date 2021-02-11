@@ -5,7 +5,7 @@
  */
 ?>
 <div class="row">
-    <?= $this->Form->create($tienda,  array('class' =>'col s8 offset-s2 formulario')) ?>
+    <?= $this->Form->create($tiend,  array('class' =>'col s8 offset-s2 formulario')) ?>
     <div class="row formularioCont">
     <h5 class="center">Registro de Tienda</h5>
         <div class=" input-field col inline s12">
