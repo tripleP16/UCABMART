@@ -3,12 +3,11 @@
     function DescargarArchivo($fichero)
     {
         $basefichero = basename($fichero);
-        header( "Content-Type: application/pdf");
-        //header( "Content-Type: application/octet-stream");
+        header( "Content-Type: application/octet-stream");
         header( "Content-Length:".filesize($fichero));
         header( "Content-Disposition:attachment;filename=" .$basefichero."");
-        readfile($basefichero);
-    }
+        readfile($fichero);
+    }   
 
 //Obtener fecha de hoy
 $fecha = time();
@@ -45,14 +44,13 @@ $jru->runPdfFromSql($Reporte,$SalidaReporte,$Parametro,$sql,$Conexion->getConnec
 
 if(file_exists($SalidaReporte))
 {
-    //DescargarArchivo($filename);
-   // if(file_exists($SalidaReporte))
-    //{
-      //  if(unlink($filename))
-        //{
+    DescargarArchivo($filename);
+    if(file_exists($SalidaReporte))
+    {
+        if(unlink($filename))
+        {
 
-        //}
-    //}
-    readfile($basefichero);
+        }
+    }
 }
 ?>
