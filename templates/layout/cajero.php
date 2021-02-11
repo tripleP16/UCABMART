@@ -48,15 +48,22 @@ $cakeDescription = 'UCABMART pague y lleve';
     <body>
     <ul id="dropdown1" class="dropdown-content">
     <?php
+        foreach ($privilegios as $privilegio): 
+        ?>
+    <?php
         if($privilegio == 'Cajero' ):
     ?>
         <li><?= $this->Html->link(__('Inicio'), ['controller'=>'cajero','action' => 'index']) ?></li>
-   
+        <?php endif;?>
     <?php
         if($privilegio == 'Jefe de Pasillo'):
     ?>
         <li><?= $this->Html->link(__('Ver Pasillos'), ['controller'=>'cajero','action' => 'pasillos']) ?></li>
-    <?php endif?>
+    <?php endif;?>
+    <?php
+        endforeach;
+    ?>
+    
     </ul>
     <nav class="row  brown darken-2">
         <div class="nav-wrapper row">
