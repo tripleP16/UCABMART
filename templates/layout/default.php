@@ -103,7 +103,7 @@ $cakeDescription = 'UCABMART pague y lleve';
     <?php
         if($privilegio == 'Notimart'):
     ?>
-        <li><a href="">Gestion de Empleado</a></li>
+        <li><a href="">Notimart</a></li>
     <?php 
          endif;              
     ?>

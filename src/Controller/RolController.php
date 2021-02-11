@@ -81,10 +81,11 @@ class RolController extends AppController
 
     public function salvarPrivilegios($rol_codigo, $privilegios){
         $connection = ConnectionManager::get('default');
+
         foreach ($privilegios as $privilegio){
             $connection->insert('cuenta_privilegio', [
                 'rol_codigo' => $rol_codigo,
-                'priv_codigo'=>$privilegio
+                'priv_codigo'=>$privilegio +1
             ]);
         }
     }

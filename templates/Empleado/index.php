@@ -28,7 +28,6 @@
                     <td><?= h($query['lug_nombre']) ?></td>
                     <td><?= h($query['tie_direccion']) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Ver'), ['action' => 'View', $query['emp_cedula']], ['class'=>'waves-effect waves-light btn-large black-text ']) ?>
                         <?= $this->Html->link(__('Editar'), ['action' => 'Edit',$query['emp_cedula']], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>
                         <?= $this->Form->postLink(__('Borrar'), ['action' => 'Delete',$query['emp_cedula']],['class' => 'waves-effect red accent-2 btn-large white-text'], ['confirm' => __('Are you sure you want to delete # {0}?', $query['emp_cedula'])]) ?>
                     </td>

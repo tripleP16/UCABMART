@@ -26,10 +26,10 @@ class PrivilegioComponent extends Component
 
     public function privilegioSelect($privilegioSQL){
         $privilegioes = array() ; 
-        $i = 0;
+        $i = 1;
         foreach($privilegioSQL as $estado){
             $privilegioes += [
-                $privilegioSQL[$i]['priv_codigo']=>$privilegioSQL[$i]['priv_nombre'],
+                $estado['priv_codigo']=>$estado['priv_nombre'],
             ];
             $i ++;
         };
