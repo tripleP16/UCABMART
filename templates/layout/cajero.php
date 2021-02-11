@@ -47,9 +47,16 @@ $cakeDescription = 'UCABMART pague y lleve';
     </head>
     <body>
     <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#!">Pasillos</a></li>
-        <li class="divider"></li>
-        <li><a href="#!">Inicio</a></li>
+    <?php
+        if($privilegio == 'Cajero' ):
+    ?>
+        <li><?= $this->Html->link(__('Inicio'), ['controller'=>'cajero','action' => 'index']) ?></li>
+   
+    <?php
+        if($privilegio == 'Jefe de Pasillo'):
+    ?>
+        <li><?= $this->Html->link(__('Ver Pasillos'), ['controller'=>'cajero','action' => 'pasillos']) ?></li>
+    <?php endif?>
     </ul>
     <nav class="row  brown darken-2">
         <div class="nav-wrapper row">
