@@ -66,9 +66,9 @@ $cakeDescription = 'UCABMART pague y lleve';
          endif;              
     ?>
     <?php
-        if($privilegio == 'Cajero'):
+        if($privilegio == 'Cajero' || $privilegio == 'Jefe de Pasillo'):
     ?>
-        <li><a href="">Ir al cajero</a></li>
+        <li><?= $this->Html->link(__('Ir al Cajero'), ['controller'=>'cajero','action' => 'index']) ?></li>
     <?php 
          endif;              
     ?>
