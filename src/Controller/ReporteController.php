@@ -129,7 +129,7 @@ class ReporteController extends AppController
                         return true;
                     }
                 }elseif($privilegio == 'Rendimiento'){
-                    if(in_array($this->request->getParam('action'), array('ingresotiendaaddreport', 'ingresotiendareport', 'egresotiendaaddreport', 'egresotiendareport', 'diezmejoresclientesreport','cincomejoresclientesmontoreport', 'mesesproductivosdelyearaddreport', 'mesesproductivosdelyearreport','productosvendidospormesaddreport', 'productosvendidospormesreport','ordenesdecomprareport','diezmejoresclientesaddreport','diezmejoresclientesreport','cincomejoresclientesmontoaddreport','cincomejoresclientesmontoreport'))){
+                    if(in_array($this->request->getParam('action'), array('ingresotiendaaddreport', 'ingresotiendareport', 'egresotiendaaddreport', 'egresotiendareport', 'diezmejoresclientesreport','cincomejoresclientesmontoreport', 'mesesproductivosdelyearaddreport', 'mesesproductivosdelyearreport','productosvendidospormesaddreport', 'productosvendidospormesreport','ordenesdecomprareport','diezmejoresclientesaddreport','diezmejoresclientesreport','cincomejoresclientesmontoaddreport','cincomejoresclientesmontoreport','presupuestosefectivosreport','presupuestosefectivosaddreport'))){
                         return true;
                     }
 
