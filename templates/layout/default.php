@@ -192,14 +192,14 @@ $cakeDescription = 'UCABMART pague y lleve';
                 ?>
                     <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Salir'), ['controller'=>'CuentaUsuario', 'action' =>'logout']);?></li>
                     <li class="col s2 l2 xl2 right "><a class="dropdown-trigger" data-target="dropdown1">Menu de Usuario<i class="material-icons right">arrow_drop_down</i></a></li>
-                    <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li>
+                    <li class="col s1 l1 xl1 right"><?= $this->Html->link(__('Notimart'), ['controller' => 'reporte','action' => 'notimartreport', date('Y-m-d')]) ?></li>
                     
                 <?php 
                     else:
                 ?>
                      <li class="col s1 l1 xl1 right "><?= $this->Html->link(__('Login'), ['controller'=>'CuentaUsuario', 'action' =>'login']);?></li>
                      <li class="col s1 l1 xl1 right"><?= $this->Html->link(__('Registrarse'), ['controller'=>'PersonaNatural', 'action' =>'add']);?></li>
-                     <li class="col s1 l1 xl1 right"><a href="">Notimart</a></li> 
+                     <li class="col s1 l1 xl1 right"><?= $this->Html->link(__('Notimart'), ['controller' => 'reporte','action' => 'notimartreport',date('Y-m-d')]) ?></li>
                      
                 <?php 
                     endif;
