@@ -6,7 +6,8 @@
 ?>
 <div class="row ">
     <?= $this->Html->link(__('Añadir una nueva tarjeta'), ['action' => 'add'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>
-    <h3 class="white-text"><?= __('Tiendas') ?></h3>
+    <?= $this->Html->link(__('Ver Carrito'), ['controller'=>'CarritoDeComprasVirtual','action' => 'index'], ['class' => 'waves-effect yellow accent-2 btn-large black-text']) ?>  
+    <h3 class="white-text"><?= __('Tarjetas') ?></h3>
     <div class="col s12 white" id="inventarioCont">
         <table id="tiendas" class="responsive-table centered highlight" >
             <thead>

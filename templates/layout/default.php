@@ -111,7 +111,7 @@ $cakeDescription = 'UCABMART pague y lleve';
     <?php
         if($privilegio == 'Orden de Compra'):
     ?>
-        <li><a href="">Gestion de Orden de Compra</a></li>
+         <li><?= $this->Html->link(__('Gestion de Orden de Compra'), ['controller'=>'OrdenDeCompra','action' => 'index']) ?></li>
     <?php 
          endif;              
     ?>
