@@ -82,7 +82,7 @@ $cakeDescription = 'UCABMART pague y lleve';
     <?php
         if($privilegio == 'Comprar'):
     ?>
-        <li ><a href="">Carro de Compras<i class="material-icons">shopping_cart</i> <span class="new badge">4</span></a></li>
+        <li><?= $this->Html->link(__('Ver Productos'), ['controller'=>'producto','action' => 'index']) ?></li>
     <?php 
          endif;              
     ?>
