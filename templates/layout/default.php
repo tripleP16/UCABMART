@@ -118,29 +118,35 @@ $cakeDescription = 'UCABMART pague y lleve';
     <?php
         if($privilegio == 'Asistencia'):
     ?>
-        <li><a href="">Asistencia de Empleados</a></li>
+         <li><?= $this->Html->link(__('Reporte de asistencia'), ['controller'=>'reporte','action' => 'asistenciahorarioinfoaddreport']) ?></li>
+         <li><?= $this->Html->link(__('Reporte de Empleado'), ['controller'=>'reporte','action' => 'empleadoshorasaddreport']) ?></li>
     <?php 
          endif;              
     ?>
     <?php
         if($privilegio == 'Rendimiento'):
     ?>
-        <li><a href="">Rendimiento de tiendas</a></li>
-        <li><a href="">Gestion de Tiendas</a></li>
+      <li><?= $this->Html->link(__('Reporte de ingreso'), ['controller'=>'reporte','action' => 'ingresotiendaaddreport']) ?></li>
+      <li><?= $this->Html->link(__('Reporte de egreso'), ['controller'=>'reporte','action' => 'egresotiendaaddreport']) ?></li>
+      <li><?= $this->Html->link(__('Reporte de meses Productivos'), ['controller'=>'reporte','action' => 'mesesproductivosdelyearaddreport']) ?></li>
+      <li><?= $this->Html->link(__('Reporte de Productos vendidos Por Mes'), ['controller'=>'reporte','action' => 'productosvendidospormesaddreport']) ?></li>
+      <li><?= $this->Html->link(__('Diez mejores clientes'), ['controller'=>'reporte','action' => 'diezmejoresclientesaddreport']) ?></li>
+      <li><?= $this->Html->link(__('Cinco Mejores Clientes'), ['controller'=>'reporte','action' => 'cincomejoresclientesmontoaddreport']) ?></li>
+      <li><?= $this->Html->link(__('Presupuestos Efectivos'), ['controller'=>'reporte','action' => 'presupuestosefectivosaddreport']) ?></li>
     <?php 
          endif;              
     ?>
     <?php
         if($privilegio == 'Despacho'):
     ?>
-        <li><a href="">Departamento de despacho</a></li>
+        <li><?= $this->Html->link(__('Despachos'), ['controller'=>'EstadoFactura','action' => 'index']) ?></li>
     <?php 
          endif;              
     ?>
     <?php
         if($privilegio == 'Entrega'):
     ?>
-        <li><a href="">Departamento de Entregas</a></li>
+        <li><?= $this->Html->link(__('Entregas'), ['controller'=>'EstadoFactura','action' => 'index']) ?></li>
     <?php 
          endif;              
     ?>
@@ -148,8 +154,7 @@ $cakeDescription = 'UCABMART pague y lleve';
     <?php
         if($privilegio == 'Productos'):
     ?>
-        <li><a href="">Gestion de Proveedores</a></li>
-        <li><a href="">Gestion de Productos</a></li>
+        <li><?= $this->Html->link(__('Gestion de Proveedor'), ['controller'=>'Proveedor','action' => 'index']) ?></li>
     <?php 
          endif;              
     ?>
