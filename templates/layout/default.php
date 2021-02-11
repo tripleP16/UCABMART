@@ -89,7 +89,7 @@ $cakeDescription = 'UCABMART pague y lleve';
     <?php
         if($privilegio == 'Despedir'):
     ?>
-        <li><a href="">Despedir Empleado</a></li>
+       <li><?= $this->Html->link(__('Gestion de Empleados'), ['controller'=>'empleado','action' => 'index']) ?></li>
     <?php 
          endif;              
     ?>
